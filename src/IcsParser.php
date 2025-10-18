@@ -26,6 +26,7 @@
  * use temporary replace \\ by chr(20) and replace chr(20) by \ instead of explode and implode to prevent use of \\ as unescape char.
  * 2.6.0 escaping error messages.
  * 2.7.0 Enable to add summary to filtering categories, when add_sum_catflt add words from summary to categories for filtering. 
+ * 2.7.1 solve issues update V6: warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.
  */
 namespace WaasdorpSoekhan\Module\Simpleicalblock\Site;
 // no direct access
@@ -1129,19 +1130,20 @@ END:VCALENDAR';
                 } catch(\Exception $exc) {
                     continue ;
                 }
-                if (200 != $httpResponse->code) {
+                if (200 != $httpResponse->getStatusCode()) {
                     $this->messages[] = '<!-- ' . $url . ' not found ' . 'fall back to https:// -->';
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
-                        if (200 != $httpResponse->code) {
+                        if (200 != $httpResponse->getStatusCode()) {
                             $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . $httpResponse->body;
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
+                        $this->messages[] = 'Simple iCal Block exc: '. print_r($exc, true);
                         continue ;
                     }
                 }
-                $httpBody = $httpResponse->body;
+                $httpBody = $httpResponse->getBody();
             }
            
             try {

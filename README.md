@@ -9,7 +9,7 @@ Tags: Event Calendar, Google Calendar, iCal, Events, Block, Calendar, iCalendar,
 Requires at least Joomla: 4.0
 Tested up to: 5.2
 Requires PHP: 7
-Stable tag: 2.7.0
+Stable tag: 2.7.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
  
@@ -245,13 +245,14 @@ or https://icalendar.org/iCalendar-RFC-5545/
 == Copyright and License ==
 
 This project is licensed under the [GNU GPL](https://www.gnu.org/licenses/gpl-3.0.html), version 3 or later.
-2022&thinsp;&ndash;&thinsp;2022 &copy; [Bram Waasdorp](http://www.waasdorpsoekhan.nl).
+2022&thinsp;&ndash;&thinsp;2025 &copy; [Bram Waasdorp](http://www.waasdorpsoekhan.nl).
 
 == Upgrade Notice ==
 
 * works with Joomla 4 or higher.
 
 == Changelog ==
+* 2.7.1 solve warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.    
 * 2.7.0 Enable to add words of summary to categories for filtering (after issue #36 'Filtering by keyword' by gonzob for Joomla module).  Remove toggle to allow safe html in summary and description, save html is always allowed now. Move display_block back to default layout to improve support for override and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Added support
 for details/summary tag combination. 
 * 2.6.1 added cast $class to string in sanitize_html_clss and sanitize_html_class after issue #39 of joomlafun
