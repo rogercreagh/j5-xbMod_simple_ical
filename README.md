@@ -7,9 +7,9 @@ Plugin name: Simple iCal Block
 Contributors: bramwaas
 Tags: Event Calendar, Google Calendar, iCal, Events, Block, Calendar, iCalendar, Outlook, iCloud
 Requires at least Joomla: 4.0
-Tested up to: 5.2
-Requires PHP: 7
-Stable tag: 2.7.1
+Tested up to: 6.0
+Requires PHP: 8
+Stable tag: 3.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
  

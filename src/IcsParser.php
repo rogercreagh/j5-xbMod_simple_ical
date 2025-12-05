@@ -1,7 +1,7 @@
 <?php
 /**
  * a simple ICS parser.
- * @copyright Copyright (C) 2022 - 2025 Bram Waasdorp. All rights reserved.
+ * @copyright Copyright (C) 2022 - 2026 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 3 or later
  *
  * note that this class does not implement all ICS functionality.
@@ -27,6 +27,8 @@
  * 2.6.0 escaping error messages.
  * 2.7.0 Enable to add summary to filtering categories, when add_sum_catflt add words from summary to categories for filtering. 
  * 2.7.1 solve issues update V6: warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.
+ * 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..."
+ *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module)
  */
 namespace WaasdorpSoekhan\Module\Simpleicalblock\Site;
 // no direct access
@@ -48,8 +50,8 @@ class IcsParser {
      */
     private static $example_events = 'BEGIN:VCALENDAR
 BEGIN:VEVENT
-DTSTART:20240928T150000
-DTEND:20240928T160000
+DTSTART:20250928T150000
+DTEND:20250928T160000
 RRULE:FREQ=WEEKLY;INTERVAL=3;BYDAY=SU,WE,SA
 UID:a-1
 DESCRIPTION:Description event every 3 weeks sunday wednesday and saturday. T
@@ -59,8 +61,8 @@ SUMMARY: Every 3 weeks sunday \\ wednesday \\\\ saturday
 CATEGORIES:Flower
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20240929T143000
-DTEND:20240929T153000
+DTSTART:20250929T143000
+DTEND:20250929T153000
 RRULE:FREQ=MONTHLY;COUNT=24;BYMONTHDAY=29
 UID:a-2
 DESCRIPTION:Monthly day 29\nCategory Rose\, (with comma in category. test on
@@ -70,8 +72,8 @@ SUMMARY:Example\; Monthly day 29
 CATEGORIES:Rose\,
 END:VEVENT
 BEGIN:VEVENT
-DTSTART;VALUE=DATE:20240928
-//DTEND;VALUE=DATE:20240128
+DTSTART;VALUE=DATE:20250927
+//DTEND;VALUE=DATE:20250128
 DURATION:P1DT23H59M60S
 RRULE:FREQ=MONTHLY;COUNT=13;BYDAY=4SA
 UID:a-3
@@ -82,8 +84,8 @@ SUMMARY:X Monthly 4th weekend
 CATEGORIES:flower,Red Rose,Tulip
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20241015T143000
-DTEND:20241015T153000
+DTSTART:20251015T143000
+DTEND:20251015T153000
 RRULE:FREQ=MONTHLY;COUNT=24;BYMONTHDAY=29
 UID:a-4
 DESCRIPTION:Monthly day 29, without category
@@ -308,6 +310,13 @@ END:VCALENDAR';
      * @since  2.6.0
      */
     public $messages = [];
+    /**
+     * The array of response codes during execution. To cache when request fails.
+     *
+     * @var    array array of message strings
+     * @since  3.0.0
+     */
+    public $codes = [];
     /**
      * Constructor.
      *
@@ -1091,13 +1100,13 @@ END:VCALENDAR';
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
             $ipd = ['data'=>$data, 'messages'=>$parser->messages];
-            // do not cache data if fetching failed
-            if ($data) {
-                $cachecontroller->store($ipd, $cacheId, $cachegroup );
-            }
+            // V3.0.0 also catch failed requests (with empty $data)
+            $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
         if ( ! array_key_exists('data', $ipd)) {
-            $ipd = ['data'=>$ipd, 'messages'=>[]];
+            if (empty($ipd['codes'])) {
+               $ipd = ['data'=>$ipd, 'messages'=>[]];
+            }
         }
         return ['data'=>self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'], (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false)),
             'messages'=>$ipd['messages']];
@@ -1136,10 +1145,12 @@ END:VCALENDAR';
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
                         if (200 != $httpResponse->getStatusCode()) {
                             $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . $httpResponse->body;
+                            $this->codes[] = $httpResponse->code;
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
                         $this->messages[] = 'Simple iCal Block exc: '. print_r($exc, true);
+                        $this->codes[] = (empty($httpResponse->code))? 'exception':$httpResponse->code;
                         continue ;
                     }
                 }
