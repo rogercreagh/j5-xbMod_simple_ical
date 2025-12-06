@@ -1139,7 +1139,9 @@ END:VCALENDAR';
                 } catch(\Exception $exc) {
                     continue ;
                 }
-                if (200 != $httpResponse->getStatusCode()) {
+                $statuscode = $httpResponse->getStatusCode();
+                $this->codes[] = $statuscode;
+                if (200 != $statuscode) {
                     $this->messages[] = '<!-- ' . $url . ' not found ' . 'fall back to https:// -->';
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
