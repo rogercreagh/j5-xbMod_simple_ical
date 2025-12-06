@@ -311,9 +311,9 @@ END:VCALENDAR';
      */
     public $messages = [];
     /**
-     * The array of response codes during execution. To cache when request fails.
+     * The array of response codes during execution. To see if the cached reuest failed.
      *
-     * @var    array array of message strings
+     * @var    array array of http response codes
      * @since  3.0.0
      */
     public $codes = [];
@@ -1099,7 +1099,7 @@ END:VCALENDAR';
         if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup))) {
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
-            $ipd = ['data'=>$data, 'messages'=>$parser->messages];
+            $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'codes'=>$parser->codes];
             // V3.0.0 also catch failed requests (with empty $data)
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
@@ -1143,14 +1143,14 @@ END:VCALENDAR';
                     $this->messages[] = '<!-- ' . $url . ' not found ' . 'fall back to https:// -->';
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
-                        if (200 != $httpResponse->getStatusCode()) {
+                        $statuscode = $httpResponse->getStatusCode();
+                        $this->codes[] = $statuscode;
+                        if (200 != $statuscode) {
                             $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . $httpResponse->body;
-                            $this->codes[] = $httpResponse->code;
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
                         $this->messages[] = 'Simple iCal Block exc: '. print_r($exc, true);
-                        $this->codes[] = (empty($httpResponse->code))? 'exception':$httpResponse->code;
                         continue ;
                     }
                 }
