@@ -1099,7 +1099,7 @@ END:VCALENDAR';
         if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup))) {
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
-            $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'codes'=>$parser->codes];
+            $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
             // V3.0.0 also catch failed requests (with empty $data)
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
