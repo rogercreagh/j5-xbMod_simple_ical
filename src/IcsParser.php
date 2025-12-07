@@ -1149,7 +1149,7 @@ END:VCALENDAR';
                         $statuscode = $httpResponse->getStatusCode();
                         $this->codes[] = $statuscode;
                         if (200 != $statuscode) {
-                            $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . $httpResponse->body;
+                            $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . htmlspecialchars($httpResponse->body);
                             continue ;
 	                    }
                     } catch(\Exception $exc) {

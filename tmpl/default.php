@@ -40,7 +40,8 @@
  * 2.6.0 clean all output to safe HTML 
  * 2.7.0 Enable to add words of summary to categories for filtering. Move display_block back to default layout to improve support for override
  *   and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Add support for
- *   details/summary tag combination. Add inline style for hidden lines with version id or warnings. Removed ev_class from li head.      
+ *   details/summary tag combination. Add inline style for hidden lines with version id or warnings. Removed ev_class from li head. 
+ * 3.0.0        
  */
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
@@ -50,7 +51,7 @@ use Joomla\CMS\Factory;
 use WaasdorpSoekhan\Module\Simpleicalblock\Site\IcsParser;
 use WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper\SimpleicalHelper;
 
-//if (!empty($wa))$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'simple-ical-block-inline-style']);
+if (!empty($wa))$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'simple-ical-block-inline-style']);
 if (empty($secho)) {  $secho = ''; }
 
 if (empty($nohead) ) {
@@ -111,7 +112,7 @@ if (empty($nohead) ) {
         $secho .= '<p hidden="">' . $msg . ' </p>';
     }
     if (!empty($data) && is_array($data)) {
-        $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget 270" > ';
+        $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget 300" > ';
         $curdate = '';
         foreach($data as $e) {
             $idlist = explode("@", $e->uid );
@@ -208,7 +209,7 @@ if (empty($nohead) ) {
     } else {
         $secho .= $attributes['no_events'];
     }
-    $secho .= '<br class="clear" />';
+    $secho .= '<br class="clear v300" />';
 }
 /* end display_block */
 if (empty($nohead)) {
