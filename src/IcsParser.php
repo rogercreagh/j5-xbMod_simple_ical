@@ -1103,8 +1103,8 @@ END:VCALENDAR';
             // V3.0.0 also catch failed requests (with empty $data)
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
-        if ( ! array_key_exists('data', $ipd)) {
-            if (empty($ipd['codes'])) {
+        if ( ! array_key_exists('data', $ipd)) { // version before 2.6.0 only cached $data
+            if (empty($ipd['codes']) && empty($ipd['messages'])) {
                $ipd = ['data'=>$ipd, 'messages'=>[]];
             }
         }
@@ -1137,12 +1137,13 @@ END:VCALENDAR';
                 try {
                     $httpResponse =  $http->get($url);
                 } catch(\Exception $exc) {
+                    $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
                     continue ;
                 }
                 $statuscode = $httpResponse->getStatusCode();
                 $this->codes[] = $statuscode;
                 if (200 != $statuscode) {
-                    $this->messages[] = '<!-- ' . $url . ' not found ' . 'fall back to https:// -->';
+                    $this->messages[] =  $url . ' not found ' . 'fall back to https//:';
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
                         $statuscode = $httpResponse->getStatusCode();
@@ -1152,7 +1153,7 @@ END:VCALENDAR';
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
-                        $this->messages[] = 'Simple iCal Block exc: '. print_r($exc, true);
+                        $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
                         continue ;
                     }
                 }
