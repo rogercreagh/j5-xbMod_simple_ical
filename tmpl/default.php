@@ -108,7 +108,7 @@ if (empty($nohead) ) {
     if (! in_array($attributes['tag_sum'], SimpleicalHelper::$allowed_tags_sum))  $attributes['tag_sum'] = 'a';
     $ipd = IcsParser::getData($attributes);
     $data = $ipd['data'];
-    foreach ($ipd['codes'] as $msg) {
+    foreach ($ipd['messages'] as $msg) {
         $secho .= '<p hidden="">' . $msg . ' </p>';
     }
     if (!empty($data) && is_array($data)) {
