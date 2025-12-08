@@ -1104,7 +1104,9 @@ END:VCALENDAR';
             if ($data || in_array(200, $ipd['codes'], false)) { // fetch succes
                 $ipd['errcnt'] = 0;
             } else {
-                $ipd['errcnt'] = 1;
+                if (empty($ipd['errcnt'])) {$ipd['errcnt'] = 1;
+                } else { $ipd['errcnt'] += 1;
+                }
             }
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
@@ -1114,8 +1116,8 @@ END:VCALENDAR';
             }
         }
         if (!(in_array(200, $ipd['codes'], false))) { // fetch failed
-            if (empty($ipd['errcnt'])) $ipd['errcnt'] = 0;
-            $ipd['errcnt'] += 1;
+            if (empty($ipd['errcnt'])) $ipd['errcnt'] = 1;
+        /*    $ipd['errcnt'] += 1; */
         }
         return ['data'=>self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'], (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false)),
             'messages'=>$ipd['messages'], 'errcnt'=>$ipd['errcnt'],'codes'=>$ipd['codes'] ];
