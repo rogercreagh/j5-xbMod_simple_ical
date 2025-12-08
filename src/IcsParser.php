@@ -1118,7 +1118,7 @@ END:VCALENDAR';
             $ipd['errcnt'] += 1;
         }
         return ['data'=>self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'], (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false)),
-            'messages'=>$ipd['messages'],'messages'=>$ipd['messages'], 'errcnt',$ipd['errcnt'] ];
+            'messages'=>$ipd['messages'],'codes'=>$ipd['codes'], 'errcnt',$ipd['errcnt'] ];
     }
     /**
      * Fetches from calender using calendar_ids and event_period
