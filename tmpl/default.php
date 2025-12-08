@@ -108,7 +108,7 @@ if (empty($nohead) ) {
     if (! in_array($attributes['tag_sum'], SimpleicalHelper::$allowed_tags_sum))  $attributes['tag_sum'] = 'a';
     $ipd = IcsParser::getData($attributes);
     $data = $ipd['data'];
-    foreach ($ipd['messages'] as $msg) {
+    foreach ($ipd['codes'] as $msg) {
         $secho .= '<p hidden="">' . $msg . ' </p>';
     }
     if (!empty($data) && is_array($data)) {
@@ -210,7 +210,7 @@ if (empty($nohead) ) {
         $secho .= $attributes['no_events'];
     }
     $secho .= '<br class="clear"/>';
-    $secho .= '<span data-sib-result=v300 errcnt:' . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) . '"></span>';
+    $secho .= '<span data-sib-result=v300 errcnt:' /* . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) */ . '"></span>';
 }
 /* end display_block */
 if (empty($nohead)) {
