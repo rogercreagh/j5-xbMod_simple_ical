@@ -209,8 +209,7 @@ if (empty($nohead) ) {
     } else {
         $secho .= $attributes['no_events'];
     }
-    $secho .= '<br class="clear"/>';
-    $secho .= '<span data-sib-result=v300 errcnt:' /* . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) */ . '"></span>';
+    $secho .= '<br class="clear v300 errcnt:' . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) . '"/>';
 }
 /* end display_block */
 if (empty($nohead)) {
