@@ -112,7 +112,7 @@ if (empty($nohead) ) {
         $secho .= '<p hidden="">' . $msg . ' </p>';
     }
     if (!empty($data) && is_array($data)) {
-        $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget 300" > ';
+        $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget" > ';
         $curdate = '';
         foreach($data as $e) {
             $idlist = explode("@", $e->uid );
@@ -209,7 +209,8 @@ if (empty($nohead) ) {
     } else {
         $secho .= $attributes['no_events'];
     }
-    $secho .= '<br class="clear v300" data-sib-result=errcnt:' . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) . '"/>';
+    $secho .= '<br class="clear"/>';
+    $secho .= '<span data-sib-result=v300 errcnt:' . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) . '"></span>';
 }
 /* end display_block */
 if (empty($nohead)) {
