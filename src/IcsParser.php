@@ -1101,12 +1101,21 @@ END:VCALENDAR';
             $data = $parser->fetch( );
             $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
             // V3.0.0 also catch failed requests (with empty $data)
+            if ($data || in_array(200, $ipd['codes'], false)) { // fetch succes
+                $ipd['errorcnt'] = 0;
+            } else {
+                $ipd['errorcnt'] = 1;
+            }
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
         if ( ! array_key_exists('data', $ipd)) { // version before 2.6.0 only cached $data
-            if (empty($ipd['codes']) && empty($ipd['messages'])) {
-               $ipd = ['data'=>$ipd, 'messages'=>[]];
+            if (empty($ipd['codes'])) {
+               $ipd = ['data'=>$ipd, 'messages'=>[], 'codes'=>[]];
             }
+        }
+        if (!($data || in_array(200, $ipd['codes'], false))) { // fetch failed
+            if (empty($ipd['errorcnt'])) $ipd['errorcnt'] = 0;
+            $ipd['errorcnt'] += 1;
         }
         return ['data'=>self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'], (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false)),
             'messages'=>$ipd['messages']];
@@ -1122,6 +1131,8 @@ END:VCALENDAR';
     function fetch()
     {
         $cal_ord = 0;
+        $statuscode = 0;
+        $this->codes = [];
         foreach (self::unescTextList($this->calendar_ids) as $cal)
         {
             $calary = explode(';', $cal, 2);
@@ -1130,26 +1141,28 @@ END:VCALENDAR';
             ++$cal_ord;
             if ('#example' == $cal_id){
                 $httpBody = self::$example_events;
+                $statuscode = 200;
+                $this->codes[] = $statuscode;
             }
             else  {
                 $url = self::getCalendarUrl($cal_id);
                 $http = new Http(['headers' => ['Accept-Encoding' => '']]); //accepts known encoding and decodes.
                 try {
                     $httpResponse =  $http->get($url);
+                    $statuscode = $httpResponse->getStatusCode();
+                    $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
                     $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
                     continue ;
                 }
-                $statuscode = $httpResponse->getStatusCode();
-                $this->codes[] = $statuscode;
-                if (200 != $statuscode) {
+                if (200 != $statuscode && substr($url,0,6) != 'https:') {
                     $this->messages[] =  $url . ' not found ' . 'fall back to https//:';
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
                         $statuscode = $httpResponse->getStatusCode();
                         $this->codes[] = $statuscode;
                         if (200 != $statuscode) {
-                            $this->messages[] = 'Simple iCal Block: '. $httpResponse->code . ': ' . htmlspecialchars($httpResponse->body);
+                            $this->messages[] = 'Simple iCal Block code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body);
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
