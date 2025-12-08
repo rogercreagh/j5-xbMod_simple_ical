@@ -1155,6 +1155,7 @@ END:VCALENDAR';
                     $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
                     $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
+                    $this->codes[] = 404.1;
                     continue ;
                 }
                 if (200 != $statuscode && substr($url,0,6) != 'https:') {
@@ -1169,6 +1170,7 @@ END:VCALENDAR';
 	                    }
                     } catch(\Exception $exc) {
                         $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
+                        $this->codes[] = 404.2;
                         continue ;
                     }
                 }
