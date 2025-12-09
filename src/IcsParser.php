@@ -1101,7 +1101,7 @@ END:VCALENDAR';
             || ((!empty($ipd['errcnt'])) && $ipd['errcnt'] < 3 && (!empty($ipd['ctime'])) && ($now - $ipd['ctime']) > 60)  ) {
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
-            if ($data || in_array(200, $ipd['codes'], false)) { // fetch succes
+            if ($data || in_array(200, $parser->codes, false)) { // fetch succes
                 $errcnt = 0;
             } else {
                 if (empty($ipd['errcnt'])) {$errcnt = 1;
