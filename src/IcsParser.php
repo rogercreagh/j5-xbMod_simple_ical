@@ -28,7 +28,8 @@
  * 2.7.0 Enable to add summary to filtering categories, when add_sum_catflt add words from summary to categories for filtering. 
  * 2.7.1 solve issues update V6: warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.
  * 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..."
- *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module)
+ *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). First 3 failed requests cachetimes
+ *  only 60 seconds next cachetimes same as for succesfull requests. 
  */
 namespace WaasdorpSoekhan\Module\Simpleicalblock\Site;
 // no direct access
@@ -1096,10 +1097,11 @@ END:VCALENDAR';
             $p_end = $pdt_start->modify("+$ep day")->getTimestamp();
         }
         //        if ($instance['clear_cache_now']) $cachecontroller->cache->remove($cacheId, $cachegroup);
-        if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup))) {
+        if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup))
+            || ((!empty($ipd['errcnt'])) && $ipd['errcnt'] < 3 && (!empty($ipd['ctime'])) && ($now - $ipd['ctime']) > 60)  ) {
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
-            $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
+            $ipd = ['data'=>$data, 'ctime'=>$now, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
             // V3.0.0 also catch failed requests (with empty $data)
             if ($data || in_array(200, $ipd['codes'], false)) { // fetch succes
                 $ipd['errcnt'] = 0;
@@ -1115,12 +1117,11 @@ END:VCALENDAR';
                $ipd = ['data'=>$ipd, 'messages'=>[], 'codes'=>[]];
             }
         }
-        if (!(in_array(200, $ipd['codes'], false))) { // fetch failed
-            if (empty($ipd['errcnt'])) $ipd['errcnt'] = 1;
-        /*    $ipd['errcnt'] += 1; */
-        }
-        return ['data'=>self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'], (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false)),
-            'messages'=>$ipd['messages'], 'errcnt'=>$ipd['errcnt'],'codes'=>$ipd['codes'] ];
+
+        $data = self::getFutureEvents($ipd['data'], $p_start, $p_end, $instance['event_count'],
+            (($instance['categories_filter'])??''), (($instance['categories_filter_op'])??''), ($instance['add_sum_catflt']??false));
+        $ipd['data'] = $data;
+        return $ipd;
     }
     /**
      * Fetches from calender using calendar_ids and event_period
