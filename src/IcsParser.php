@@ -1101,15 +1101,15 @@ END:VCALENDAR';
             || ((!empty($ipd['errcnt'])) && $ipd['errcnt'] < 3 && (!empty($ipd['ctime'])) && ($now - $ipd['ctime']) > 60)  ) {
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
-            $ipd = ['data'=>$data, 'ctime'=>$now, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
-            // V3.0.0 also catch failed requests (with empty $data)
             if ($data || in_array(200, $ipd['codes'], false)) { // fetch succes
-                $ipd['errcnt'] = 0;
+                $errcnt = 0;
             } else {
-                if (empty($ipd['errcnt'])) {$ipd['errcnt'] = 1;
-                } else { $ipd['errcnt'] += 1;
+                if (empty($ipd['errcnt'])) {$errcnt = 1;
+                } else { $errcnt = $ipd['errcnt'] + 1;
                 }
             }
+            $ipd = ['data'=>$data, 'ctime'=>$now, 'errcnt'=>$errcnt, 'messages'=>$parser->messages, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
+            // V3.0.0 also catch failed requests (with empty $data)
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
         if ( ! array_key_exists('data', $ipd)) { // version before 2.6.0 only cached $data
