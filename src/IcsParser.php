@@ -29,7 +29,7 @@
  * 2.7.1 solve issues update V6: warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.
  * 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..."
  *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). First 3 failed requests cachetimes
- *  only 60 seconds next cachetimes same as for succesfull requests. 
+ *  only 60 seconds next cachetimes same as for succesfull requests. Use standard Joomla logging
  */
 namespace WaasdorpSoekhan\Module\Simpleicalblock\Site;
 // no direct access
@@ -37,6 +37,7 @@ defined('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Cache\Controller\OutputController;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Log\Log;
 use Joomla\Http\Http;
 
 class IcsParser {
@@ -1114,7 +1115,7 @@ END:VCALENDAR';
         }
         if ( ! array_key_exists('data', $ipd)) { // version before 2.6.0 only cached $data
             if (empty($ipd['codes'])) {
-               $ipd = ['data'=>$ipd, 'messages'=>[], 'codes'=>[]];
+                $ipd = ['data'=>$ipd, 'messages'=>[], 'codes'=>[], 'ctime'=>$now, 'errcnt'=>0];
             }
         }
 
@@ -1155,23 +1156,27 @@ END:VCALENDAR';
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
-                    $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
+//                    $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
+                    Log::add('404.1: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
                     $this->codes[] = 404.1;
                     continue ;
                 }
                 if (200 != $statuscode && substr($url,0,6) != 'https:') {
-                    $this->messages[] =  $url . ' not found ' . 'fall back to https//:';
+//                    $this->messages[] =  $url . ' not found ' . 'fall back to https//:';
+                    Log::add('404.2 '. $url . ' not found ' . 'fall back to https//:', Log::NOTICE, 'Simple-iCal-Block');
                     try {
                         $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
                         $statuscode = $httpResponse->getStatusCode();
                         $this->codes[] = $statuscode;
                         if (200 != $statuscode) {
-                            $this->messages[] = 'Simple iCal Block code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body);
+//                          $this->messages[] = 'Simple iCal Block code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body);
+                            Log::add('404.3 '. $url . ' not found ' . 'code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
                             continue ;
 	                    }
                     } catch(\Exception $exc) {
-                        $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
-                        $this->codes[] = 404.2;
+//                        $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
+                        Log::add('404.4: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
+                        $this->codes[] = 404.4;
                         continue ;
                     }
                 }
