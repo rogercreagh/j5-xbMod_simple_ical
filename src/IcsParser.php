@@ -1155,6 +1155,9 @@ END:VCALENDAR';
                     $httpResponse =  $http->get($url);
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
+					if (200 != $statuscode) {
+						Log::add(($statuscode??0) . '.0 '. $url . ' not found ', Log::NOTICE, 'Simple-iCal-Block');
+					}
                 } catch(\Exception $exc) {
 //                    $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
                     Log::add('404.1: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
