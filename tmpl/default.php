@@ -41,7 +41,7 @@
  * 2.7.0 Enable to add words of summary to categories for filtering. Move display_block back to default layout to improve support for override
  *   and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Add support for
  *   details/summary tag combination. Add inline style for hidden lines with version id or warnings. Removed ev_class from li head. 
- * 3.0.0        
+ * 3.0.0 removed messages, (replaced by Notices and Warning in Log)       
  */
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
@@ -108,9 +108,6 @@ if (empty($nohead) ) {
     if (! in_array($attributes['tag_sum'], SimpleicalHelper::$allowed_tags_sum))  $attributes['tag_sum'] = 'a';
     $ipd = IcsParser::getData($attributes);
     $data = $ipd['data'];
-    foreach ($ipd['messages'] as $msg) {
-        $secho .= '<p hidden="">' . $msg . ' </p>';
-    }
     if (!empty($data) && is_array($data)) {
         $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget" > ';
         $curdate = '';
