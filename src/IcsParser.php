@@ -1156,7 +1156,7 @@ END:VCALENDAR';
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
-                    Log::add('404.1: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
+                    Log::add('404.1: code:'. $exc['code'] . 'message: ' . $exc['message'] , Log::WARNING, 'Simple-iCal-Block');
                     $this->codes[] = 404.1;
                     continue ;
                 }
@@ -1169,15 +1169,18 @@ END:VCALENDAR';
                             $statuscode = $httpResponse->getStatusCode();
                             $this->codes[] = $statuscode;
                             if (200 != $statuscode) {
-                                Log::add('404.3 ' . $url . ' not found ' . 'code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
+                                Log::add('404.3 ' . $url . ' not found response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
                                 continue;
                             }
                         } catch (\Exception $exc) {
-                            Log::add('404.4: ' . print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
+                            Log::add('404.4: code:'. $exc['code'] . 'message: ' . $exc['message'], Log::WARNING, 'Simple-iCal-Block');
                             $this->codes[] = 404.4;
                             continue;
                         }
-                    } else {continue;}
+                    } else {
+                        Log::add('Response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
+                        continue;
+                    }
                 }
                 $httpBody = $httpResponse->getBody();
             }
