@@ -1181,7 +1181,7 @@ END:VCALENDAR';
                             $this->codes[] = 404.4;
                             continue;
                         }
-                    }
+                    } else {continue;}
                 }
                 $httpBody = $httpResponse->getBody();
             }
