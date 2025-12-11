@@ -1155,32 +1155,32 @@ END:VCALENDAR';
                     $httpResponse =  $http->get($url);
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
-					if (200 != $statuscode) {
-						Log::add(($statuscode??0) . '.0 '. $url . ' not found ', Log::NOTICE, 'Simple-iCal-Block');
-					}
                 } catch(\Exception $exc) {
 //                    $this->messages[] = 'Simple iCal Block exc1: '. print_r($exc, true);
                     Log::add('404.1: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
                     $this->codes[] = 404.1;
                     continue ;
                 }
-                if (200 != $statuscode && substr($url,0,6) != 'https:') {
-//                    $this->messages[] =  $url . ' not found ' . 'fall back to https//:';
-                    Log::add('404.2 '. $url . ' not found ' . 'fall back to https//:', Log::NOTICE, 'Simple-iCal-Block');
-                    try {
-                        $httpResponse =  $http->get('https://' . explode('://', $url)[1]);
-                        $statuscode = $httpResponse->getStatusCode();
-                        $this->codes[] = $statuscode;
-                        if (200 != $statuscode) {
-//                          $this->messages[] = 'Simple iCal Block code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body);
-                            Log::add('404.3 '. $url . ' not found ' . 'code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
-                            continue ;
-	                    }
-                    } catch(\Exception $exc) {
-//                        $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
-                        Log::add('404.4: '. print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
-                        $this->codes[] = 404.4;
-                        continue ;
+                if (200 != $statuscode) {
+                    Log::add(($statuscode ?? 0) . '.0 ' . $url . ' not found ', Log::NOTICE, 'Simple-iCal-Block');
+                    if (substr($url, 0, 6) != 'https:') {
+                        // $this->messages[] = $url . ' not found ' . 'fall back to https//:';
+                        Log::add('404.2  fall back to https//:', Log::NOTICE, 'Simple-iCal-Block');
+                        try {
+                            $httpResponse = $http->get('https://' . explode('://', $url)[1]);
+                            $statuscode = $httpResponse->getStatusCode();
+                            $this->codes[] = $statuscode;
+                            if (200 != $statuscode) {
+                                // $this->messages[] = 'Simple iCal Block code: '. $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body);
+                                Log::add('404.3 ' . $url . ' not found ' . 'code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
+                                continue;
+                            }
+                        } catch (\Exception $exc) {
+                            // $this->messages[] = 'Simple iCal Block exc2: '. print_r($exc, true);
+                            Log::add('404.4: ' . print_r($exc, true), Log::WARNING, 'Simple-iCal-Block');
+                            $this->codes[] = 404.4;
+                            continue;
+                        }
                     }
                 }
                 $httpBody = $httpResponse->getBody();
