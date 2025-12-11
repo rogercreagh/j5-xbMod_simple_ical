@@ -1156,7 +1156,7 @@ END:VCALENDAR';
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
-                    Log::add('404.1: code:'. $exc->code . 'message: ' . $exc->message, Log::WARNING, 'Simple-iCal-Block');
+                    Log::add('404.1: code:'. $exc->getCode . 'message: ' . $exc->getMessage, Log::WARNING, 'Simple-iCal-Block');
                     $this->codes[] = 404.1;
                     continue ;
                 }
@@ -1173,7 +1173,7 @@ END:VCALENDAR';
                                 continue;
                             }
                         } catch (\Exception $exc) {
-                            Log::add('404.4: code:'. $exc->code . 'message: ' . $exc->message, Log::WARNING, 'Simple-iCal-Block');
+                            Log::add('404.4: code:'. $exc->getCode . 'message: ' . $exc->getMessage, Log::WARNING, 'Simple-iCal-Block');
                             $this->codes[] = 404.4;
                             continue;
                         }
