@@ -1102,7 +1102,7 @@ END:VCALENDAR';
                 } else { $errcnt = $ipd['errcnt'] + 1;
                 }
             }
-            $ipd = ['data'=>$data, 'messages'=>$parser->messages, 'ctime'=>$now, 'errcnt'=>$errcnt, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
+            $ipd = ['data'=>$data, 'messages'=>[], 'ctime'=>$now, 'errcnt'=>$errcnt, 'codes'=>$parser->codes, 'version'=>'3.0.0'];
             // V3.0.0 also catch failed requests (with empty $data)
             $cachecontroller->store($ipd, $cacheId, $cachegroup );
         }
