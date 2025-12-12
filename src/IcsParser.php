@@ -306,14 +306,7 @@ END:VCALENDAR';
      */
     protected $timezone_string = 'UTC';
     /**
-     * The array of messages during execution. To echo in the calling routine if needed, to remove echoing in this class.
-     *
-     * @var    array array of message strings
-     * @since  2.6.0
-     */
-    public $messages = [];
-    /**
-     * The array of response codes during execution. To see if the cached reuest failed.
+     * The array of response codes during execution. To see if the cached request failed.
      *
      * @var    array array of http response codes
      * @since  3.0.0

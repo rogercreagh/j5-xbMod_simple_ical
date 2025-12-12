@@ -3,7 +3,7 @@
  * @version $Id: SimpleicalHelper.php 
  * @package simpleicalblock
  * @subpackage simpleicalblock Module
- * @copyright Copyright (C) 2022 -2025 A.H.C. Waasdorp, All rights reserved.
+ * @copyright Copyright (C) 2022 -2026 A.H.C. Waasdorp, All rights reserved.
  * @license GNU General Public License version 3 or later
  * @author url: https://www.waasdorpsoekhan.nl
  * @author email contact@waasdorpsoekhan.nl
@@ -41,6 +41,7 @@
  * Sameday as logical and calculated with localtime instead of gmdate. Move display_block back to default layout to improve support for override
  * and use layout template with original name without 'rest-' or 'ajax-' for rest output. Add support for details/summary tag combination. Removed 
  * ev_class from li head.
+ * 3.0.0 remove messages to front-end, replaced by Log
  */
 namespace WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper;
 // no direct access
@@ -229,7 +230,6 @@ class SimpleicalHelper
      */
 static function display_block($attributes, &$secho)
     {
-//        $secho .= '<p hidden="">db270 fallback for old or missing lay_out templates since v2.7.0 (march 2025).</p>';
         try {
             $attributes['tz_ui'] = new \DateTimeZone($attributes['tzid_ui']);
         } catch (\Exception $exc) {}
@@ -267,11 +267,8 @@ static function display_block($attributes, &$secho)
             $attributes['tag_sum'] = 'a';
             $ipd = IcsParser::getData($attributes);
             $data = $ipd['data'];
-            foreach ($ipd['messages'] as $msg) {
-                $secho .= '<p hidden="">' . $msg . ' </p>';
-            }
             if (!empty($data) && is_array($data)) {
-                $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget 270" > ';
+                $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget v300" > ';
                 $curdate = '';
                 foreach($data as $e) {
                     $idlist = explode("@", $e->uid );
@@ -368,7 +365,7 @@ static function display_block($attributes, &$secho)
             } else {
                 $secho .= $attributes['no_events'];
             }
-            $secho .= '<br class="clear" />';
+            $secho .= '<br class="clear v300" />';
     }
     /**
      * copied from WP sanitize_html_class, and added space as allowed character to accomodate multiple classes in one string.

@@ -3,7 +3,7 @@
  * @version $Id: default.php
  * @package simpleicalblock
  * @subpackage simpleicalblock Module
- * @copyright Copyright (C) 2022 -2025 simpleicalblock, All rights reserved.
+ * @copyright Copyright (C) 2022 -2026 simpleicalblock, All rights reserved.
  * @license GNU General Public License version 3 or later
  * @author url: https://www.waasdorpsoekhan.nl
  * @author email contact@waasdorpsoekhan.nl
@@ -58,8 +58,6 @@ if (empty($nohead) ) {
     $attributes = SimpleicalHelper::render_attributes( $params->toArray());
     $secho .= '<div id="' . $attributes['anchorId']  .'" data-sib-id="' . $attributes['sibid'] . '" ' . ' class="simple_ical_block ' . $attributes['title_collapse_toggle']. '" >';
 }
-//$secho .= '<p hidden="">d270</p>';
-//self::display_block($attributes,$secho);
 /**
  * Front-end display of module, block or widget.
  *
@@ -206,7 +204,7 @@ if (empty($nohead) ) {
     } else {
         $secho .= $attributes['no_events'];
     }
-    $secho .= '<br class="clear v300-errcnt:' . $ipd['errcnt'] . 'codes:' . implode(',',($ipd['codes'])??[]) . '"/>';
+    $secho .= '<br class="clear v300" />';
 }
 /* end display_block */
 if (empty($nohead)) {
