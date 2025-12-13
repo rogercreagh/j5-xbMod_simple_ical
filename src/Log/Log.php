@@ -41,7 +41,7 @@ class Log
     {
         if (!is_string($message)) $message = print_r($message, true);
         if (empty($context['category'])) $context['category'] = 'simple-ical-block';
-        JLog::add($message, $level, 'Simple-iCal-Block');
+        JLog::add($message, $level, $context['category']);
         
     }
 }
