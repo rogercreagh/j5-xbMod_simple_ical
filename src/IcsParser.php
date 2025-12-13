@@ -37,8 +37,8 @@ defined('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Cache\Controller\OutputController;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Log\Log;
 use Joomla\Http\Http;
+use WaasdorpSoekhan\Module\Simpleicalblock\Site\Log\Log;
 
 class IcsParser {
     
@@ -1149,31 +1149,32 @@ END:VCALENDAR';
                     $statuscode = $httpResponse->getStatusCode();
                     $this->codes[] = $statuscode;
                 } catch(\Exception $exc) {
-                    Log::add('404.1: Code:'. $exc->getCode() . ' Message: ' . $exc->getMessage(), Log::WARNING, 'Simple-iCal-Block');
+                    Log::log(Log::WARNING, '404.1: Code:'. $exc->getCode() . ' Message: ' . $exc->getMessage());
                     $this->codes[] = 404.1;
                     continue ;
                 }
                 if (200 != $statuscode) {
-                    Log::add(($statuscode ?? 0) . '.0 ' . $url . ' not found ', Log::NOTICE, 'Simple-iCal-Block');
+                    Log::log(Log::NOTICE,($statuscode ?? 0) . '.0 ' . $url . ' not found ');
                     if (substr($url, 0, 6) != 'https:') {
-                        Log::add('100.2  fall back to https//:', Log::NOTICE, 'Simple-iCal-Block');
+                        Log::log(Log::NOTICE,'100.2  fall back to https//:');
                         try {
                             $httpResponse = $http->get('https://' . explode('://', $url)[1]);
                             $statuscode = $httpResponse->getStatusCode();
                             $this->codes[] = $statuscode;
                             if (200 != $statuscode) {
-                                Log::add('404.3 ' . $url . ' not found response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
+                                Log::log(Log::WARNING, '404.3 ' . $url . ' not found response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body));
                                 continue;
                             }
                         } catch (\Exception $exc) {
-                            Log::add('404.4: Code:'. $exc->getCode() . ' Message: ' . $exc->getMessage(), Log::WARNING, 'Simple-iCal-Block');
+                            Log::log(Log::WARNING, '404.4: Code:'. $exc->getCode() . ' Message: ' . $exc->getMessage());
                             $this->codes[] = 404.4;
                             continue;
                         }
                     } else {
-                        Log::add('Response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body), Log::WARNING, 'Simple-iCal-Block');
+                        Log::log(Log::WARNING, 'Response code: ' . $httpResponse->code . ' body: ' . htmlspecialchars($httpResponse->body));
                         continue;
                     }
+
                 }
                 $httpBody = $httpResponse->getBody();
             }
