@@ -288,6 +288,10 @@
 					label="MOD_SIMPLEICALBLOCK_HEADER_TAG"
 					description="MOD_SIMPLEICALBLOCK_TITLE_AND_SHOW_HELP"
  					 />
+				<field name="eror_log_help"  type="note" 
+					label="MOD_SIMPLEICALBLOCK_ERRORLOG_LB"
+					description="MOD_SIMPLEICALBLOCK_ERRORLOG_HELP"
+ 					 />
 			</fieldset>
 		</fields>
 	</config>
