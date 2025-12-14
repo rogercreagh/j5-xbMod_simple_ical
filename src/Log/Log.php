@@ -20,28 +20,47 @@ use Joomla\CMS\Log\Log as JLog;
 class Log
 {
 /**
- * Describes log levels.
+ * Describes PSR-3 log levels.
  */
-    const EMERGENCY = JLog::EMERGENCY;
-    const ALERT     = JLog::ALERT;
-    const CRITICAL  = JLog::CRITICAL;
-    const ERROR     = JLog::ERROR;
-    const WARNING   = JLog::WARNING;
-    const NOTICE    = JLog::NOTICE;
-    const INFO      = JLog::INFO;
-    const DEBUG     = JLog::DEBUG;
+    const EMERGENCY = 'emergency';
+    const ALERT     = 'alert';
+    const CRITICAL  = 'critical';
+    const ERROR     = 'error';
+    const WARNING   = 'warning';
+    const NOTICE    = 'notice';
+    const INFO      = 'info';
+    const DEBUG     = 'debug';
+    /**
+     * Mapping array to map a PSR-3 level to an ascending integer Joomla priority.
+     *
+     * @var    array
+     * @since  3.0.0
+     */
+    protected $priorityMap = [
+        self::EMERGENCY => JLog::EMERGENCY,
+        self::ALERT     => JLog::ALERT,
+        self::CRITICAL  => JLog::CRITICAL,
+        self::ERROR     => JLog::ERROR,
+        self::WARNING   => JLog::WARNING,
+        self::NOTICE    => JLog::NOTICE,
+        self::INFO      => JLog::INFO,
+        self::DEBUG     => JLog::DEBUG,
+        'ALL'=> JLog::ALL,        
+    ];
+    
 /**
      * Logs with an arbitrary level.
      *
-     * @param mixed $level
+     * @param string $level
      * @param mixed[] $context
      *
      */
     public function log($level, string|\Stringable $message, array $context = [])
     {
         if (!is_string($message)) $message = print_r($message, true);
+        if (empty(self::$priorityMap[$level])) $level = self::NOTICE;
         if (empty($context['category'])) $context['category'] = 'simple-ical-block';
-        JLog::add($message, $level, $context['category']);
+        JLog::add($message, self::$priorityMap[$level], $context['category']);
         
     }
 }
