@@ -51,11 +51,12 @@ class Log
 /**
      * Logs with an arbitrary level.
      *
-     * @param string $level
+     * @param mixed $level
+     * @param string|\Stringable $message
      * @param mixed[] $context
      *
      */
-    public function log($level, string|\Stringable $message, array $context = [])
+    static function log($level, string|\Stringable $message, array $context = [])
     {
         if (!is_string($message)) $message = print_r($message, true);
         if (empty(self::$priorityMap[$level])) $level = self::NOTICE;
@@ -64,3 +65,4 @@ class Log
         
     }
 }
+
