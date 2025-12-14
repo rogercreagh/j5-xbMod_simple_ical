@@ -48,7 +48,7 @@ class Log
         'ALL'=> JLog::ALL,        
     ];
     
-/**
+    /**
      * Logs with an arbitrary level.
      *
      * @param mixed $level
@@ -60,9 +60,33 @@ class Log
     {
         if (!is_string($message)) $message = print_r($message, true);
         if (empty(self::$priorityMap[$level])) $level = self::NOTICE;
+        if ((!empty($message)) && (!empty($context))) $message = interpolate($message,$context);
         if (empty($context['category'])) $context['category'] = 'simple-ical-block';
         JLog::add($message, self::$priorityMap[$level], $context['category']);
         
     }
+    /**
+     * Interpolates context values into the message placeholders.
+     * v3.0.0 20251214 start with copie from andrewwoods https://github.com/andrewwoods/wp-debug-logger/tree/main  
+     *
+     * @param string $message The content for the debug log.
+     * @param array $context
+     *
+     * @return string
+     */
+    static function interpolate( string $message, array $context = array() ) : string {
+        
+        $replace = array();
+        foreach ( $context as $key => $val ) {
+            // check that the value can be cast to string
+            if ( ! is_array( $val ) && ( ! is_object( $val ) || method_exists( $val, '__toString' ) ) ) {
+                $replace[ '{' . $key . '}' ] = $val;
+            }
+        }
+        
+        // interpolate replacement values into the message and return
+        return strtr( $message, $replace );
+    }
+    
 }
 
