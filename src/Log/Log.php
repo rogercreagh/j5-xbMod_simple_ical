@@ -36,7 +36,7 @@ class Log
      * @var    array
      * @since  3.0.0
      */
-    protected $priorityMap = [
+    protected static $priorityMap = [
         self::EMERGENCY => JLog::EMERGENCY,
         self::ALERT     => JLog::ALERT,
         self::CRITICAL  => JLog::CRITICAL,
