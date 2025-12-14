@@ -268,7 +268,7 @@ This project is licensed under the [GNU GPL](https://www.gnu.org/licenses/gpl-3.
 * works with Joomla 4 or higher.
 
 == Changelog ==
-* 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..." errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). Replaced Messages about failed requests to fronte-end by Logs using Joomla Debug loggin facility.
+* 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..." errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). Replaced Messages about failed requests to front-end by Logs using Joomla Debug logging facility.
 * 2.7.1 solve warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.    
 * 2.7.0 Enable to add words of summary to categories for filtering (after issue #36 'Filtering by keyword' by gonzob for Joomla module).  Remove toggle to allow safe html in summary and description, save html is always allowed now. Move display_block back to default layout to improve support for override and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Added support
 for details/summary tag combination. 
