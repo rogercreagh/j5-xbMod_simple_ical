@@ -7,9 +7,9 @@ Plugin name: Simple iCal Block
 Contributors: bramwaas
 Tags: Event Calendar, Google Calendar, iCal, Events, Block, Calendar, iCalendar, Outlook, iCloud
 Requires at least Joomla: 4.0
-Tested up to: 5.2
-Requires PHP: 7
-Stable tag: 2.7.1
+Tested up to: 6.0
+Requires PHP: 8
+Stable tag: 3.0.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
  
@@ -63,7 +63,8 @@ Or download from github and then  system/(Install )extensions/Upload package fil
 
 First you have to share your calendar to make it public available, or to create a public calendar. Private calendars cannot be accessed by this plugin.
 Then use the public iCal address or the Google calendar ID.
-[More details on Google support](https://support.google.com/calendar/answer/37083)
+[More details on Google support](https://support.google.com/calendar/answer/37083) or 
+[Sync your calendar with computer programs](https://support.google.com/calendar/answer/37648?hl=en)
 
 = Where do I find the Google Calendar Id? =
 
@@ -98,6 +99,21 @@ Then publish it as  an ICS link and use this link address. (something like https
 = How to use Apple Calendar (iCloud Mac/ios)? =
 Choose the calendar you want to share (in browser layout on the left panel). On that calendar's line, click the show calendar information icon (a person cropped into a circle) on the right side of the line. In the pop up Calendar Sharing check the box Public Calendar. You see the url below something like webcal://p59-caldav.icloud.com/published/2/MTQxNzk0NDA2NjE0MTc5AAAAAXt2Dy6XXXXXPXXxuZnTLDV9xr6A6_m3r_GU33Qj. Click on Copy Link and OK. Paste that in the "Calendar ID, or iCal URL" field of the widget (before version 1.3.1 you had to change webcal in https)    
 
+= module content is not loaded, javascript/recaptcha error =
+
+seen by users reorting issues #47 and #48. Google calendar reaction on request to get calendar events:
+
+~~~
+In order to continue, please enable javascript on your web browser.
+var submitCallback = function(response) {document.getElementById('captcha-form').submit();};
+About this page
+Our systems have detected unusual traffic from your computer network. This page checks to see if it's really you sending the requests, and not a robot. [Why did this happen?]
+IP address: (ip-adres of the hosting environment)
+Time: 2025-12-02T14:29:40Z
+URL: (ics link e.g. https://www.google.com/calendar/ical/.../basic.ics)
+~~~
+This may be caused by to many requests in a short time from your hosts IP-address eg by testing. You can try to solve this by temporary (some hours) unpublish the module. If that does not work and you are on a shared host: Ask you hosting provider to find (and block) the source of the " unusual traffic from your computer network "
+   
 = Error: cURL error 28: Operation timed out after 5000 milliseconds with 0 bytes received =
 
 Probably the calendar is not public (yet), you can copy the link before the agenda is actually published. Check if the agenda has already been published and try again.
@@ -252,6 +268,7 @@ This project is licensed under the [GNU GPL](https://www.gnu.org/licenses/gpl-3.
 * works with Joomla 4 or higher.
 
 == Changelog ==
+* 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..." errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). Replaced Messages about failed requests to front-end by Logs using Joomla Debug logging facility.
 * 2.7.1 solve warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.    
 * 2.7.0 Enable to add words of summary to categories for filtering (after issue #36 'Filtering by keyword' by gonzob for Joomla module).  Remove toggle to allow safe html in summary and description, save html is always allowed now. Move display_block back to default layout to improve support for override and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Added support
 for details/summary tag combination. 
