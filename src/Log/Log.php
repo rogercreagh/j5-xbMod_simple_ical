@@ -60,14 +60,14 @@ class Log
     {
         if (!is_string($message)) $message = print_r($message, true);
         if (empty(self::$priorityMap[$level])) $level = self::NOTICE;
-        if ((!empty($message)) && (!empty($context))) $message = interpolate($message,$context);
+        if ((!empty($message)) && (!empty($context))) $message = self::interpolate($message,$context);
         if (empty($context['category'])) $context['category'] = 'simple-ical-block';
         JLog::add($message, self::$priorityMap[$level], $context['category']);
         
     }
     /**
      * Interpolates context values into the message placeholders.
-     * v3.0.0 20251214 start with copie from andrewwoods https://github.com/andrewwoods/wp-debug-logger/tree/main  
+     * v3.0.0 20251214 start with copy from andrewwoods https://github.com/andrewwoods/wp-debug-logger/tree/main  
      *
      * @param string $message The content for the debug log.
      * @param array $context
