@@ -12,7 +12,7 @@
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://crosborne.uk/xbsimpleical</authorUrl>
-	<version>100.0.0</version>
+	<version>0.1.0.0</version>
 	<description><![CDATA[<div class="sib-info" style="color: #3f48cc;"><p><img class="sib-img" src="../media/mod_simple_ical_block/icons/simpleicalicon128x128.svg" style="display: inline-block; width: 2em; height:auto; margin-right: 0.5em;"/>Simple iCal Calendar Events Block</p></div>
 	]]></description>
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
