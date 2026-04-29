@@ -12,7 +12,7 @@
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://crosborne.uk/xbsimpleical</authorUrl>
-	<version>0.1.0.0</version>
+	<version>0.1.1.0</version>
 	<description><![CDATA[<div class="sib-info" style="color: #3f48cc;"><p><img class="sib-img" src="../media/mod_simple_ical_block/icons/simpleicalicon128x128.svg" style="display: inline-block; width: 2em; height:auto; margin-right: 0.5em;"/>Simple iCal Calendar Events Block</p></div>
 	]]></description>
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
@@ -36,7 +36,7 @@
 
 	<config>
 		<fields name="params"  
-			 addruleprefix="WaasdorpSoekhan\Module\Simpleicalblock\Site\Rule">
+			 addruleprefix="Crosborne\Module\Xbsimpleical\Site\Rule">
 			<fieldset name="basic">
 			    <!-- Title unnecessary because there is a module title depending on module-style -->
 				<!-- field name="title" type="text" default="Events" label="MOD_SIMPLEICALBLOCK_TITLE" description="MOD_SIMPLEICALBLOCK_TITLE_DESC" /  replaced by module title -->

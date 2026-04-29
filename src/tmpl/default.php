@@ -112,7 +112,10 @@ if (empty($nohead) ) {
     if (!empty($data) && is_array($data)) {
         $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget" > ';
         $curdate = '';
+        $odd = false;
         foreach($data as $e) {
+            $odd = !$odd;
+            $oddeven =  ($odd) ? 'odd' : 'even';
             $idlist = explode("@", $e->uid );
             $itemid = 'b' . $attributes['sibid'] . '_' . $idlist[0];
             $e_dtstart = new Jdate ($e->start);
@@ -127,7 +130,7 @@ if (empty($nohead) ) {
             $cat_list = '';
             if (!empty($e->categories)) {
                 $ev_class = $ev_class . ' ' . implode( ' ',
-                    array_map( "WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper\SimpleicalHelper::sanitize_html_class"
+                    array_map( "Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_class"
                         , $e->categories ));
                 if ($cat_disp) {
                     $cat_list = '<div class="categories"><small>'
@@ -143,7 +146,7 @@ if (empty($nohead) ) {
                 if  ($curdate != '') {
                     $secho .= '</ul></li>';
                 }
-                $secho .= '<li class="list-group-item' . $sflgi . ' head">' . '<span class="ical-date">' . ucfirst($evdate) . '</span><ul class="list-group' . $attributes['suffix_lg_class'] . '">';
+                $secho .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">' . '<span class="ical-date">' . ucfirst($evdate) . '</span><ul class="list-group' . $attributes['suffix_lg_class'] . '">';
             }
             $secho .= '<li class="list-group-item' . $sflgi . $ev_class . '">';
             if ($layout == 3 && $curdate != $evdate) {
@@ -167,11 +170,24 @@ if (empty($nohead) ) {
                 $secho .= '<span>'. $evdate . $evdtsum . '</span>';
             }
             
+            $secho .=  '<div style="margin-left:20px;">';
+            if ($e->startisdate === false && $sameday)	{
+                $secho .= '<span class="time">' . ($e_dtstart->format($dftstart, true, true)).
+                '</span><span class="time">' . ($e_dtend->format($dftend, true, true)). '</span> @ ' ;
+            } else {
+                $secho .= '';
+            }
+            if(!empty($e->location)) {
+                $secho .= '<span class="location">'. str_replace("\n", '<br>', $e->location). '</span>';
+            }
+            $secho .=  '</div>';
+            
             if ('summary' != $attributes['tag_sum']) {
                 $secho .= '<div class="ical_details' . $sflgia . (('a' == $attributes['tag_sum']) ? ' collapse' : '') . '" id="'. $itemid. '">';
             }
             
             if(!empty($e->description) && trim($e->description) > '' && $excerptlength !== 0) {
+                $secho .= '<details><summary class="xbsum">more details</summary>';
                 if ($excerptlength !== '' && strlen($e->description) > $excerptlength) {$e->description = substr($e->description, 0, $excerptlength + 1);
                 if (rtrim($e->description) !== $e->description) {$e->description = substr($e->description, 0, $excerptlength);}
                 else {if (strrpos($e->description, ' ', max(0,$excerptlength - 10))!== false OR strrpos($e->description, "\n", max(0,$excerptlength - 10))!== false )
@@ -182,15 +198,7 @@ if (empty($nohead) ) {
                 }
                 $e->description = str_replace("\n", '<br>', $e->description);
                 $secho .= '<span class="dsc">'. $e->description. ((strrpos($e->description, '<br>') === (strlen($e->description) - 4)) ? '' : '<br>'). '</span>';
-            }
-            if ($e->startisdate === false && $sameday)	{
-                $secho .= '<span class="time">' . ($e_dtstart->format($dftstart, true, true)).
-                '</span><span class="time">' . ($e_dtend->format($dftend, true, true)). '</span> ' ;
-            } else {
-                $secho .= '';
-            }
-            if(!empty($e->location)) {
-                $secho .= '<span class="location">'. str_replace("\n", '<br>', $e->location). '</span>';
+                $secho .= '</details>';
             }
             if ('summary' == $attributes['tag_sum']) {
                 $secho .= '</details></li>';
