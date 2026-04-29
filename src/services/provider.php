@@ -33,8 +33,8 @@ return new class () implements ServiceProviderInterface {
      */
     public function register(Container $container)
     {
-        $container->registerServiceProvider(new ModuleDispatcherFactory('\\WaasdorpSoekhan\\Module\\Simpleicalblock'));
-        $container->registerServiceProvider(new HelperFactory('\\WaasdorpSoekhan\\Module\\Simpleicalblock\\Site\\Helper'));
+        $container->registerServiceProvider(new ModuleDispatcherFactory('\\Crosborne\\Module\\Xbsimpleical'));
+        $container->registerServiceProvider(new HelperFactory('\\Crosborne\\Module\\Xbsimpleical\\Site\\Helper'));
 
         $container->registerServiceProvider(new Module());
     }

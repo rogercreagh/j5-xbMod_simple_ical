@@ -31,14 +31,14 @@
  *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). First 3 failed requests cachetimes
  *  only 60 seconds next cachetimes same as for succesfull requests. Use standard Joomla logging
  */
-namespace WaasdorpSoekhan\Module\Simpleicalblock\Site;
+namespace Crosborne\Module\Xbsimpleical\Site;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Cache\Controller\OutputController;
 use Joomla\CMS\Factory;
 use Joomla\Http\Http;
-use WaasdorpSoekhan\Module\Simpleicalblock\Site\Log\Log;
+use Crosborne\Module\Xbsimpleical\Site\Log\Log;
 
 class IcsParser {
     

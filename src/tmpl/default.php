@@ -48,10 +48,13 @@ defined('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Date\Date as Jdate;
 use Joomla\CMS\Factory;
-use WaasdorpSoekhan\Module\Simpleicalblock\Site\IcsParser;
-use WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper\SimpleicalHelper;
+use Crosborne\Module\Xbsimpleical\Site\IcsParser;
+use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 
-if (!empty($wa))$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'simple-ical-block-inline-style']);
+if (!empty($wa)) {
+    $wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'simple-ical-block-inline-style']);
+    $wa->useStyle('xbsimpleical.styles');
+}
 if (empty($secho)) {  $secho = ''; }
 
 if (empty($nohead) ) {

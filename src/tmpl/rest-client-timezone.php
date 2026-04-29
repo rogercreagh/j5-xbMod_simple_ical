@@ -24,7 +24,7 @@
 defined('_JEXEC') or die ('Restricted access');
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
-use WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper\SimpleicalHelper;
+use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 
 if (!empty($wa)){
 $wa->addInlineScript(

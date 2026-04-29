@@ -1,0 +1,13 @@
+/** css for simple ical module **/
+.simple_ical_block .list-group-item {
+  margin-bottom: 10px;
+}
+.simple_ical_block .list-group-item .ical-date {
+  font-weight:bold;
+}
+.simple_ical_block .ical_summary {
+  text-transform: uppercase;
+}
+.simple_ical_block .dsc {
+  font-style: italic;
+}

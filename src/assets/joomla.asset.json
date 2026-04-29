@@ -1,11 +1,16 @@
 {
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
-  "name": "mod_simple_ical_block",
+  "name": "mod_xbsimpleical",
   "version": "2.4.0",
   "description": "This file contains details of the default assets used by mod_simple_ical_block, a Joomla 4 and 5 site module.",
   "license": "GPL-2.0-or-later",
   "assets": [
-    {
+	{
+		"name" : "xbsimpleical.styles",
+		"description" : "xbSimpleIcal custom css",
+		"type" : "style",
+		"uri" : "mod_xbsimpleical/xbsimpleical.css"
+	}, {
       "name": "simple-ical-block-view.js",
       "description": "The view script to create output with extra client timezone settings in parameter tzid_ui using Ajax",
       "type": "script",

@@ -9,7 +9,7 @@
  * 31-7-2022 0.0.4 replace transient by cache type 'output'; split transientId in cahegroup and cacheID to distinguish the group in system clear cache
  */
 
-namespace WaasdorpSoekhan\Module\Simpleicalblock\Site\Rule;
+namespace Crosborne\Module\Xbsimpleical\Site\Rule;
 
 \defined('_JEXEC') or die('caught by _JEXEC');
 
@@ -54,7 +54,7 @@ class CleartransientnowRule extends FormRule
     {
         $app = Factory::getApplication();
         $cacheId =  $input->get('id'); // = moduleid = blockid.
-        $cachegroup = 'SimpleicalBlock';
+        $cachegroup = 'Xbsimpleical';
         $transientId = $cachegroup . $cacheId;
         $options = array(
             'lifetime'     => 1,

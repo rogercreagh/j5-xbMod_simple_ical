@@ -12,7 +12,7 @@
  * @since  3.0
  * 3.0.0 remove messages to front-end, replaced by Log
  */
-namespace WaasdorpSoekhan\Module\Simpleicalblock\Site\Log;
+namespace Crosborne\Module\Xbsimpleical\Site\Log;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
 use Joomla\CMS\Log\Log as JLog;

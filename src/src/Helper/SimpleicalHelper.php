@@ -43,7 +43,7 @@
  * ev_class from li head.
  * 3.0.0 remove messages to front-end, replaced by Log
  */
-namespace WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper;
+namespace Crosborne\Module\Xbsimpleical\Site\Helper;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
 
@@ -55,7 +55,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Response\JsonResponse;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
-use WaasdorpSoekhan\Module\Simpleicalblock\Site\IcsParser;
+use Crosborne\Module\Xbsimpleical\Site\IcsParser;
 
 /**
  * Helper for mod_simpleicalblock
