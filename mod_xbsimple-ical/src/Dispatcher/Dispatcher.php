@@ -49,7 +49,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
         $data['direction'] = $data['app']->getDocument()->direction;
         $data['wa'] = $data['app']->getDocument()->getWebAssetManager();
         $data['wr'] = $data['wa']->getRegistry();
-        $data['wr']->addRegistryFile('media/mod_xbsimpleical/joomla.asset.json');
+        $data['wr']->addRegistryFile('media/mod_xbsimple-ical/joomla.asset.json');
         switch ($data['params']->get('title_collapse_toggle','')) {
             case 'collapse':
                 $data['module']->title = ('<a data-toggle="collapse" data-bs-toggle="collapse" href="#' .$data['params']->get('anchorId') . '" role="button" aria-expanded="false" aria-controls="collapseMod">' . $data['module']->title . '</a>');

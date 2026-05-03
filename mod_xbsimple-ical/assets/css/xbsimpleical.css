@@ -1,0 +1,58 @@
+/** css for simple ical module **/
+.simple_ical_block .list-group-item {
+  margin-bottom: 10px;
+}
+.simple_ical_block .list-group-item .ical-date {
+  font-weight:bold;
+}
+.simple_ical_block .ical_summary {
+  font-size:1.1rem;
+  text-transform: uppercase;
+}
+.simple_ical_block .dsc {
+  font-style: italic;
+}
+.simple_ical_block .list-group-item + .list-group-item {
+  border-top-width: 1px;
+}
+.simple_ical_block .simple-ical-widget > .list-group-item.odd {
+  background-color: #f0f0f0;
+}
+.simple_ical_block .simple-ical-widget > .list-group-item.even {
+  background-color: #d0d0d0;
+}
+.simple_ical_block .xbsum {
+	font-size:0.9rem;
+	color:#888;
+}
+/* colours to use as module class & header class in different positions */
+.xbcat1 {
+  background-color:#fee;
+  margin:10px;
+  padding:10px;
+  border:1px solid #888;
+}
+.xbcat1head {
+  background-color:#f8f8f8;
+  color:#803040;
+}
+.xbcat2 {
+  background-color:#efefff;
+  margin:10px;
+  padding:10px;
+  border:1px solid #888;
+}
+.xbcat2head {
+  background-color:#f8f8f8;
+  color:#403080;
+
+}.xbcat3 {
+  background-color:#effff0;
+  margin:10px;
+  padding:10px;
+  border:1px solid #888;
+}
+.xbcat3head {
+  background-color:#f8f8f8;
+  color:#308040;
+}

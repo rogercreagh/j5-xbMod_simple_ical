@@ -1,0 +1,81 @@
+<changelogs>
+	<changelog>
+		<element>mod_xbimagecarousel</element>
+		<type>module</type>
+		<version>0.1.2</version>
+		<addition>
+			<item><![CDATA[<h3>Release Candidate 2 v0.1.2.0</h3> Updated 3rd May 2026]]></item>
+		</addition>
+		<remove>
+		</remove>
+		<change>
+		</change>
+		<fix>
+			<item>Fixed displaying null album year</item>
+		</fix>
+		<language>
+			<item>en-GB only</item>
+		</language>
+		<security>
+		</security>
+		<note>
+			<item>for Documentation see README.md file on GitHub</item>
+			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
+		</note>
+	</changelog>	
+	<changelog>
+		<element>mod_xbimagecarousel</element>
+		<type>module</type>
+		<version>0.1.0.0</version>
+		<addition>
+			<item><![CDATA[<h3>Release Candidate v0.1.0.0</h3> Updated 15th March 2026]]></item>
+			<item>Update Server and Changelog now public</item>
+		</addition>
+		<remove>
+		</remove>
+		<change>
+		</change>
+		<fix>
+		</fix>
+		<language>
+			<item>en-GB only</item>
+		</language>
+		<security>
+		</security>
+		<note>
+			<item>for Documentation see README.md file on GitHub</item>
+			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
+		</note>
+	</changelog>	
+	<changelog>
+		<element>mod_xbimagecarousel</element>
+		<type>module</type>
+		<version>0.0.6.1</version>
+		<addition>
+			<item><![CDATA[<h3>Beta Release v0.0.6.1</h3> Updated 15th March 2026]]></item>
+			<item>Changlog displayed on update/install</item>
+		</addition>
+		<remove>
+		</remove>
+		<change>
+			<item>Artist style improved</item>
+		</change>
+		<fix>
+			<item>Hide null year</item>
+			<item>Skip if image not found</item>
+		</fix>
+		<language>
+			<item>en-GB only</item>
+			<item>Language file available</item>
+		</language>
+		<security>
+		</security>
+		<note>
+			<item>for Documentation see README.md file on GitHub</item>
+			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
+		</note>
+	</changelog>	
+</changelogs>

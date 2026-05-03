@@ -6,33 +6,33 @@
     	</include>
   	</compatibility>
 	<name>xb Simple iCal</name>
-	<creationDate>29 April 2026</creationDate>	
+	<creationDate>3rd May 2026</creationDate>	
 	<author>A.H.C. Waasdorp modified RogerCO from April 2026</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, modifications (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://crosborne.uk/xbsimpleical</authorUrl>
-	<version>0.1.1.0</version>
-	<description><![CDATA[<div class="sib-info" style="color: #3f48cc;"><p><img class="sib-img" src="../media/mod_simple_ical_block/icons/simpleicalicon128x128.svg" style="display: inline-block; width: 2em; height:auto; margin-right: 0.5em;"/>Simple iCal Calendar Events Block</p></div>
+	<version>0.1.2.0</version>
+	<description><![CDATA[<div class="sib-info" style="color: #3f48cc;"><p><img class="sib-img" src="../media/mod_simple_ical_block/icons/simpleicalicon128x128.svg" style="display: inline-block; width: 2em; height:auto; margin-right: 0.5em;"/>xbSimple iCalendar Events Module</p></div>
 	]]></description>
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
 		<!-- Site Main File Copy Section -->
  	<files>
-		<filename>mod_xbsimpleical.xml</filename>
+		<filename>mod_xbsimple-ical.xml</filename>
 		<filename>helper.php</filename>
 		<filename>index.html</filename>
 		<folder>language</folder>
-		<folder module="mod_xbsimpleical">services</folder>
+		<folder module="mod_xbsimple-ical">services</folder>
 		<folder>src</folder>
 		<folder>tmpl</folder>
 	</files>
-	<media destination="mod_xbsimpleical" folder="assets">
+	<media destination="mod_xbsimple-ical" folder="assets">
 		<filename>joomla.asset.json</filename>
 		<folder>css</folder>
 		<folder>icons</folder>
 		<folder>js</folder>
 	</media>
-	<scriptfile>mod_xbsimpleical.script.php</scriptfile>
+	<scriptfile>mod_xbsimple-ical.script.php</scriptfile>
 
 	<config>
 		<fields name="params"  

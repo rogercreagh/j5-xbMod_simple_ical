@@ -1,4 +1,12 @@
 <?php
+/*******
+ * @package xbSimple-ical
+ * @filesource mod_xbsimple-ical/tmpl/default.php
+ * @version 0.1.1.0 1st May 2026
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2026
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ ******/
+
 /**
  * @version $Id: default.php
  * @package simpleicalblock
@@ -10,38 +18,6 @@
  * @developer A.H.C. Waasdorp
  *
  *
- * simpleicalblock is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * simpleicalblock is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * 0.0.0 2022-07-10 first adjustments for J4 convert parameters to array $attributes.
- * 0.0.1 2022-07-25 included display_block function from WP Plugin SimpleicalBlock
- *   replaced $instamce by $attributes, wp_kses ($text, 'post')  by strip_tags  ($text, $allowed_tags)
- *   changed wp_date in date (maybe date_default_timezone_set(<local timezone> is needed but that is already in the code if not we can remove it);
- *   replaced wp get_option('timezone_string') by Factory::getApplication()->get('offset') or (deprecated) Factory::Getconfig()->offset 
- *   replaced wp sanitize_html_class by copy in SimpleicalblockHelper
- *   removed wp esc_attr from sanitizing $e->uid
- *   removed checks isset on attributes because that is already done before.
- *   replaced date( with Date()->format where translation is necessary.
- * 2.0.1 back to static functions getData() and fetch() only instantiate object in fetch when parsing must be done (like it always was in WP)  
- * 2.1.0 add calendar class to list-group-item
- *   add htmlspecialchars() to summary, description and location when not 'allowhtml', replacing similar code from IcsParser
- * 2.1.3 use select 'layout' in stead of 'start with summary' to create more lay-out options.
- * 2.1.4 add closing HTML output after eventlist or when no events are available.    
- * 2.2.1 20240123 don't display description line when excerpt-length = 0
- * 2.3.0 Moved display_block() and $allowed_tags to SimpleicalblockHelper class to accommodate calls from REST service
- * 2.5.2 rename SimpleicalblockHelper to SimpleicalHelper
- * 2.5.3 add title collapse toggle attributes to wrapper div
- * 2.6.0 clean all output to safe HTML 
- * 2.7.0 Enable to add words of summary to categories for filtering. Move display_block back to default layout to improve support for override
- *   and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Add support for
- *   details/summary tag combination. Add inline style for hidden lines with version id or warnings. Removed ev_class from li head. 
- * 3.0.0 removed messages, (replaced by Notices and Warning in Log)       
  */
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
@@ -114,7 +90,6 @@ if (empty($nohead) ) {
         $curdate = '';
         $odd = false;
         foreach($data as $e) {
-            $odd = !$odd;
             $oddeven =  ($odd) ? 'odd' : 'even';
             $idlist = explode("@", $e->uid );
             $itemid = 'b' . $attributes['sibid'] . '_' . $idlist[0];
@@ -147,10 +122,12 @@ if (empty($nohead) ) {
                     $secho .= '</ul></li>';
                 }
                 $secho .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">' . '<span class="ical-date">' . ucfirst($evdate) . '</span><ul class="list-group' . $attributes['suffix_lg_class'] . '">';
+                $odd = !$odd;
             }
             $secho .= '<li class="list-group-item' . $sflgi . $ev_class . '">';
             if ($layout == 3 && $curdate != $evdate) {
                 $secho .= '<span class="ical-date">' . ucfirst($evdate) . '</span>' . (('a' == $attributes['tag_sum']) ? '<br>' : '');
+                $odd = !$odd;
             }
 
             if ('summary' == $attributes['tag_sum']) {

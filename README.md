@@ -295,3 +295,29 @@ Basic parse Recurrence-ID (only one Recurrence-ID event to replace one occurrenc
   Solved issue: Warning: date() expects at most 2 parameters, 3 given in ...IcsParser.php on line 542 caused by wp_date() / date() replacement.    
   Support BYSETPOS in response to a github issue on the WP block of peppergrayxyz. Support WKST.   
 * 2.0.0 major and minor vesion number aligned with those of Wordpress block with the same functionality and the same code for the IcsParser block apart from CMS specific functions (get_option('timezone_string') / Factory::getApplication()->get('offset'), wp_transient / cache type 'output' and wp_remote_get / Joomla\Http\Http->get()) and temporary wp_date() / date().
+
+
+ * 0.0.0 2022-07-10 first adjustments for J4 convert parameters to array $attributes.
+ * 0.0.1 2022-07-25 included display_block function from WP Plugin SimpleicalBlock
+ *   replaced $instamce by $attributes, wp_kses ($text, 'post')  by strip_tags  ($text, $allowed_tags)
+ *   changed wp_date in date (maybe date_default_timezone_set(<local timezone> is needed but that is already in the code if not we can remove it);
+ *   replaced wp get_option('timezone_string') by Factory::getApplication()->get('offset') or (deprecated) Factory::Getconfig()->offset 
+ *   replaced wp sanitize_html_class by copy in SimpleicalblockHelper
+ *   removed wp esc_attr from sanitizing $e->uid
+ *   removed checks isset on attributes because that is already done before.
+ *   replaced date( with Date()->format where translation is necessary.
+ * 2.0.1 back to static functions getData() and fetch() only instantiate object in fetch when parsing must be done (like it always was in WP)  
+ * 2.1.0 add calendar class to list-group-item
+ *   add htmlspecialchars() to summary, description and location when not 'allowhtml', replacing similar code from IcsParser
+ * 2.1.3 use select 'layout' in stead of 'start with summary' to create more lay-out options.
+ * 2.1.4 add closing HTML output after eventlist or when no events are available.    
+ * 2.2.1 20240123 don't display description line when excerpt-length = 0
+ * 2.3.0 Moved display_block() and $allowed_tags to SimpleicalblockHelper class to accommodate calls from REST service
+ * 2.5.2 rename SimpleicalblockHelper to SimpleicalHelper
+ * 2.5.3 add title collapse toggle attributes to wrapper div
+ * 2.6.0 clean all output to safe HTML 
+ * 2.7.0 Enable to add words of summary to categories for filtering. Move display_block back to default layout to improve support for override
+ *   and use layout template with original name without 'rest-' or 'ajax-' for rest output to make that also overridable. Add support for
+ *   details/summary tag combination. Add inline style for hidden lines with version id or warnings. Removed ev_class from li head. 
+ * 3.0.0 removed messages, (replaced by Notices and Warning in Log)       
+
