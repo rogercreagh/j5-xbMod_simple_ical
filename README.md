@@ -149,25 +149,25 @@ the Settings Tab Advanced : &#34;SUFFIX GROUP CLASS:&#34;, &#34;SUFFIX EVENT STA
 
 Otherwise you can add a block of additional CSS (or extra css or user css or something like that), which is possible with most templates.   
 IMPORTANT:   
-In order to target the CSS very specifically to the simple-ical-block, it is best to enter something unique in the settings of the module Tab Advanced in &#34;HTML ANCHOR&#34;, for example &#39;Simple-ical-Block-1&#39; the code translated into a high-level ID of the module.
+In order to target the CSS very specifically to the xbsimple-ical, it is best to enter something unique in the settings of the module Tab Advanced in &#34;HTML ANCHOR&#34;, for example &#39;xbsimple-ical-1&#39; the code translated into a high-level ID of the module.
 With the next block of additional CSS you can make the Dates red and 24 px, the Summary blue and 16 px,
 and the Details green with a gray background.
 
 ~~~
-/*additional CSS for Simple-ical-Block-1 */
-&#35;Simple-ical-Block-1 .ical-date {
+/*additional CSS for xbsimple-ical-1 */
+&#35;xbsimple-ical-1 .ical-date {
 color: #ff0000;
 font-size: 24px;
 }
-&#35;Simple-ical-Block-1 .ical_summary {
+&#35;xbsimple-ical-1 .ical_summary {
 color: #0000ff;
 font-size: 16px;
 }
-&#35;Simple-ical-Block-1 .ical_details {
+&#35;xbsimple-ical-1 .ical_details {
 color: #00ff00;
 background-color: gray;
 }
-/*end additional CSS for Simple-ical-Block-1 */
+/*end additional CSS for xbsimple-ical-1 */
 ~~~
 
 = How do I filter on categories =

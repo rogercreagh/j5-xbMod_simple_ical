@@ -28,7 +28,7 @@ use Crosborne\Module\Xbsimpleical\Site\IcsParser;
 use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 
 if (!empty($wa)) {
-    $wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'simple-ical-block-inline-style']);
+    $wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'xbsimple-ical-inline-style']);
     $wa->useStyle('xbsimpleical.styles');
 }
 if (empty($secho)) {  $secho = ''; }

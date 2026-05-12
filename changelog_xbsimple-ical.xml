@@ -1,36 +1,69 @@
 <changelogs>
 	<changelog>
-		<element>mod_xbimagecarousel</element>
+		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.1.2</version>
+		<version>0.2.0.0</version>
 		<addition>
-			<item><![CDATA[<h3>Release Candidate 2 v0.1.2.0</h3> Updated 3rd May 2026]]></item>
+			<item><![CDATA[<h3>v0.2.0.0-beta</h3> Updated 12th May 2026]]></item>
+			<item>Joomla changelog now live</item>
+			<item>Install script now functional including changelog</item>
 		</addition>
 		<remove>
+			<item>changelog comments for Simple iCal Block module in file headers</item>
+			<item>redundant function display_block() in Helper/SimpleicalHelper.php</item>
 		</remove>
 		<change>
+			<item>Changes to layout in default.php - alternating shading to items on same day, position of time and location</item>
 		</change>
 		<fix>
-			<item>Fixed displaying null album year</item>
 		</fix>
 		<language>
-			<item>en-GB only</item>
+			<item>Updates and changes are only made to en-GB using prefix XBSICAL_</item>
 		</language>
 		<security>
 		</security>
 		<note>
-			<item>for Documentation see README.md file on GitHub</item>
+			<item><![CDATA[<b>xbSimple-iCal</b> is based on <b>Simple iCal Block</b> by A.H.C. Waasdorp. <a href="https://github.com/bramwaas/joomla_mod_simple_ical_block" target="_blank">Original project on GitHub</a>]]></item>
+			<item><![CDATA[for Documentation see tab on Module Config page and <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a>]]></item>
 			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
-			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/issues" target="_blank">GitHub</a>]]></item>
 		</note>
 	</changelog>	
 	<changelog>
-		<element>mod_xbimagecarousel</element>
+		<element>mod_xbsimple-ical</element>
+		<type>module</type>
+		<version>0.1.2.0</version>
+		<addition>
+			<item><![CDATA[<h3>v0.1.2.0-beta</h3> Updated 3rd May 2026]]></item>
+			<item>Added module css file</item>
+		</addition>
+		<remove>
+		</remove>
+		<change>
+			<item>Changes to layout in default.php - alternating shading to items on same day, position of time and location</item>
+		</change>
+		<fix>
+		</fix>
+		<language>
+			<item>Updates and changes are only made to en-GB</item>
+		</language>
+		<security>
+		</security>
+		<note>
+			<item><![CDATA[<b>xbSimple-iCal</b> is based on <b>Simple iCal Block</b> by A.H.C. Waasdorp. <a href="https://github.com/bramwaas/joomla_mod_simple_ical_block" target="_blank">Original project on GitHub</a>]]></item>
+			<item><![CDATA[for Documentation see tab on Config page and README.md file on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a>]]></item>
+			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/issues" target="_blank">GitHub</a>]]></item>
+		</note>
+	</changelog>	
+	<changelog>
+		<element>mod_xbsimple-ical</element>
 		<type>module</type>
 		<version>0.1.0.0</version>
 		<addition>
-			<item><![CDATA[<h3>Release Candidate v0.1.0.0</h3> Updated 15th March 2026]]></item>
-			<item>Update Server and Changelog now public</item>
+			<item><![CDATA[<h3>v0.1.0.0-alpha</h3> Updated 15th March 2026]]></item>
+			<item>Changed name to xbSimple-iCal</item>
+			<item>Changed namespace to \Crosborne\</item>
 		</addition>
 		<remove>
 		</remove>
@@ -44,38 +77,10 @@
 		<security>
 		</security>
 		<note>
-			<item>for Documentation see README.md file on GitHub</item>
+			<item><![CDATA[<b>xbSimple-iCal</b> is based on <b>Simple iCal Block</b> by A.H.C. Waasdorp. <a href="https://github.com/bramwaas/joomla_mod_simple_ical_block" target="_blank">Original project on GitHub</a>]]></item>
+			<item><![CDATA[for Documentation see tab on Config page and README.md file on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a>]]></item>
 			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
-			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
-		</note>
-	</changelog>	
-	<changelog>
-		<element>mod_xbimagecarousel</element>
-		<type>module</type>
-		<version>0.0.6.1</version>
-		<addition>
-			<item><![CDATA[<h3>Beta Release v0.0.6.1</h3> Updated 15th March 2026]]></item>
-			<item>Changlog displayed on update/install</item>
-		</addition>
-		<remove>
-		</remove>
-		<change>
-			<item>Artist style improved</item>
-		</change>
-		<fix>
-			<item>Hide null year</item>
-			<item>Skip if image not found</item>
-		</fix>
-		<language>
-			<item>en-GB only</item>
-			<item>Language file available</item>
-		</language>
-		<security>
-		</security>
-		<note>
-			<item>for Documentation see README.md file on GitHub</item>
-			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
-			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbImages/issues" target="_blank">GitHub</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/issues" target="_blank">GitHub</a>]]></item>
 		</note>
 	</changelog>	
 </changelogs>

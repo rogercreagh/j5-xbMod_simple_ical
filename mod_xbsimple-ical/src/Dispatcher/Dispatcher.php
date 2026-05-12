@@ -1,4 +1,12 @@
 <?php
+/*******
+ * @package xbSimple-ical
+ * @filesource mod_xbsimple-ical/src/Dispatcher/Dispatcher.php
+ * @version 0.1.1.0 8th May 2026
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2026
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ ******/
+
 
 /**
  * @package     simpleicalblock

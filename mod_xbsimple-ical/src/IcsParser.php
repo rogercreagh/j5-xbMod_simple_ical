@@ -1,35 +1,18 @@
 <?php
+/*******
+ * @package xbSimple-ical
+ * @filesource mod_xbsimple-ical/src/IcsParser.php
+ * @version 0.2.0.0 8th May 2026
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2026
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ ******/
+
 /**
  * a simple ICS parser.
  * @copyright Copyright (C) 2022 - 2026 Bram Waasdorp. All rights reserved.
  * @license GNU General Public License version 3 or later
  *
  * note that this class does not implement all ICS functionality.
- *   bw 20220630 copied from Wordpress simple-google-icalendar-widget version 2.0.3
- * 2.1.0 calendar_id can be array of ID;class elements; elements foreach in fetch() to parse each element; sort moved to fetch() after foreach.
- *   parse() directly add in events in $this->events, add html-class from new input parameter to each event
- *   Make properties from most important parameters during instantiation of the class to limit copying of input params in several functions.
- *   Removed htmlspecialchars() from summary, description and location, to replace it in the output template/block
- *   Combined getFutureEvents and Limit array. usort eventsortcomparer now on start, end, cal_ord and with arithmic subtraction because all are integers.
- *   Parse event DURATION; (only) When DTEND is empty: determine end from start plus duration, when duration is empty and start is DATE start plus one day, else = start  
- *   Parse event BYSETPOS;  Parse WKST (default MO) 
- * 2.1.1 Solved Warning: Array to string conversion in .../Transport/Curl.php on line 183 that occured after using php 8.
- * 2.2.0 improved handling of EXDATE so that also the first event of a recurrent set can be excluded. 
- *   Parse Recurrence-ID to support changes in individual recurrent events in Google Calendar. Remove _ chars from UID.
- * 2.3.0 limit events after caching. process the different types of period endpoints (Time of day, Whole day). 
- *   Modulo 4 for period_limits (default 1 Whole day, whole day; 2 Time of day, Wd; 3 Td, Td; 0 Wd, Td)
- *   Add unescape \\ to \ and improve \, to ,   \; to ;  chars that should be escaped following the text specification. 
- * 2.4.0 exclude DTEND from event that is evend ends before (<) DTEND in stead of at (<=) DTEND. removed modulo 4
- *   Checks if time zone ID with Etc/GMT 'replaced by'Etc/GMT+' is a Iana timezone then return this timezone.
- * 2.5.0 Add filter and display support for categories. Add function self::unescTextList to explode items in Categories list to array 
- * while retaining , or ; when escaped with \ and use the same function for list of url's and input filter categorie list. 
- * use temporary replace \\ by chr(20) and replace chr(20) by \ instead of explode and implode to prevent use of \\ as unescape char.
- * 2.6.0 escaping error messages.
- * 2.7.0 Enable to add summary to filtering categories, when add_sum_catflt add words from summary to categories for filtering. 
- * 2.7.1 solve issues update V6: warnings "Undefined property: Joomla\Http\Response:: ..." followed by empty content after update to Joomla 6.
- * 3.0.0 Also cache failed requests for calendar items to prevent prolonged "...Our systems have detected unusual traffic from your computer network. ..."
- *  errors caused by a large number of requests in a short period of time. (after issues #47 and #48 for joomla module). First 3 failed requests cachetimes
- *  only 60 seconds next cachetimes same as for succesfull requests. Use standard Joomla logging
  */
 namespace Crosborne\Module\Xbsimpleical\Site;
 // no direct access

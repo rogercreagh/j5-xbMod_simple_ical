@@ -29,9 +29,9 @@ use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 if (!empty($wa)){
 $wa->addInlineScript(
     '(window.simpleIcalBlock=window.simpleIcalBlock || {}).restRoot = "' . Uri::root() . 'index.php?option=com_ajax&Itemid=' . (($app->getMenu()->getActive()->id) ?? '') . '"',
-    ['position' => 'before', 'name' => 'define.restRoot'], [],['simple-ical-block-view.js']
+    ['position' => 'before', 'name' => 'define.restRoot'], [],['xbsimple-ical-view.js']
     );
-//$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none  !important;}', ['name' => 'simple-ical-block-inline-style']);
+//$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none  !important;}', ['name' => 'xbsimple-ical-inline-style']);
 }
 
 $attributes = SimpleicalHelper::render_attributes( $params->toArray());

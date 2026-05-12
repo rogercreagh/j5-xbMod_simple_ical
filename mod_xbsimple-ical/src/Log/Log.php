@@ -61,7 +61,7 @@ class Log
         if (!is_string($message)) $message = print_r($message, true);
         if (empty(self::$priorityMap[$level])) $level = self::NOTICE;
         if ((!empty($message)) && (!empty($context))) $message = self::interpolate($message,$context);
-        if (empty($context['category'])) $context['category'] = 'simple-ical-block';
+        if (empty($context['category'])) $context['category'] = 'xbsimple-ical';
         JLog::add($message, self::$priorityMap[$level], $context['category']);
         
     }

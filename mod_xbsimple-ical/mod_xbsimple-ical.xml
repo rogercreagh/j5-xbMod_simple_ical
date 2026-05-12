@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module"   client="site" method="upgrade">
-  	<compatibility>
-    	<include>
-      		<versions from="4.0.0" to="6.99.99" />
-    	</include>
-  	</compatibility>
-	<name>xb Simple iCal</name>
-	<creationDate>3rd May 2026</creationDate>	
-	<author>A.H.C. Waasdorp modified RogerCO from April 2026</author>
-	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, modifications (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
+<extension type="module"  client="site" method="upgrade">
+	<name>xbSimple-iCal</name>
+	<creationDate>12th May 2026</creationDate>	
+	<author>RogerCO</author>
+	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
-	<authorUrl>https://crosborne.uk/xbsimpleical</authorUrl>
-	<version>0.1.2.0</version>
-	<description><![CDATA[<div class="sib-info" style="color: #3f48cc;"><p><img class="sib-img" src="../media/mod_simple_ical_block/icons/simpleicalicon128x128.svg" style="display: inline-block; width: 2em; height:auto; margin-right: 0.5em;"/>xbSimple iCalendar Events Module</p></div>
-	]]></description>
+	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
+	<version>0.2.0.0</version>
+	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_simple_ical_block' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
+	
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
 		<!-- Site Main File Copy Section -->
- 	<files>
-		<filename>mod_xbsimple-ical.xml</filename>
-		<filename>helper.php</filename>
+<!-- 	<scriptfile>mod_xbsimple-ical_script.php</scriptfile>  -->
+ 	<scriptfile>mod_xbsimpleical_script.php</scriptfile> 
+	<files>
 		<filename>index.html</filename>
+		<filename>helper.php</filename>
 		<folder>language</folder>
 		<folder module="mod_xbsimple-ical">services</folder>
 		<folder>src</folder>
@@ -32,11 +28,14 @@
 		<folder>icons</folder>
 		<folder>js</folder>
 	</media>
-	<scriptfile>mod_xbsimple-ical.script.php</scriptfile>
+	
+
+    <changelogurl>https://raw.githubusercontent.com/rogercreagh//j5-xbMod_simple_ical/main/changelog_xbsimple-ical.xml</changelogurl>
 
 	<config>
-		<fields name="params"  
-			 addruleprefix="Crosborne\Module\Xbsimpleical\Site\Rule">
+		<fields name="params"
+			addruleprefix="Crosborne\Module\Xbsimpleical\Site\Rule"
+		>
 			<fieldset name="basic">
 			    <!-- Title unnecessary because there is a module title depending on module-style -->
 				<!-- field name="title" type="text" default="Events" label="MOD_SIMPLEICALBLOCK_TITLE" description="MOD_SIMPLEICALBLOCK_TITLE_DESC" /  replaced by module title -->
@@ -57,6 +56,7 @@
 				<field name="dateformat_tstart" type="text" default="G:i" filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TSTART" description="MOD_SIMPLEICALBLOCK_DF_TSTART_DESC" />
 				<field name="dateformat_tend" type="text" default=" - G:i " filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TEND" description="MOD_SIMPLEICALBLOCK_DF_TEND_DESC" />
 			</fieldset>
+			
 			<fieldset name="advanced">
 				<field name="transient_time" type="number" min="2" max="1440" default="60"  label="MOD_SIMPLEICALBLOCK_TRANSIENT_TIME" description="MOD_SIMPLEICALBLOCK_TRANSIENT_TIME_DESC" hint="60" />
 				<field name="excerptlength" type="text" default="" label="MOD_SIMPLEICALBLOCK_EXCERPTL" description="MOD_SIMPLEICALBLOCK_EXCERPTL_DESC" />
@@ -295,8 +295,5 @@
 			</fieldset>
 		</fields>
 	</config>
-    <updateservers>
-		<server type="extension" priority="1" name="Module Simple iCal Block"><![CDATA[https://waasdorp.soekhan.nl/update/simpleicalblock/mod_simple_ical_block-update.xml]]></server>
-    </updateservers>
 	
 </extension>

@@ -1,6 +1,6 @@
 /**
- * simple-ical-block-view.js
- * view simple-ical-block output with extra client parameter tzid_ui using Ajax 
+ * xbsimple-ical-view.js
+ * view xbsimple-ical output with extra client parameter tzid_ui using Ajax 
  * restRoot for endpoint passed via inlinescript and this script in enqueue_block_assets 
  * v2.4.1
 **/
