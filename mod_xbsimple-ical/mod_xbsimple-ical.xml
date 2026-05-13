@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
-	<creationDate>12th May 2026</creationDate>	
+	<creationDate>13th May 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
-	<version>0.2.0.0</version>
+	<version>0.2.0.1</version>
 	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_simple_ical_block' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
 	
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
 		<!-- Site Main File Copy Section -->
-<!-- 	<scriptfile>mod_xbsimple-ical_script.php</scriptfile>  -->
  	<scriptfile>mod_xbsimpleical_script.php</scriptfile> 
 	<files>
 		<filename>index.html</filename>
@@ -29,8 +28,12 @@
 		<folder>js</folder>
 	</media>
 	
-
-    <changelogurl>https://raw.githubusercontent.com/rogercreagh//j5-xbMod_simple_ical/main/changelog_xbsimple-ical.xml</changelogurl>
+    <changelogurl>https://raw.githubusercontent.com/rogercreagh/j5-xbMod_simple_ical/main/changelog_xbsimple-ical.xml</changelogurl>
+    <updateservers>
+	    <server type="extension" name="xbSimple-iCal Module Updates">
+	    	https://raw.githubusercontent.com/rogercreagh/j5-xbMod_simple_ical/main/update_xbsimple-ical.xml
+	    </server>
+	</updateservers>
 
 	<config>
 		<fields name="params"

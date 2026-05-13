@@ -129,7 +129,7 @@ return new class () implements InstallerScriptInterface {
         }
         
         if ($type == 'uninstall') {
-            $ext_mess .= '<p>To reinstall download the latest release from <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/releases" target="_blank">GitHub</a>';
+            $ext_mess .= '<p>To reinstall <b>xbSimple-iCal</b> download the latest release from <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/releases" target="_blank">GitHub</a>';
         }
         $ext_mess .= '</div>';
         echo $ext_mess;

@@ -2,10 +2,11 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.0.0</version>
+		<version>0.2.0.1</version>
 		<addition>
-			<item><![CDATA[<h3>v0.2.0.0-beta</h3> Updated 12th May 2026]]></item>
+			<item><![CDATA[<h4>v0.2.0.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 12th May 2026</span></h4>]]></item>
 			<item>Joomla changelog now live</item>
+			<item>Update server (GitHub) now live</item>
 			<item>Install script now functional including changelog</item>
 		</addition>
 		<remove>
