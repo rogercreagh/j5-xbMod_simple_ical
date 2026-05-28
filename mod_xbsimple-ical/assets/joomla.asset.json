@@ -2,7 +2,7 @@
   "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
   "name": "mod_xbsimple-ical",
   "version": "0.2.0.0",
-  "description": "This file contains details of the default assets used by mod_simple_ical_block, a Joomla 4 and 5 site module.",
+  "description": "This file contains details of the default assets used by mod_xbsimple-ical, a Joomla 4 and 5 site module.",
   "license": "GPL-3.0-or-later",
   "assets": [
 	{

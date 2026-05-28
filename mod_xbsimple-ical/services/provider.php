@@ -9,7 +9,7 @@
 
 /**
  * @package     simpleicalblock
- * @subpackage  mod_simple_ical_block
+ * @subpackage  mod_xbsimple-ical
  *
  * @copyright   Copyright (C) 2022 -2024 A.H.C. Waasdorp, All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt

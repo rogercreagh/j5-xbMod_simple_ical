@@ -8,8 +8,8 @@
  * @author url: https://www.waasdorpsoekhan.nl
  * @author email contact@waasdorpsoekhan.nl
  * @developer A.H.C. Waasdorp
- * 2.4.0 added helper.php for mod_simple_ical_block to accomodate simple Ajax/Rest in module
- *  call : /index.php?option=com_ajax&module=simple_ical_block&method=get&format=json&sibid={sibid}&tzid_ui={tzid_ui}
+ * 2.4.0 added helper.php for mod_xbsimple-ical to accomodate simple Ajax/Rest in module
+ *  call : /index.php?option=com_ajax&module=xbsimple-ical&method=get&format=json&sibid={sibid}&tzid_ui={tzid_ui}
  */
 //namespace WaasdorpSoekhan\Module\Simpleicalblock\Site\Helper;
 // no direct access

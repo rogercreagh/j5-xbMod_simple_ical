@@ -10,7 +10,7 @@
 
 /**
  * @package     simpleicalblock
- * @subpackage  mod_simple_ical_block
+ * @subpackage  mod_xbsimple-ical
  *
  * @copyright   Copyright (C) 2022 -2025 A.H.C. Waasdorp, All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -30,7 +30,7 @@ use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 // phpcs:enable PSR1.Files.SideEffects
 
 /**
- * Dispatcher class for mod_simple_ical_block
+ * Dispatcher class for mod_xbsimple-ical
  *
  * @since  2.4.1
  */

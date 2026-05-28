@@ -31,14 +31,14 @@ $wa->addInlineScript(
     '(window.simpleIcalBlock=window.simpleIcalBlock || {}).restRoot = "' . Uri::root() . 'index.php?option=com_ajax&Itemid=' . (($app->getMenu()->getActive()->id) ?? '') . '"',
     ['position' => 'before', 'name' => 'define.restRoot'], [],['xbsimple-ical-view.js']
     );
-//$wa->addInlineStyle('.simple_ical_block p[hidden]{display:none  !important;}', ['name' => 'xbsimple-ical-inline-style']);
+//$wa->addInlineStyle('.xbsimple-ical p[hidden]{display:none  !important;}', ['name' => 'xbsimple-ical-inline-style']);
 }
 
 $attributes = SimpleicalHelper::render_attributes( $params->toArray());
 if (empty($secho)) { $secho = '';}
 
 $secho .= '<div id="' . $attributes['anchorId']  .'" data-sib-id="' . $attributes['sibid']
-. '" data-sib-st="0-start" class="simple_ical_block 270 ' . $attributes['title_collapse_toggle']. '" >';
+. '" data-sib-st="0-start" class="xbsimple-ical 270 ' . $attributes['title_collapse_toggle']. '" >';
 $secho .= '<p>' . Text::_('MOD_SIMPLEICALBLOCK_PROCESSING') . '</p>';
 $secho .= '</div>';
 echo SimpleicalHelper::clean_output($secho);

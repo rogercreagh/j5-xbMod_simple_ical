@@ -39,7 +39,7 @@ use Crosborne\Module\Xbsimpleical\Site\IcsParser;
  */
 class SimpleicalHelper
 {
-    const SIB_ATTR = 'simple_ical_block_attrs';
+    const SIB_ATTR = 'xbsimple-ical_attrs';
     /**
      * tags allowed for summary
      *

@@ -2,6 +2,33 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
+		<version>0.2.1.0</version>
+		<addition>
+			<item><![CDATA[<h4>v0.2.1.0-beta <span style="font-weight:normal; font-size:1rem;">Updated 28th May 2026</span></h4>]]></item>
+			<item>Config Layout fieldset added options for sections of event display</item>
+			<item>Config CSS Styles fieldset added with options for classes and styles</item>
+		</addition>
+		<remove>
+		</remove>
+		<change>
+		</change>
+		<fix>
+		</fix>
+		<language>
+			<item>Updates and changes are only made to en-GB using prefix XBSICAL_</item>
+		</language>
+		<security>
+		</security>
+		<note>
+			<item><![CDATA[<b>xbSimple-iCal</b> is based on <b>Simple iCal Block</b> by A.H.C. Waasdorp. <a href="https://github.com/bramwaas/joomla_mod_simple_ical_block" target="_blank">Original project on GitHub</a>]]></item>
+			<item><![CDATA[for Documentation see tab on Module Config page and <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a>]]></item>
+			<item><![CDATA[Not listed on <a href="https://extensions.joomla.org" target="_blank">JED</a>]]></item>
+			<item><![CDATA[Raise bugs and feature requests on <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/issues" target="_blank">GitHub</a>]]></item>
+		</note>
+	</changelog>	
+	<changelog>
+		<element>mod_xbsimple-ical</element>
+		<type>module</type>
 		<version>0.2.0.1</version>
 		<addition>
 			<item><![CDATA[<h4>v0.2.0.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 12th May 2026</span></h4>]]></item>
@@ -14,7 +41,7 @@
 			<item>redundant function display_block() in Helper/SimpleicalHelper.php</item>
 		</remove>
 		<change>
-			<item>Changes to layout in default.php - alternating shading to items on same day, position of time and location</item>
+			<item>Changes to layout in default.php</item>
 		</change>
 		<fix>
 		</fix>

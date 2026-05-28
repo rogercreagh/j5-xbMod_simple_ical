@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
-	<creationDate>13th May 2026</creationDate>	
+	<creationDate>27th May 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
-	<version>0.2.0.1</version>
-	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_simple_ical_block' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
+	<version>0.2.1.0</version>
+	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_xbsimple-ical' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
 	
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
 		<!-- Site Main File Copy Section -->
@@ -58,6 +58,359 @@
 
 				<field name="dateformat_tstart" type="text" default="G:i" filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TSTART" description="MOD_SIMPLEICALBLOCK_DF_TSTART_DESC" />
 				<field name="dateformat_tend" type="text" default=" - G:i " filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TEND" description="MOD_SIMPLEICALBLOCK_DF_TEND_DESC" />
+			</fieldset>
+
+			<fieldset name="layout" label="XBSICAL_LAYOUT">
+			
+				<field name="endtype" type="radio"
+					label="XBSICAL_END_OR_DUR"
+					description="XBSICAL_END_OR_DUR_DESC"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">XBSICAL_IGNORE_END</option>
+					<option value="1">XBSICAL_END_AS_TIME</option>
+					<option value="2">XBSICAL_END_AS_DURATION</option>					
+				</field>
+				
+				<field name="durationfmt" type="text"
+					label="XBSICAL_DURATION_FMT"
+					description="XBSICAL_DURATION_FMT_DESC"
+					default=" G\h\r\s i\m\i\n\s"
+					showon="endtype:2"
+				/>
+				
+              	<field name="layoutnote" type="note" 
+              		description="XBSICAL_LAYOUT_OPTS_NOTE" 
+              	/>
+
+				<field name="sectionnote1" type="note"					
+					description="XBSICAL_SECTION_OPTS_NOTE"
+				/>
+				
+				<field name="headtype" type="radio"
+					label="XBSICAL_HEADER_SHOW"
+					description="XBSICAL_HEADER_SHOW_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">XBSICAL_GROUP_DATE</option>
+					<option value="2">XBSICAL_SPECIFY_COMPS</option>
+				</field>
+				
+				<field name="headgroupopts" type="radio"
+					label="XBSICAL_HEAD_GROUP_OPTS"
+					description="XBSICAL_HEAD_GROUP_OPTS_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+					showon="headtype:1"
+				>
+					<option value="0">XBSICAL_START_ONLY</option>
+					<option value="1">XBSICAL_START_END</option>
+				</field>
+				
+		        <field name="headdatefmt" type="text"
+		        	label="XBSICAL_HEAD_DATE_FMT"
+		        	hint="XBSICAL_HEAD_DATE_FMT_DESC"
+		        	default="l jS \of F"
+		        	showon="headtype:1"
+		        />
+								
+				<field name="headcomps" type="subform"
+			        label="XBSICAL_HEAD_COMPS"
+			        description="XBSICAL_HEAD_COMPS_DESC"
+			        multiple="true"
+			        min="0"  max="6"
+					buttons= "add,remove,move"
+					layout="joomla.form.field.subform.repeatable-table"
+			  		showon="headtype:2"
+				>
+				    <form>
+				        <field name="comps" type="list"
+				        	label="XBSICAL_CAL_COMPS"
+				        >
+				          <option value="startdate">XBSICAL_START_DATE</option>
+				          <option value="enddate">XBSICAL_END_DATE</option>
+				          <option value="starttime">XBSICAL_START_TIME</option>
+				          <option value="endtime">XBSICAL_END_TIME_DURATION</option>
+				          <option value="summary">XBSICAL_SUMMARY</option>
+				          <option value="location">XBSICAL_LOCATION</option>
+				        </field>
+				        <field name="compprefix" type="text"
+				        	label="XBSICAL_PREFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				        <field name="compsuffix" type="text"
+				        	label="XBSICAL_SUFFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				    </form>
+				</field>
+				
+				<field name="titletype" type="radio"
+					label="XBSICAL_TITLE_SHOW"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+				
+		        <field name="titledatefmt" type="text"
+		        	label="XBSICAL_TITLE_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="F jS"
+		        	showon="titletype:1"
+		        />
+								
+		        <field name="titletimefmt" type="text"
+		        	label="XBSICAL_TITLE_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="titletype:1"
+		        />
+								
+				<field name="titlecomps" type="subform"
+			        label="XBSICAL_TITLE_COMPS"
+			        description="XBSICAL_TITLE_COMPS_DESC"
+			        multiple="true"
+			        min="0"  max="7"
+					buttons= "add,remove,move"
+					layout="joomla.form.field.subform.repeatable-table"
+					showon="titletype:1"
+				>
+				    <form>
+				        <field name="comps" type="list"
+				        	label="XBSICAL_CAL_COMPS"
+				        >
+				          <option value="summary">XBSICAL_SUMMARY</option>
+				          <option value="startdate">XBSICAL_START_DATE</option>
+				          <option value="enddate">XBSICAL_END_DATE</option>
+				          <option value="starttime">XBSICAL_START_TIME</option>
+				          <option value="endtime">XBSICAL_END_TIME_DURATION</option>
+				          <option value="location">XBSICAL_LOCATION</option>
+				          <option value="categories">XBSICAL_CATEGORIES</option>
+				        </field>
+				        <field name="compprefix" type="text"
+				        	label="XBSICAL_PREFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				        <field name="compsuffix" type="text"
+				        	label="XBSICAL_SUFFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				    </form>
+				</field>
+				
+				<field name="infotype" type="radio"
+					label="XBSICAL_INFO_SHOW"
+					description="XBSICAL_INFO_SHOW_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
+				
+		        <field name="infodatefmt" type="text"
+		        	label="XBSICAL_INFO_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="l jS \of F"
+		        	showon="infotype:1"
+		        />
+								
+		        <field name="infotimefmt" type="text"
+		        	label="XBSICAL_INFO_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="infotype:1"
+		        />
+								
+				<field name="infocomps" type="subform"
+			        label="XBSICAL_INFO_COMPS"
+			        description="XBSICAL_INFO_COMPS_DESC"
+			        multiple="true"
+			        min="0"  max="5"
+					buttons= "add,remove,move"
+					layout="joomla.form.field.subform.repeatable-table"
+					showon="infotype:1"
+				>
+				    <form>
+				        <field name="comps" type="list"
+				        	label="XBSICAL_CAL_COMPS"
+				        >
+				          <option value="location">XBSICAL_LOCATION</option>
+				          <option value="summary">XBSICAL_SUMMARY</option>
+				          <option value="categories">XBSICAL_CATEGORIES</option>
+				          <option value="startdate">XBSICAL_START_DATE</option>
+				          <option value="starttime">XBSICAL_START_TIME</option>
+				          <option value="enddate">XBSICAL_END_DATE</option>
+				          <option value="endtime">XBSICAL_END_TIME_DURATION</option>
+				          <option value="description">XBSICAL_DESCRIPTION</option>
+				        </field>
+				        <field name="compprefix" type="text"
+				        	label="XBSICAL_PREFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				        <field name="compsuffix" type="text"
+				        	label="XBSICAL_SUFFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				    </form>
+				</field>
+				
+				<field name="detailstype" type="radio"
+					label="XBSICAL_DETS_SHOW"
+					description="XBSICAL_DETS_SHOW_DESC"
+					default="0"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">XBSICAL_POPUP</option>
+					<option value="2">XBSICAL_DROPDOWN</option>
+					<option value="3">XBSICAL_FULL</option>
+				</field>
+				
+		        <field name="detsdatefmt" type="text"
+		        	label="XBSICAL_DETS_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="l jS \of F"
+		        	showon="detailstype!:0"
+		        />
+								
+		        <field name="detstimefmt" type="text"
+		        	label="XBSICAL_DETS_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="detailstype!:0"
+		        />
+								
+				<field name="detailscomps" type="subform"
+			        label="XBSICAL_DETS_SHOW"
+			        description="XBSICAL_DETS_SHOW_DESC"
+			        multiple="true" min="0"  max="5"
+					buttons= "add,remove,move"
+					showon="detailstype!:0"
+					layout="joomla.form.field.subform.repeatable-table"
+				>
+				    <form>
+				        <field name="comps" type="list"
+				        	label="XBSICAL_CAL_COMPS"
+				        >
+				          <option value="description">XBSICAL_DESCRIPTION</option>
+				          <option value="categories">XBSICAL_CATEGORIES</option>
+				          <option value="location">XBSICAL_LOCATION</option>
+				          <option value="summary">XBSICAL_SUMMARY</option>
+				          <option value="startdate">XBSICAL_START_DATE</option>
+				          <option value="starttime">XBSICAL_START_TIME</option>
+				          <option value="enddate">XBSICAL_END_DATE</option>
+				          <option value="endtime">XBSICAL_END_TIME_DURATION</option>
+				        </field>
+				        <field name="compprefix" type="text"
+				        	label="XBSICAL_PREFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				        <field name="compsuffix" type="text"
+				        	label="XBSICAL_SUFFIX"
+				        	hint="XBSICAL_PRESUF_HINT"
+				        />
+				    </form>
+				</field>
+				
+				<field name="detailsprompt" type="text"
+					label="XBSICAL_DETS_PROMPT"
+					description="XBSICAL_DETS_PROMPT_DESC"
+					default="more info ..."
+					showon="detailstype:1[OR]detailstype:2"
+				/>
+				
+				<field name="nosection" type="note"
+					description="XBSICAL_WARN_NO_SECTIONS"
+					showon="headtype:0[AND]titletype:0[AND]infotype:0[AND]detailstype:0"
+				/>
+				
+				<field name="dtfmthelp" type="note"
+					description="XBSICAL_TIMEFORMAT_HELP"
+				/>				
+				
+			</fieldset>
+			
+			<fieldset name="sectstyles" label="CSS Styles" >
+				
+				<field name="nosection2" type="note"
+					description="XBSICAL_WARN_NO_SECTIONS"
+					showon="layout.headtype:0[AND]layout.titletype:0[AND]layout.infotype:0[AND]layout.detailstype:0"
+				/>
+				
+				<field name="stylesnote" type="note"
+					description="XBSICAL_CLASSES_HELP"
+				/>
+								
+				<field name="headclass" type="text"
+					label="CSS Classes for Head"
+					description="Module default is bold text 1rem"
+					default="xbsical-head"
+					showon="layout.headtype!:0"
+				/>
+				
+				<field name="headstyle" type="text"
+					label="Extra Styles for Head"
+					description=""
+					default=""
+					showon="layout.headtype!:0"
+				/>
+				
+				<field name="titleclass" type="text"
+					label="CSS Classes for Title"
+					description=""
+					default="xbsical-title"
+					showon="layout.titletype!:0"
+				/>
+				
+				<field name="titlestyle" type="text"
+					label="Extra Styles for Title"
+					description=""
+					default=""
+					hint="font-size:1.1rem;"
+					showon="layout.titletype!:0"
+				/>
+				
+				<field name="infoclass" type="text"
+					label="CSS Classes for Info"
+					description=""
+					default="xbsical-info"
+					showon="layout.infotype!:0"
+				/>
+				
+				<field name="infostyle" type="text"
+					label="Extra Styles for Info"
+					description=""
+					default=""
+					hint="font-size:1.0rem;"
+					showon="layout.infotype!:0"
+				/>
+				
+				<field name="detsclass" type="text"
+					label="CSS Classes for Details"
+					description=""
+					default="xbsical-dets"
+					showon="layout.detailstype!:0"
+				/>
+				
+				<field name="detsstyle" type="text"
+					label="Extra Styles for Details"
+					description=""
+					default=""
+					hint="font-size:0.9rem;"
+					showon="layout.detailstype!:0"
+				/>
+				
+				
+				<field name="defaultcss" type="note"
+					description="XBSICAL_DEFAULT_CSS"
+				/>
+				
+			
 			</fieldset>
 			
 			<fieldset name="advanced">
@@ -148,12 +501,13 @@
 					description="COM_MODULES_FIELD_CACHE_TIME_DESC" />
 				
 			</fieldset>
-			<fieldset name="Documentation" >
+			
+			<fieldset name="Documentation" label="XBSICAL_DOCUMENTATION" >
+			
 				<field name="basic_help"  type="spacer" hr="false" class="span-12"
 					label="MOD_SIMPLEICALBLOCK_BASIC_HELP_LB"
  					 />
 				<field name="title_help"  type="note" 
-					label="MOD_SIMPLEICALBLOCK_TITLE_AND_SHOW"
 					description="MOD_SIMPLEICALBLOCK_TITLE_AND_SHOW_HELP"
  					 />
 				<field name="calendar_id_help"  type="note" 

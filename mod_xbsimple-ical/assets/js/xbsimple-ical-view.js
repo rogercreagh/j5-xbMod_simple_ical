@@ -4,7 +4,7 @@
  * restRoot for endpoint passed via inlinescript and this script in enqueue_block_assets 
  * v2.4.1
 **/
-const endpoint = window.simpleIcalBlock.restRoot + "&module=simple_ical_block&method=get&format=json";
+const endpoint = window.simpleIcalBlock.restRoot + "&module=xbsimple-ical&method=get&format=json";
 let titl,epg;
 
 window.simpleIcalBlock = {...(window.simpleIcalBlock || {}), ...{

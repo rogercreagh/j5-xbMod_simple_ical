@@ -28,14 +28,14 @@ use Crosborne\Module\Xbsimpleical\Site\IcsParser;
 use Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper;
 
 if (!empty($wa)) {
-    $wa->addInlineStyle('.simple_ical_block p[hidden]{display:none !important;}', ['name' => 'xbsimple-ical-inline-style']);
+    $wa->addInlineStyle('.xbsimple-ical p[hidden]{display:none !important;}', ['name' => 'xbsimple-ical-inline-style']);
     $wa->useStyle('xbsimpleical.styles');
 }
 if (empty($secho)) {  $secho = ''; }
 
 if (empty($nohead) ) {
     $attributes = SimpleicalHelper::render_attributes( $params->toArray());
-    $secho .= '<div id="' . $attributes['anchorId']  .'" data-sib-id="' . $attributes['sibid'] . '" ' . ' class="simple_ical_block ' . $attributes['title_collapse_toggle']. '" >';
+    $secho .= '<div id="' . $attributes['anchorId']  .'" data-sib-id="' . $attributes['sibid'] . '" ' . ' class="xbsimple-ical ' . $attributes['title_collapse_toggle']. '" >';
 }
 /**
  * Front-end display of module, block or widget.

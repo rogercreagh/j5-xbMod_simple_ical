@@ -1,27 +1,44 @@
 /** css for simple ical module **/
-.simple_ical_block .list-group-item {
+/** default section classes **/
+.xbsical-head {
+	font-weight: bold;
+	font-size: 1.0rem;
+}
+.xbsical-title {
+	font-size: 1.1rem;
+	text-transform: uppercase;
+}
+.xbsical-info {
+	font-size: 1.0rem;
+}
+.xbsical-details {
+	font-size: 0.9rem;
+	color: #888;
+}
+
+.xbsimple-ical .list-group-item {
   margin-bottom: 10px;
 }
-.simple_ical_block .list-group-item .ical-date {
+.xbsimple-ical .list-group-item .ical-date {
   font-weight:bold;
 }
-.simple_ical_block .ical_summary {
+.xbsimple-ical .ical_summary {
   font-size:1.1rem;
   text-transform: uppercase;
 }
-.simple_ical_block .dsc {
+.xbsimple-ical .dsc {
   font-style: italic;
 }
-.simple_ical_block .list-group-item + .list-group-item {
+.xbsimple-ical .list-group-item + .list-group-item {
   border-top-width: 1px;
 }
-.simple_ical_block .simple-ical-widget > .list-group-item.odd {
+.xbsimple-ical .simple-ical-widget > .list-group-item.odd {
   background-color: #f0f0f0;
 }
-.simple_ical_block .simple-ical-widget > .list-group-item.even {
+.xbsimple-ical .simple-ical-widget > .list-group-item.even {
   background-color: #d0d0d0;
 }
-.simple_ical_block .xbsum {
+.xbsimple-ical .xbsum {
 	font-size:0.9rem;
 	color:#888;
 }
@@ -56,3 +73,64 @@
   background-color:#f8f8f8;
   color:#308040;
 }
+/** classes for section and componet use **/
+/* text alignment */
+.xbtl {text-align:left;}
+.xbtc {text-align:center;}
+.xbtr {text-align:right;}
+.xbvc {vertical-align:middle;}
+
+/* font sizes in rem */
+.xbr15 { font-size:1.5rem; }
+.xbr12 { font-size:1.2rem; }
+.xbr11 { font-size:1.1rem; }
+.xbr10 { font-size:1.0rem; }
+.xbr095 { font-size:0.95rem; }
+.xbr09 { font-size:0.9rem; }
+.xbr085 { font-size:0.85rem; }
+
+/* font weights and styles */
+.xbnorm { font-weight: normal; }
+.xbbold { font-weight: bold; }
+.xbit { font-style:italic; }
+
+/* margins */
+.xbm0 { margin:0 !important; } /*flagged important as used to override any template margins*/
+.xbm5 { margin: 5px; }
+
+.xbmt5 { margin-top:5px; }
+.xbmt10 { margin-top:10px; }
+.xbmt15 { margin-top:15px; }
+
+.xbml10 { margin-left:10px; }
+.xbml15 { margin-left:15px; }
+.xbml20 { margin-left:20px; }
+
+.xbmb5 { margin-bottom:5px; }
+.xbmb10 { margin-bottom:10px; }
+.xbmb15 { margin-bottom:15px; }
+
+.xbmr10 { margin-right:10px; }
+.xbmr15 { margin-right:15px; }
+.xbmr20 { margin-right:20px; }
+
+
+/* padding */
+.xbpt5 { padding-top:5px; }
+.xbpt10 { padding-top:10px; }
+.xbpt15 { padding-top:15px; }
+
+.xbpl10 { padding-left:10px; }
+.xbpl15 { padding-left:15px; }
+.xbpl20 { padding-left:20px; }
+
+.xbpb5 { padding-bottom:5px; }
+.xbpb10 { padding-bottom:10px; }
+.xbpb15 { padding-bottom:15px; }
+
+.xbpr10 { padding-right:10px; }
+.xbpr15 { padding-right:15px; }
+.xbpr20 { padding-right:20px; }
+
+
+
