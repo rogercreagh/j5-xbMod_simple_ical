@@ -337,11 +337,6 @@
 			
 			<fieldset name="sectstyles" label="CSS Styles" >
 				
-				<field name="nosection2" type="note"
-					description="XBSICAL_WARN_NO_SECTIONS"
-					showon="layout.headtype:0[AND]layout.titletype:0[AND]layout.infotype:0[AND]layout.detailstype:0"
-				/>
-				
 				<field name="stylesnote" type="note"
 					description="XBSICAL_CLASSES_HELP"
 				/>
@@ -350,59 +345,48 @@
 					label="CSS Classes for Head"
 					description="Module default is bold text 1rem"
 					default="xbsical-head"
-					showon="layout.headtype!:0"
 				/>
 				
 				<field name="headstyle" type="text"
 					label="Extra Styles for Head"
 					description=""
 					default=""
-					showon="layout.headtype!:0"
 				/>
 				
 				<field name="titleclass" type="text"
 					label="CSS Classes for Title"
 					description=""
 					default="xbsical-title"
-					showon="layout.titletype!:0"
 				/>
 				
 				<field name="titlestyle" type="text"
 					label="Extra Styles for Title"
 					description=""
 					default=""
-					hint="font-size:1.1rem;"
-					showon="layout.titletype!:0"
 				/>
 				
 				<field name="infoclass" type="text"
 					label="CSS Classes for Info"
 					description=""
 					default="xbsical-info"
-					showon="layout.infotype!:0"
 				/>
 				
 				<field name="infostyle" type="text"
 					label="Extra Styles for Info"
 					description=""
 					default=""
-					hint="font-size:1.0rem;"
-					showon="layout.infotype!:0"
 				/>
 				
-				<field name="detsclass" type="text"
+				<field name="detailsclass" type="text"
 					label="CSS Classes for Details"
 					description=""
-					default="xbsical-dets"
-					showon="layout.detailstype!:0"
+					default="xbsical-details"
 				/>
 				
 				<field name="detsstyle" type="text"
 					label="Extra Styles for Details"
 					description=""
 					default=""
-					hint="font-size:0.9rem;"
-					showon="layout.detailstype!:0"
 				/>
 				
 				
