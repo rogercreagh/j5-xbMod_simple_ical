@@ -105,7 +105,7 @@ if (empty($nohead) ) {
             $cat_list = '';
             if (!empty($e->categories)) {
                 $ev_class = $ev_class . ' ' . implode( ' ',
-                    array_map( "Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_class"
+                    array_map( 'Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_class'
                         , $e->categories ));
                 if ($cat_disp) {
                     $cat_list = '<div class="categories"><small>'

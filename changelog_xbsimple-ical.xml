@@ -4,7 +4,7 @@
 		<type>module</type>
 		<version>0.2.1.0</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.1.0-beta <span style="font-weight:normal; font-size:1rem;">Updated 28th May 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.1.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 28th May 2026</span></h4>]]></item>
 			<item>Config Layout fieldset added options for sections of event display</item>
 			<item>Config CSS Styles fieldset added with options for classes and styles</item>
 		</addition>
@@ -13,6 +13,7 @@
 		<change>
 		</change>
 		<fix>
+			<item>bug in default tmpl line 108 double quote->single quote error if ical category set</item>
 		</fix>
 		<language>
 			<item>Updates and changes are only made to en-GB using prefix XBSICAL_</item>
