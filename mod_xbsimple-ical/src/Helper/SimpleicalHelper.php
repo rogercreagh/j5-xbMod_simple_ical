@@ -31,6 +31,7 @@ use Joomla\CMS\Response\JsonResponse;
 use Joomla\Filter\InputFilter;
 use Joomla\Registry\Registry;
 use Crosborne\Module\Xbsimpleical\Site\IcsParser;
+use Joomla\CMS\HTML\Helpers\Links;
 
 /**
  * Helper for mod_simple-icalblock
@@ -142,6 +143,7 @@ class SimpleicalHelper
         'lang',
         'role',
         'style',
+        'target',
         'title',
         'type',
         'xml:lang'
@@ -319,6 +321,42 @@ class SimpleicalHelper
             self::$input_fl = new InputFilter(self::$allowed_tags, self::$allowed_attrs, InputFilter::ONLY_ALLOW_DEFINED_TAGS, InputFilter::ONLY_ALLOW_DEFINED_ATTRIBUTES);
         }
         return self::$input_fl->clean($output,'HTML');
+    }
+    
+    /**
+     * @name makeUrlstoLinks()
+     * @desc parses a string replacing any text urls with html links to the url,
+     *  options to show just hostname as link text and to open link in new window/tab.
+     *  Will detect space followed by https:// or http:// or www. as the start of a url and a space as the end.
+     *  Prepends https:// to urls that start with www. and no scheme.
+     *  Strips www. from link text if displaying hostname only.
+     *  Will ignore any existing html <a tags leaving them intact
+     * @param string $string  - the text to have urls converted to Links
+     * @param bool $hostonly - true = only the hostname will be displayed, false = full url as link text
+     * @param bool $newtab - true = open links in new tab,false = current window
+     * @return string $string with links inserted as appropriate
+     */
+    static function makeUrlstoLinks(string $string, $hostonly = true, $newtab = true) {
+        $reg_pattern = '`<a\b[^>]*>.*?<\/a>(*SKIP)(*FAIL)|\b(?:https?://|www)[^,\s()<>]+(?:\([\w\d]+\)|([^,[:punct:]\s]|/))`';
+        preg_match_all($reg_pattern, $string, $match);
+        $targ = ($newtab) ? 'target="_blank"' : '';
+        foreach ($match[0] as $value) {
+            $url = $value;
+            // if url starts with www then prefix https
+            if (preg_match('/^www\./',$url)) $url = 'https://'.$url;
+            if (filter_var($url, FILTER_VALIDATE_URL)) {
+                if ($hostonly) {
+                    $linktext = parse_url($url,PHP_URL_HOST);
+                    // if host starts with www. strip it from link text
+                    $linktext = preg_replace('/^www\./', '', $linktext);
+                } else {
+                    // show the original value for link text
+                    $linktext = $value;
+                }
+                $string = str_replace($value,'<a href="'.$url.'" '.$targ.'>'.$linktext.'</a>',$string);
+            } // if url doesn't pass validation then leave it untouched
+        }
+        return $string;
     }
     
 }

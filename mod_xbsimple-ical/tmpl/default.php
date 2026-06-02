@@ -174,6 +174,7 @@ if (empty($nohead) ) {
                 }
                 }
                 $e->description = str_replace("\n", '<br>', $e->description);
+                $e->description = SimpleicalHelper::makeUrlstoLinks($e->description, true);
                 $secho .= '<span class="dsc">'. $e->description. ((strrpos($e->description, '<br>') === (strlen($e->description) - 4)) ? '' : '<br>'). '</span>';
                 $secho .= '</details>';
             }

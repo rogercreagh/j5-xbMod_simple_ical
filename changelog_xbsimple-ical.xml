@@ -2,11 +2,12 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.1.1</version>
+		<version>0.2.1.2</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.1.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 2nd June 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.1.2-beta <span style="font-weight:normal; font-size:1rem;">Updated 2nd June 2026</span></h4>]]></item>
 			<item>Config Layout fieldset added options for sections of event display</item>
 			<item>Config CSS Styles fieldset added with options for classes and styles</item>
+			<item>Convert urls in description to links to new tab and with hostname only as link text</item>
 		</addition>
 		<remove>
 		</remove>
