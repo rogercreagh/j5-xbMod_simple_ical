@@ -104,13 +104,16 @@ if (empty($nohead) ) {
          */
          
         //get category classes
-        $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : [];
+        $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : ''
+            ;
         //remove unwanted chars
         $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
-        $catclassarr = [];        
-        foreach (explode(',', $catclassstr) as $pair) {
-            list($key, $value) = explode(':', $pair);
-            $catclassarr[strtolower($key)] = $value;
+        $catclassarr = []; 
+        if ($catclassstr != '') {           
+            foreach (explode(',', $catclassstr) as $pair) {
+                list($key, $value) = explode(':', $pair);
+                $catclassarr[strtolower($key)] = $value;
+            }
         }
         
         
