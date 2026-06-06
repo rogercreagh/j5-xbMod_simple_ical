@@ -2,7 +2,7 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/tmpl/default.php
- * @version 0.2.2.0 6th June 2026
+ * @version 0.2.2.0 1st May 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -38,6 +38,9 @@ if (empty($nohead) ) {
 }
 /**
  * Front-end display of module, block or widget.
+ *
+ * @see
+ *
  * @param array $attributes
  * @param string &$secho (reference to $secho), output to echo in calling function, to simplify escaping output by replacing multiple echoes by one
  *            Saved attribute/option values from database.
@@ -62,7 +65,6 @@ if (empty($nohead) ) {
         $attributes['tzid_ui'] = 'UTC';
         $attributes['tz_ui'] = new \DateTimeZone('UTC');
     }
-    
     $layout = (isset($attributes['sib_layout'])) ? intval($attributes['sib_layout']) : 3;
     $dflg = (isset($attributes['dateformat_lg'])) ? $attributes['dateformat_lg'] : 'l jS \of F';
     $dflgend = (isset($attributes['dateformat_lgend'])) ? $attributes['dateformat_lgend'] : '';
@@ -83,37 +85,6 @@ if (empty($nohead) ) {
     $ipd = IcsParser::getData($attributes);
     $data = $ipd['data'];
     if (!empty($data) && is_array($data)) {
-        
-        /**
-         * pseudo code having got all events
-         * if head layout is group then start group
-         *  make group frame
-         * endif
-         * foreach event
-         *  if head is group check if same day
-         *      if not same day close group frame and start new
-         *  else
-         *      build head section
-         *  endif
-         *  build title section
-         *  build info section
-         *  build details section
-         * end foreach
-         * if head is group close group frame
-         *   
-         */
-         
-        //get category classes
-        $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : [];
-        //remove unwanted chars
-        $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
-        $catclassarr = [];        
-        foreach (explode(',', $catclassstr) as $pair) {
-            list($key, $value) = explode(':', $pair);
-            $catclassarr[strtolower($key)] = $value;
-        }
-        
-        
         $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget" > ';
         $curdate = '';
         $odd = false;
@@ -136,19 +107,9 @@ if (empty($nohead) ) {
                     array_map( 'Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_class'
                         , $e->categories ));
                 if ($cat_disp) {
-                    foreach ($e->categories as $cat) {
-                        $cat_list .= '<span class="xblabel ';
-                        if (key_exists(strtolower($cat), $catclassarr)) {
-                            $cat_list .= $catclassarr[$cat];
-                            
-                        } else {
-                            $cat_list .= 'label-ltgrey';
-                        }
-                        $cat_list .= '">'.$cat.'</span> ';
-                    }
-                    //$cat_list = '<div class="categories"><small>'
-                    //    . implode($cat_sep,str_replace("\n", '<br>', $e->categories ))
-                    //    . '</small></div>';
+                    $cat_list = '<div class="categories"><small>'
+                        . implode($cat_sep,str_replace("\n", '<br>', $e->categories ))
+                        . '</small></div>';
                 }
             }
             if (! $sameday) {
@@ -156,16 +117,13 @@ if (empty($nohead) ) {
             }
             $evdtsum = (($e->startisdate === false) ? $e_dtstart->format($dftsum, true, true) . $e_dtend->format($dftsend, true, true) : '');
             if ($layout < 2 && $curdate != $evdate) {
-            //layout type is group
                 if  ($curdate != '') {
                     $secho .= '</ul></li>';
                 }
                 $secho .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">' . '<span class="ical-date">' . ucfirst($evdate) . '</span><ul class="list-group' . $attributes['suffix_lg_class'] . '">';
                 $odd = !$odd;
-            } //endif group
-            
+            }
             $secho .= '<li class="list-group-item' . $sflgi . $ev_class . '">';
-            
             if ($layout == 3 && $curdate != $evdate) {
                 $secho .= '<span class="ical-date">' . ucfirst($evdate) . '</span>' . (('a' == $attributes['tag_sum']) ? '<br>' : '');
                 $odd = !$odd;

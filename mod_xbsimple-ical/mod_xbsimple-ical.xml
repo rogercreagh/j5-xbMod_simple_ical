@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
-	<creationDate>2nd June 2026</creationDate>	
+	<creationDate>6th June 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
-	<version>0.2.1.2</version>
+	<version>0.2.2.0</version>
 	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_xbsimple-ical' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
 	
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
@@ -62,6 +62,14 @@
 
 			<fieldset name="layout" label="XBSICAL_LAYOUT">
 			
+              	<field name="layoutnote" type="note" 
+              		description="XBSICAL_LAYOUT_OPTS_NOTE" 
+              	/>
+
+				<field name="dtfmthelp" type="note"
+					description="XBSICAL_TIMEFORMAT_HELP"
+				/>				
+				
 				<field name="endtype" type="radio"
 					label="XBSICAL_END_OR_DUR"
 					description="XBSICAL_END_OR_DUR_DESC"
@@ -79,10 +87,11 @@
 					showon="endtype:2"
 				/>
 				
-              	<field name="layoutnote" type="note" 
-              		description="XBSICAL_LAYOUT_OPTS_NOTE" 
-              	/>
-
+				<field name="nosection" type="note"
+					description="XBSICAL_WARN_NO_SECTIONS"
+					showon="headtype:0[AND]titletype:0[AND]infotype:0[AND]detailstype:0"
+				/>
+				
 				<field name="sectionnote1" type="note"					
 					description="XBSICAL_SECTION_OPTS_NOTE"
 				/>
@@ -156,20 +165,6 @@
 					<option value="1">JSHOW</option>
 				</field>
 				
-		        <field name="titledatefmt" type="text"
-		        	label="XBSICAL_TITLE_DATE_FMT"
-		        	hint="XBSICAL_DATE_FMT_DESC"
-		        	default="F jS"
-		        	showon="titletype:1"
-		        />
-								
-		        <field name="titletimefmt" type="text"
-		        	label="XBSICAL_TITLE_TIME_FMT"
-		        	hint="XBSICAL_TIME_FMT_DESC"
-		        	default="G:i"
-		        	showon="titletype:1"
-		        />
-								
 				<field name="titlecomps" type="subform"
 			        label="XBSICAL_TITLE_COMPS"
 			        description="XBSICAL_TITLE_COMPS_DESC"
@@ -202,6 +197,20 @@
 				    </form>
 				</field>
 				
+		        <field name="titledatefmt" type="text"
+		        	label="XBSICAL_TITLE_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="F jS"
+		        	showon="titletype:1"
+		        />
+								
+		        <field name="titletimefmt" type="text"
+		        	label="XBSICAL_TITLE_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="titletype:1"
+		        />
+								
 				<field name="infotype" type="radio"
 					label="XBSICAL_INFO_SHOW"
 					description="XBSICAL_INFO_SHOW_DESC"
@@ -212,20 +221,6 @@
 					<option value="1">JSHOW</option>
 				</field>
 				
-		        <field name="infodatefmt" type="text"
-		        	label="XBSICAL_INFO_DATE_FMT"
-		        	hint="XBSICAL_DATE_FMT_DESC"
-		        	default="l jS \of F"
-		        	showon="infotype:1"
-		        />
-								
-		        <field name="infotimefmt" type="text"
-		        	label="XBSICAL_INFO_TIME_FMT"
-		        	hint="XBSICAL_TIME_FMT_DESC"
-		        	default="G:i"
-		        	showon="infotype:1"
-		        />
-								
 				<field name="infocomps" type="subform"
 			        label="XBSICAL_INFO_COMPS"
 			        description="XBSICAL_INFO_COMPS_DESC"
@@ -259,6 +254,20 @@
 				    </form>
 				</field>
 				
+		        <field name="infodatefmt" type="text"
+		        	label="XBSICAL_INFO_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="l jS \of F"
+		        	showon="infotype:1"
+		        />
+								
+		        <field name="infotimefmt" type="text"
+		        	label="XBSICAL_INFO_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="infotype:1"
+		        />
+								
 				<field name="detailstype" type="radio"
 					label="XBSICAL_DETS_SHOW"
 					description="XBSICAL_DETS_SHOW_DESC"
@@ -271,20 +280,13 @@
 					<option value="3">XBSICAL_FULL</option>
 				</field>
 				
-		        <field name="detsdatefmt" type="text"
-		        	label="XBSICAL_DETS_DATE_FMT"
-		        	hint="XBSICAL_DATE_FMT_DESC"
-		        	default="l jS \of F"
-		        	showon="detailstype!:0"
-		        />
-								
-		        <field name="detstimefmt" type="text"
-		        	label="XBSICAL_DETS_TIME_FMT"
-		        	hint="XBSICAL_TIME_FMT_DESC"
-		        	default="G:i"
-		        	showon="detailstype!:0"
-		        />
-								
+				<field name="detailsprompt" type="text"
+					label="XBSICAL_DETS_PROMPT"
+					description="XBSICAL_DETS_PROMPT_DESC"
+					default="more info ..."
+					showon="detailstype:1[OR]detailstype:2"
+				/>
+				
 				<field name="detailscomps" type="subform"
 			        label="XBSICAL_DETS_SHOW"
 			        description="XBSICAL_DETS_SHOW_DESC"
@@ -317,22 +319,20 @@
 				    </form>
 				</field>
 				
-				<field name="detailsprompt" type="text"
-					label="XBSICAL_DETS_PROMPT"
-					description="XBSICAL_DETS_PROMPT_DESC"
-					default="more info ..."
-					showon="detailstype:1[OR]detailstype:2"
-				/>
-				
-				<field name="nosection" type="note"
-					description="XBSICAL_WARN_NO_SECTIONS"
-					showon="headtype:0[AND]titletype:0[AND]infotype:0[AND]detailstype:0"
-				/>
-				
-				<field name="dtfmthelp" type="note"
-					description="XBSICAL_TIMEFORMAT_HELP"
-				/>				
-				
+		        <field name="detsdatefmt" type="text"
+		        	label="XBSICAL_DETS_DATE_FMT"
+		        	hint="XBSICAL_DATE_FMT_DESC"
+		        	default="l jS \of F"
+		        	showon="detailstype!:0"
+		        />
+								
+		        <field name="detstimefmt" type="text"
+		        	label="XBSICAL_DETS_TIME_FMT"
+		        	hint="XBSICAL_TIME_FMT_DESC"
+		        	default="G:i"
+		        	showon="detailstype!:0"
+		        />
+								
 			</fieldset>
 			
 			<fieldset name="sectstyles" label="CSS Styles" >
@@ -389,6 +389,15 @@
 					default=""
 				/>
 				
+				<field name="compclassnote" type="note"
+					label="Classes for Individual Components"
+				/>
+				
+				<field name="catclasses" type="text"
+					label="Classes for Categories"
+					description="Categories are displayed as labels, by default white on dark grey, Here you can list category:class pairs separated by commas to set different colours for the labels per category name"
+					hint="CategoryA:classa,CategoryB:classb"
+				/>
 				
 				<field name="defaultcss" type="note"
 					description="XBSICAL_DEFAULT_CSS"

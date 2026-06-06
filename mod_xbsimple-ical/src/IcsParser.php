@@ -14,6 +14,9 @@
  *
  * note that this class does not implement all ICS functionality.
  */
+
+/** modify to include all the events on the last day if limiting by event count - maaybe as an option) **/
+
 namespace Crosborne\Module\Xbsimpleical\Site;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
