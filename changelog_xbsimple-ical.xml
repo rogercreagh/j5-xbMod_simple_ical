@@ -2,9 +2,9 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.2.0</version>
+		<version>0.2.2.1</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.2.0-beta <span style="font-weight:normal; font-size:1rem;">Updated 6th June 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.2.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 6th June 2026</span></h4>]]></item>
 			<item>New option for classes to apply to event categories by name</item>
 			<item>CSS for labels and label colours</item>
 		</addition>

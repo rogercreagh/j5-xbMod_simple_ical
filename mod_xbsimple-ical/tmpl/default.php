@@ -142,8 +142,7 @@ if (empty($nohead) ) {
                     foreach ($e->categories as $cat) {
                         $cat_list .= '<span class="xblabel ';
                         if (key_exists(strtolower($cat), $catclassarr)) {
-                            $cat_list .= $catclassarr[$cat];
-                            
+                            $cat_list .= $catclassarr[strtolower($cat)];                           
                         } else {
                             $cat_list .= 'label-ltgrey';
                         }
@@ -178,7 +177,7 @@ if (empty($nohead) ) {
                 $secho .= '<details class="ical_details' . $sflgia . '" id="'. $itemid. '">';
             }
             
-            
+     // summary section ---------------------------- 
             $secho .=  '<' . $attributes['tag_sum'] . ' class="ical_summary' . $sflgia . (('a' == $attributes['tag_sum']) ? '" data-toggle="collapse" data-bs-toggle="collapse" href="#' . $itemid . '" aria-expanded="false" aria-controls="' . $itemid . '">' : '">');
             if ($layout != 2)	{
                 $secho .= $evdtsum;
@@ -206,6 +205,8 @@ if (empty($nohead) ) {
             if ('summary' != $attributes['tag_sum']) {
                 $secho .= '<div class="ical_details' . $sflgia . (('a' == $attributes['tag_sum']) ? ' collapse' : '') . '" id="'. $itemid. '">';
             }
+            
+       // description section -----------------------
             
             if(!empty($e->description) && trim($e->description) > '' && $excerptlength !== 0) {
                 $secho .= '<details><summary class="xbsum">more details</summary>';
