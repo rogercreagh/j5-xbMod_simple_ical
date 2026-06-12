@@ -73,12 +73,13 @@ if (empty($nohead) ) {
     $excerptlength = (isset($attributes['excerptlength']) && ' ' < trim($attributes['excerptlength']) ) ? (int) $attributes['excerptlength'] : '' ;
     $sflgi = $attributes['suffix_lgi_class'];
     $sflgia = $attributes['suffix_lgia_class'];
-    if (empty($attributes['categories_display'])) {
-        $cat_disp = false;
-    } else {
-        $cat_disp = true;
-        $cat_sep = '</small>'.$attributes['categories_display'].'<small>';
-    }
+ //   if (empty($attributes['categories_display'])) {
+ //       $cat_disp = false;
+ //   } else {
+ //       $cat_disp = true;
+ //       $cat_sep = '</small>'.$attributes['categories_display'].'<small>';
+ //    }cat_disp
+    
     if (! in_array($attributes['tag_sum'], SimpleicalHelper::$allowed_tags_sum))  $attributes['tag_sum'] = 'a';
     $ipd = IcsParser::getData($attributes);
     $data = $ipd['data'];
@@ -103,16 +104,19 @@ if (empty($nohead) ) {
          *   
          */
          
-        //get category classes
-        $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : ''
-            ;
-        //remove unwanted chars
-        $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
+        $show_cats = (isset($attributes['showcats'])) ? (int) $attributes['showcats'] : 0;
         $catclassarr = []; 
-        if ($catclassstr != '') {           
-            foreach (explode(',', $catclassstr) as $pair) {
-                list($key, $value) = explode(':', $pair);
-                $catclassarr[strtolower($key)] = $value;
+        if ($show_cats) {
+            //get category classes
+            $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : '';
+            //remove unwanted chars including spaces- only alphanumeric, comma, colon, underscore and hyphen allowed
+            $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
+            // split string at commas then split each element into key:value at colon
+            if ($catclassstr != '') {           
+                foreach (explode(',', $catclassstr) as $pair) {
+                    list($key, $value) = explode(':', trim($pair));
+                    $catclassarr[strtolower(trim($key))] = trim($value);
+                }
             }
         }
         
@@ -132,27 +136,27 @@ if (empty($nohead) ) {
             $e_dtend_1->setTimezone($attributes['tz_ui']);
             $evdate = $e_dtstart->format($dflg, true, true);
             $sameday = ($e_dtstart->format('yz', true, true) === $e_dtend->format('yz', true, true));
-            $ev_class =  ((!empty($e->cal_class)) ? ' ' . SimpleicalHelper::sanitize_html_clss($e->cal_class): '');
+            $ev_class =  ((!empty($e->cal_class)) ? ' ' . SimpleicalHelper::sanitize_html_str($e->cal_class,'_ -'): '');
             $cat_list = '';
+            $is_repeat = isset($e->rrule);
+            //build category list
             if (!empty($e->categories)) {
                 $ev_class = $ev_class . ' ' . implode( ' ',
-                    array_map( 'Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_class'
+                    array_map( 'Crosborne\Module\Xbsimpleical\Site\Helper\SimpleicalHelper::sanitize_html_str'
                         , $e->categories ));
-                if ($cat_disp) {
+                if ($show_cats) {
                     foreach ($e->categories as $cat) {
-                        $cat_list .= '<span class="xblabel ';
+                        $cat_list .= '<span class="';
                         if (key_exists(strtolower($cat), $catclassarr)) {
                             $cat_list .= $catclassarr[strtolower($cat)];                           
                         } else {
-                            $cat_list .= 'label-ltgrey';
+                            $cat_list .= 'xbic-label xbic-ltgrey';
                         }
                         $cat_list .= '">'.$cat.'</span> ';
                     }
-                    //$cat_list = '<div class="categories"><small>'
-                    //    . implode($cat_sep,str_replace("\n", '<br>', $e->categories ))
-                    //    . '</small></div>';
                 }
             }
+            
             if (! $sameday) {
                 $evdate = str_replace(array("</div><div>", "</h4><h4>", "</h5><h5>", "</h6><h6>" ), '', $evdate . $e_dtend_1->format($dflgend, true, true));
             }

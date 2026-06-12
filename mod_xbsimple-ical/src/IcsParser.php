@@ -85,6 +85,7 @@ END:VCALENDAR';
     /**
      *
      * @var array english abbreviations and names of weekdays.
+     * moved to language file as XBSIC_DD
      */
     private static $weekdays = array(
         'MO' => 'monday',

@@ -52,7 +52,7 @@ class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareI
     {
         $data = parent::getLayoutData();
         $data['params']->set('sibid', $data['module']->id);
-        $data['params']->set('anchorId', SimpleicalHelper::sanitize_html_clss($data['params']->get('anchorId'), 'simpleicalblock' . $data['params']->get('sibid')));
+        $data['params']->set('anchorId', SimpleicalHelper::sanitize_html_str($data['params']->get('anchorId'), '- _', 'simpleicalblock' . $data['params']->get('sibid')));
         $data['params']->set('clear_cache_now', FALSE); // only clear transient on save in admin.
         $data['direction'] = $data['app']->getDocument()->direction;
         $data['wa'] = $data['app']->getDocument()->getWebAssetManager();

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
-	<creationDate>7th June 2026</creationDate>	
+	<creationDate>12th June 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
-	<version>0.2.2.1</version>
+	<version>0.2.3.0</version>
 	<description><![CDATA[<style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module<br />Displays a list of forthcoming events from a VCALENDAR source <br />Based on <a href='https://github.com/bramwaas/joomla_mod_xbsimple-ical' target='_blank'>Simple_Ical_Block</a> module v3.0.0 by A.H.C. Waasdorp modified RogerCO from April 2026</p></div>]]></description>
 	
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
@@ -66,9 +66,14 @@
               		description="XBSICAL_LAYOUT_OPTS_NOTE" 
               	/>
 
-				<field name="dtfmthelp" type="note"
-					description="XBSICAL_TIMEFORMAT_HELP"
-				/>				
+				<field name="showcats" type="radio"
+					label="Show Event Categories"
+					description="Event categories are not linked to Joomla Categories or Tags (although they may have the same name). If shown in any section they will appear in a div as labels. The styling of the label can be specified on the CSS tab here i the Category Classes option"
+					class="btn-group btn-group-yesno"
+				>
+					<option value="0">JHIDE</option>
+					<option value="1">JSHOW</option>
+				</field>
 				
 				<field name="endtype" type="radio"
 					label="XBSICAL_END_OR_DUR"
@@ -79,6 +84,10 @@
 					<option value="1">XBSICAL_END_AS_TIME</option>
 					<option value="2">XBSICAL_END_AS_DURATION</option>					
 				</field>
+				
+				<field name="dtfmthelp" type="note"
+					description="XBSICAL_TIMEFORMAT_HELP"
+				/>				
 				
 				<field name="durationfmt" type="text"
 					label="XBSICAL_DURATION_FMT"
@@ -99,12 +108,11 @@
 				<field name="headtype" type="radio"
 					label="XBSICAL_HEADER_SHOW"
 					description="XBSICAL_HEADER_SHOW_DESC"
-					default="0"
+					default="1"
 					class="btn-group btn-group-yesno"
 				>
-					<option value="0">JHIDE</option>
-					<option value="1">XBSICAL_GROUP_DATE</option>
-					<option value="2">XBSICAL_SPECIFY_COMPS</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				
 				<field name="headgroupopts" type="radio"
@@ -125,40 +133,9 @@
 		        	showon="headtype:1"
 		        />
 								
-				<field name="headcomps" type="subform"
-			        label="XBSICAL_HEAD_COMPS"
-			        description="XBSICAL_HEAD_COMPS_DESC"
-			        multiple="true"
-			        min="0"  max="6"
-					buttons= "add,remove,move"
-					layout="joomla.form.field.subform.repeatable-table"
-			  		showon="headtype:2"
-				>
-				    <form>
-				        <field name="comps" type="list"
-				        	label="XBSICAL_CAL_COMPS"
-				        >
-				          <option value="startdate">XBSICAL_START_DATE</option>
-				          <option value="enddate">XBSICAL_END_DATE</option>
-				          <option value="starttime">XBSICAL_START_TIME</option>
-				          <option value="endtime">XBSICAL_END_TIME_DURATION</option>
-				          <option value="summary">XBSICAL_SUMMARY</option>
-				          <option value="location">XBSICAL_LOCATION</option>
-				        </field>
-				        <field name="compprefix" type="text"
-				        	label="XBSICAL_PREFIX"
-				        	hint="XBSICAL_PRESUF_HINT"
-				        />
-				        <field name="compsuffix" type="text"
-				        	label="XBSICAL_SUFFIX"
-				        	hint="XBSICAL_PRESUF_HINT"
-				        />
-				    </form>
-				</field>
-				
 				<field name="titletype" type="radio"
 					label="XBSICAL_TITLE_SHOW"
-					default="0"
+					default="1"
 					class="btn-group btn-group-yesno"
 				>
 					<option value="0">JHIDE</option>
@@ -392,11 +369,12 @@
 				<field name="compclassnote" type="note"
 					label="Classes for Individual Components"
 				/>
+
 				
 				<field name="catclasses" type="text"
 					label="Classes for Categories"
-					description="Categories are displayed as labels, by default white on dark grey, Here you can list category:class pairs separated by commas to set different colours for the labels per category name"
-					hint="CategoryA:classa,CategoryB:classb"
+					description="Categories are displayed as labels, by default white on dark grey, Here you can list category:class pairs separated by commas to set different colours for the labels per category name. Category names are NOT case sensitive"
+					hint="CatName1:classa classb, CatName2:classa classb"
 				/>
 				
 				<field name="defaultcss" type="note"

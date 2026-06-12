@@ -2,7 +2,7 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/src/Helper/SimpleicalHelper.php
- * @version 0.2.0.0 8th May 2026
+ * @version 0.2.3.0 11th June 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -22,7 +22,9 @@ namespace Crosborne\Module\Xbsimpleical\Site\Helper;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
 
+use DateTime;
 use Joomla\CMS\Date\Date as Jdate;
+use NumberFormatter;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Helper\ModuleHelper;
@@ -196,25 +198,29 @@ class SimpleicalHelper
         'after_title'   => '</h3>'
     ];
     /**
-     * copied from WP sanitize_html_class, and added space as allowed character to accomodate multiple classes in one string.
+     * @desc copied from WP sanitize_html_str, and added space as allowed character to accomodate multiple classes in one string.
      * Strips the string down to A-Z, ,a-z,0-9,_,-. If this results in an empty string then it will return the alternative value supplied.
-     *
+     * added $allow param to specify extra chars to be allowed (eg punctuation)
      * @param string $class
      * @param string $fallback
+     * @param string $allow
      * @return string sanitized class or fallback.
      */
-    static function sanitize_html_clss( $class, $fallback = '' ) {
+    /**
+    static function sanitize_html_clss( $class, $fallback = '', $allow = '' ) {
         // Strip out any %-encoded octets.
         $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', (string) $class );
         
         // Limit to A-Z, ' ', a-z, 0-9, '_', '-'.
-        $sanitized = preg_replace( '/[^A-Z a-z0-9_-]/', '', $sanitized );
+        $sanitized = preg_replace( '/[^A-Z a-z0-9_-'.$allow.']/', '', $sanitized );
         
         if ( '' === $sanitized && $fallback ) {
             return  $fallback;
         }
         return $sanitized;
     }
+    */
+    
     /**
      * Merge block attributes with defaults to be sure they exist is necesary.
      *
@@ -227,28 +233,29 @@ class SimpleicalHelper
             $block_attributes
             );
         if (!in_array($block_attributes['tag_sum'], self::$allowed_tags_sum)) $block_attributes['tag_sum'] = 'a';
-        $block_attributes['suffix_lg_class'] = self::sanitize_html_clss($block_attributes['suffix_lg_class']);
-        $block_attributes['suffix_lgi_class'] = self::sanitize_html_clss($block_attributes['suffix_lgi_class']);
-        $block_attributes['suffix_lgia_class'] = self::sanitize_html_clss($block_attributes['suffix_lgia_class']);
+        $block_attributes['suffix_lg_class'] = self::sanitize_html_str($block_attributes['suffix_lg_class'],'_ -');
+        $block_attributes['suffix_lgi_class'] = self::sanitize_html_clss($block_attributes['suffix_lgi_class'],'_ -');
+        $block_attributes['suffix_lgia_class'] = self::sanitize_html_clss($block_attributes['suffix_lgia_class'],'_ -');
         
         return $block_attributes;
     }
     /**
-     * copied from WP sanitize_html_class. (only for one class)
-     * Strips the string down to A-Z,a-z,0-9,_,-. If this results in an empty string then it will return the alternative value supplied.
+     * @name sanitize_html_str()
+     * @desc copied from WP sanitize_html_str. (only for one class)
+     * Strips the string down to A-Z,a-z,0-9 plus the $allow param. 
+     * If this results in an empty string then it will return the $fallback param.
      *
-     * @param string $class
-     * @param string $fallback
-     * @return string sanitized class or fallback.
+     * @param string $str2clean
+     * @param string $allow - default to hyphen and underscore
+     * @param string $fallback - default to empty string
+     * @return string sanitized string or fallback.
      */
-    static function sanitize_html_class( $class, $fallback = '' ) {
+    static function sanitize_html_str( $str2clean, $allow = '_-', $fallback = ''  ) {
         // Strip out any %-encoded octets.
-        $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', (string) $class );
-        
+        $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', (string) $str2clean );        
         // Limit to A-Z, a-z, 0-9, '_', '-'.
-        $sanitized = preg_replace( '/[^A-Za-z0-9_-]/', '', $sanitized );
-        
-        if ( '' === $sanitized && $fallback ) {
+        $sanitized = preg_replace( '/[^A-Za-z0-9'.$allow.']/', '', $sanitized );        
+        if ( $sanitized === '' ) {
             return  $fallback;
         }
         return $sanitized;
@@ -357,6 +364,146 @@ class SimpleicalHelper
             } // if url doesn't pass validation then leave it untouched
         }
         return $string;
+    }
+    
+    /**
+     * @name parseKeyValueStr()
+     * @desc returns an array of ['key1'=>'val1',...] from a string of 'key1:val1,$key:val2...'
+     * the separator characters between pairs and between key and value can be specified in the params
+     * @param string $valstr - string containing key:value pairs
+     * @param string $sep1 - defaults to comma ','
+     * @param string $sep2 - defaults to colon ':'
+     * @return array[]
+     */
+    static function parseKeyValueStr(string $valstr, $sep1 = ",", $sep2 = ":") {
+        $valarr = [];
+        foreach (explode($sep1, $valstr) as $pair) {
+            list($key, $value) = explode($sep2, $pair);
+            $valarr[trim($key)] = trim($value);
+        }        
+        return $valarr;
+    }
+    
+    /**
+     * @name int2orderstr()
+     * @desc converts integer to string with ordinal suffix
+     * if php intl is loaded will use current language suffixes
+     * @param int $number
+     * @return string
+     */
+    static function int2ordstr($number){
+        if ($number<0) $number=$number * -1;
+        if (extension_loaded('intl')) {
+            $lang = Factory::getApplication()->get('tag');
+            $formatter = new NumberFormatter($lang, NumberFormatter::ORDINAL);
+            return $formatter->format($number);
+        } else {
+            $last = substr($number, -1);
+            $lastTwo = substr($number, -2);
+            
+            // Handle 11th, 12th, 13th exceptions
+            if ($lastTwo >= 11 && $lastTwo <= 13) {
+                return $number . 'th';
+            }
+            
+            switch ($last) {
+                case '1': return $number . 'st';
+                case '2': return $number . 'nd';
+                case '3': return $number . 'rd';
+                default:  return $number . 'th';
+            }
+        }
+        return (string) $number;
+    }
+    
+    /**
+     * @name iso8601toStr()
+     * @desc converts ISO8601 format date to text string per given format string
+     * @param string $iso
+     * @param string $fmt
+     * @return string
+     */
+    static function iso8601toStr(string $iso, $fmt = 'D jS M \'y') {
+        $date = DateTime::createFromFormat('Ymd\THis\Z', strtoupper($iso));       
+        if ($date) {
+            return $date->format($fmt);
+        } else {
+            return "Invalid date format";
+        }        
+    }
+    
+    /**
+     * @name rrule2text()
+     * @desc given recurrence elements for VEVENT will returns human readable text version
+     * @param string $rrule
+     * @return string
+     */
+    static function rrule2text(string $rrule) {
+        // make rule lower case to avoid errors with case
+        $rrule = strtolower($rrule);
+        $rulearr = self::parseKeyValueStr($rrule,";","=");
+        
+        $text = "";
+        // FREQ is required
+        if (!isset($rulearr['freq'])) return '';
+        $cntstr = (isset($rulearr['count'])) ? ' '.$rulearr['count'].' times ' : '';
+        $tillstr = (isset($rulearr['until'])) ? ' until '.self::iso8601toStr($rulearr['until']) : '';
+        $intstr = ''; 
+        $text = Text::_('Repeats').' '.$rulearr['freq'].$cntstr.$tillstr;
+        switch ($rulearr['freq']) {
+            case 'daily':
+                $intstr = 'days';
+                break;
+            case 'weekly':
+                $intstr = 'weeks';
+                // $interval = 'weekly ';
+             //   $text .= $interval;
+                $daysarr = explode(',',$rulearr['byday']);
+                $daystr = '';
+                $langprefix = (count($daysarr) > 1) ? 'XBSICAL_S' : 'XBSICAL_';
+                foreach ($daysarr as $day) {
+                    $daystr .= Text::_($langprefix.strtoupper($day)).', ';
+                }
+                $daystr = trim($daystr,', '); //get rid of trailing comma & space
+                // strings are reversed to find the first instead of last comma
+                if (count($daysarr) > 1) $daystr = strrev(preg_replace(strrev("/,/"),';pma& ',strrev($daystr),1));
+                $text .= ' on '.$daystr;               
+                break;
+            case 'monthly':
+                $intstr = 'months';
+                if (isset($rulearr['byday'])) {
+                    $byday = $rulearr['byday'];
+                    // get the day of week
+                    $day = 'XBSICAL_'.strtoupper(ltrim($byday,'- 0..9'));
+                    $num = (int) $rulearr['byday'];
+                    $ord = self::int2ordstr($num);
+                    if (($num > 0) && ($num < 6)) { //never more than 5 mondays (eg) in a month
+                        //we've got a numbered weekday of the month
+                        $ord = self::int2ordstr($num);
+                        // every Nth of WEEKDAY the month
+                        $text .= ' on '.$ord.' '.Text::_($day);
+                    } elseif ($num === -1) {
+                        $text .= ' on the last '.Text::_($day);
+                    } elseif (($num < -1) && ($num > -6)) {
+                        $text .= ' on the '.$ord.' to last '.Text::_($day);
+                    } else {
+                        // this is impossible 
+                        $text = '';
+                    }                   
+                } elseif (isset($rulearr['bymonthday'])) {
+                    $ord = self::int2ordstr($rulearr['bymonthday']);
+                    $text .= ' on the '.$ord;
+                   
+                }
+                break;
+            default:
+                $text = '';
+            break;
+        }   
+        if (isset($rulearr['interval']) && ($rulearr['interval'] > 1)) {
+            $text .= ' every '.$rulearr['interval'].' '.$intstr;
+        }       
+        return $text;
     }
     
 }

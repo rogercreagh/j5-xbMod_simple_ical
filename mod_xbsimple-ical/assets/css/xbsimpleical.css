@@ -1,4 +1,5 @@
 /** css for simple ical module **/
+
 .xbsimple-ical p[hidden]{
 	display:none !important;
 }
@@ -139,168 +140,86 @@
 
 /* badges and labels */
 
-.xblabel,
-.xbbadge {
+.xbic-label {
 	display: inline-block;
 	font-weight: bold;
+	font-size: 0.8rem;
 	color: #fff;
+	line-height: 1.0rem;
 	vertical-align: baseline;
 	white-space: nowrap;
-	text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-	background-color: #999;
-    border: solid 1px #777;
-}
-#xbcomponent a.xblabel {
-	color: #fff; /* fix for annoying change in Atum template */
-}
-.xblabel {
-	font-size: 0.8rem;
-	line-height: 1.0rem;
-	padding: 3px 6px 4px 6px;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
-}
-.xbbadge {
-	font-size: 0.8rem;
-	line-height: 1.0rem;
-	padding: 4px 9px;
-	-webkit-border-radius: 9px;
-	-moz-border-radius: 9px;
-	border-radius: 9px;
-}
-.xblabel:empty,
-.xbbadge:empty {
-	display: none;
-}
-a.xblabel, a.xbbadge {text-decoration: none !important; }
-a.xblabel:hover,
-a.xblabel:focus,
-a.xbbadge:hover,
-a.xbbadge:focus {
-	color: #fff;
-	text-decoration: none;
-	cursor: pointer;
-}
-.xbbadge-large, .xblabel-large {
-   line-height:1.5em !important; 
-   padding:0 12px !important; 
-   font-size:1.2em !important;
-}
-.xbbadge, .xblabel {
+	padding: 3px 7px 2px 7px;
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
 	text-shadow: none;
 }
 
-.label-important,
-.badge-important {
-	background-color: #a94442;
+.xbic-pink {
+	background-color: #ed7bb0;
 }
-.label-important[href],
-.badge-important[href] {
-	background-color: #843534;
+.xbic-red {
+	background-color: #e70000;
 }
-.label-warning,
-.badge-warning {
-	background-color: #f89406;
+.xbic-yellow {
+	background-color: #f7f78f; 
 }
-.label-warning[href],
-.badge-warning[href] {
-	background-color: #c67605;
-}
-.label-success,
-.badge-success {
-	background-color: #3c763d;
-}
-.label-success[href],
-.badge-success[href] {
-	background-color: #2b542c;
-}
-.label-info,
-.badge-info {
-	background-color: #31708f;
-}
-.label-info[href],
-.badge-info[href] {
-	background-color: #245269;
-}
-.label-inverse,
-.badge-inverse {
-	background-color: #333;
-}
-.label-inverse[href],
-.badge-inverse[href] {
-	background-color: #1a1a1a;
-}
-.badge-pink, .label-pink {
-	background-color: rgb(255, 170, 174)!important;
-}
-.badge-red, .label-red {
-	background-color: #e70000 !important;
-}
-.badge-yellow, .label-yellow {
-	background-color: #f7f78f !important; 
-}
-.badge-gold, .label-gold {
+.xbic-gold {
 	background-color: #FFB514;
 }
-.badge-orange, .label-orange {
-	background-color: #e66100 !important;
+.xbic-orange {
+	background-color: #e66100;
 }
-.badge-ltgreen, .label-ltgreen {
-	background-color: #ccffcc !important;
+.xbic-ltgreen {
+	background-color: #ccffcc;
 }
-.badge-green, .label-green {
-	background-color: #009900 !important;
+.xbic-green {
+	background-color: #009900;
 }
-.badge-cat, .label-cat {
-	background-color: #007700 !important;
+.xbic-cat {
+	background-color: #007700;
 }
-.badge-cyan, .label-cyan {
-	background-color: #5fffff !important;
+.xbic-cyan {
+	background-color: #5fffff;
 }
-.badge-drkcyan, .label-drkcyan {
-	background-color: #00a0a0 !important;
+.xbic-drkcyan {
+	background-color: #00a0a0;
 }
-.badge-ltblue, .label-ltblue {
-	background-color: #99c1f1!important;
+.xbic-ltblue {
+	background-color: #99c1f1;
 }
-.badge-blue, .label-blue{
-	background-color: #0000cf !important;
+.xbic-blue{
+	background-color: #0000cf;
 }
-.badge-tag, .label-tag {
-	background-color: #3f61db !important;
+.xbic-tag {
+	background-color: #3f61db;
 }
-.badge-aoy, .label-aoy {
-	background-color: #d36383 !important;
+.xbic-aoy {
+	background-color: #d36383;
 }
-.badge-ltmag, .label-ltmag {
-	background-color: #ffbbff !important;
+.xbic-ltmag {
+	background-color: #ffbbff;
 }
-.badge-mag, .label-mag {
-	background-color: #7f007f !important;
+.xbic-mag {
+	background-color: #7f007f;
 }
-.badge-white, .label-white {
-	background-color: #ffffff !important;
+.xbic-white {
+	background-color: #ffffff;
 }
-.badge-ltgrey, .label-ltgrey {
-	background-color: #ccc !important;
+.xbic-ltgrey {
+	background-color: #ddd;
 }
-.badge-grey, .label-grey {
-	background-color: #777777 !important;
+.xbic-grey {
+	background-color: #777777;
 }
-.badge-black, .label-black {
-	background-color: #000 !important;
+.xbic-black {
+	background-color: #000;
 }
-.extlinklabel {
-	border: solid 1px #d36383;
+.xbic-yellow, .xbic-ltgreen,
+.xbic-cyan, .xbic-ltblue,
+.xbic-ltmag, .xbic-ltgrey,
+.xbic-white {
+	color: #555;
+	border: 1px solid #777;
 }
-
-.badge-yellow, .label-yellow, .badge-ltgreen, .label-ltgreen,
-.badge-cyan, .label-cyan, .badge-ltblue, .label-ltblue,
-.badge-ltmag, .label-ltmag, .badge-ltgrey, .label-ltgrey,
-.badge-pink, .label-pink, .badge-white, .label-white {
-	color: #555 !important;
-}
-
-
 
