@@ -2,9 +2,9 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.3.x</version>
+		<version>0.2.3.0</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.3.x-beta <span style="font-weight:normal; font-size:1rem;">Updated XXth June 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.3.0-beta <span style="font-weight:normal; font-size:1rem;">Updated 12th June 2026</span></h4>]]></item>
 			<item>new parseKeyValueStr() function in Helper</item>
 			<item>new rrule2text() function in Helper to parse repeat rules to text</item>
 			<item>new int2ordstr() function in Helper to return 1st 12th 23rd etc</item>
