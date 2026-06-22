@@ -2,7 +2,7 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/src/Helper/SimpleicalHelper.php
- * @version 0.2.3.0 11th June 2026
+ * @version 0.2.4.0 21st June 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -167,7 +167,6 @@ class SimpleicalHelper
         'transient_time' => 60,
         'categories_filter_op' => '',
         'categories_filter' => '',
-        'categories_display' => '',      
         'sib_layout' => 3,
         'dateformat_lg' => '',
         'dateformat_lgend' => '',
@@ -185,7 +184,6 @@ class SimpleicalHelper
         'no_events' => '',
         'categories_filter_op' => '',
         'categories_filter' => '',
-        'categories_display' => '',
         'add_sum_catflt' => false,
         'clear_cache_now' => false,
         'period_limits' => '1',
@@ -207,7 +205,7 @@ class SimpleicalHelper
      * @return string sanitized class or fallback.
      */
     /**
-    static function sanitize_html_clss( $class, $fallback = '', $allow = '' ) {
+    static function sanitize_html_str( $class, $fallback = '', $allow = '' ) {
         // Strip out any %-encoded octets.
         $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', (string) $class );
         
@@ -234,8 +232,8 @@ class SimpleicalHelper
             );
         if (!in_array($block_attributes['tag_sum'], self::$allowed_tags_sum)) $block_attributes['tag_sum'] = 'a';
         $block_attributes['suffix_lg_class'] = self::sanitize_html_str($block_attributes['suffix_lg_class'],'_ -');
-        $block_attributes['suffix_lgi_class'] = self::sanitize_html_clss($block_attributes['suffix_lgi_class'],'_ -');
-        $block_attributes['suffix_lgia_class'] = self::sanitize_html_clss($block_attributes['suffix_lgia_class'],'_ -');
+        $block_attributes['suffix_lgi_class'] = self::sanitize_html_str($block_attributes['suffix_lgi_class'],'_ -');
+        $block_attributes['suffix_lgia_class'] = self::sanitize_html_str($block_attributes['suffix_lgia_class'],'_ -');
         
         return $block_attributes;
     }
@@ -460,7 +458,7 @@ class SimpleicalHelper
              //   $text .= $interval;
                 $daysarr = explode(',',$rulearr['byday']);
                 $daystr = '';
-                $langprefix = (count($daysarr) > 1) ? 'XBSICAL_S' : 'XBSICAL_';
+                $langprefix = (count($daysarr) > 1) ? 'XBIC_S' : 'XBIC_';
                 foreach ($daysarr as $day) {
                     $daystr .= Text::_($langprefix.strtoupper($day)).', ';
                 }
@@ -474,7 +472,7 @@ class SimpleicalHelper
                 if (isset($rulearr['byday'])) {
                     $byday = $rulearr['byday'];
                     // get the day of week
-                    $day = 'XBSICAL_'.strtoupper(ltrim($byday,'- 0..9'));
+                    $day = 'XBIC_'.strtoupper(ltrim($byday,'- 0..9'));
                     $num = (int) $rulearr['byday'];
                     $ord = self::int2ordstr($num);
                     if (($num > 0) && ($num < 6)) { //never more than 5 mondays (eg) in a month

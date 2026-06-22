@@ -1,4 +1,12 @@
 <?php
+/*******
+ * @package xbSimple-ical
+ * @filesource mod_xbsimple-ical/mod_xbsimpleical_script.php
+ * @version 0.2.4.0 22nd June 2026
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2026
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ ******/
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
@@ -25,7 +33,6 @@ return new class () implements InstallerScriptInterface {
     
     public function preflight(string $type, InstallerAdapter $adapter): bool
     {
-        //echo "mod_hello preflight<br>";
         
         if (($type != 'uninstall') && (version_compare(PHP_VERSION, $this->minPhp, '<'))) {
             Factory::getApplication()->enqueueMessage(sprintf(Text::_('JLIB_INSTALLER_MINIMUM_PHP'), $this->minPhp), 'error');
@@ -70,10 +77,9 @@ return new class () implements InstallerScriptInterface {
 
     public function postflight(string $type, InstallerAdapter $adapter): bool
     {
-        // echo "mod_hello postflight<br>"; Factory::getApplication()->getDocument()->
-        $app = Factory::getApplication();
-        $wa = $app->getDocument()->getWebAssetManager();
-        $wa->useScript('joomla.dialog');
+//        $app = Factory::getApplication();
+//        $wa = $app->getDocument()->getWebAssetManager();
+//        $wa->useScript('joomla.dialog');
         $manifest = $adapter->getManifest();
         $ver = $manifest->version;
         $this->extdate = $manifest->creationDate;
@@ -92,7 +98,7 @@ return new class () implements InstallerScriptInterface {
             $ext_mess .= '<p>Enable module and set options on <a href="index.php?option=com_modules&view=select&client_id=0">Site Modules</a> page.</p>';
         }
         
-        if ($type!='uninstall') {
+        if ($type != 'uninstall') {
             
             $changelog = new Changelog();
             
@@ -122,10 +128,14 @@ return new class () implements InstallerScriptInterface {
                 $clog .= '</div>';
                 $ext_mess .= '<details style="background-color: #f7f7f7;"><summary>Changelog v'.$ver.'</summary>'.$clog.'</details>';
 //                $ext_mess .= '<p><button type="button" class="btn btn-info btn-sm" data-joomla-dialog="{&quot;popupType&quot;:&quot;inline&quot;,&quot;textHeader&quot;:&quot;Changelog - xbSimple-iCal - 0.1.0.0&quot;,&quot;popupContent&quot;:&quot;'.htmlentities($clog).'&quot;,&quot;width&quot;:&quot;800px&quot;,&quot;height&quot;:&quot;fit-content&quot;}">Changelog v'.$ver.'</button></p>';
+                $ext_mess .= self::updatelang('XBIC_CLOG', $clog);
             } else {
                 $ext_mess .= '<p style="color:red;"><i>no changelog found for '.$ver.'</i></p>';
             }
             $ext_mess .= '<p>For help and information see documentation tab in module settings and and <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a> ';
+            //update language string
+            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br />'. $manifest->creationDate);
+            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br /> '. $manifest->creationDate,'sys.ini');
         }
         
         if ($type == 'uninstall') {
@@ -135,5 +145,92 @@ return new class () implements InstallerScriptInterface {
         echo $ext_mess;
         return true;
     }
+    
+    private function updatelang(string $key, string $value, $ext="ini") {
+        $langfile = JPATH_ROOT.'/modules/mod_xbsimple-ical/language/en-GB/mod_xbsimple-ical.'.$ext;
+        $targetKey = $key.'="';
+        $newLine = $targetKey.$value.'"';
+        
+        // Read file into array, preserving line endings
+        if (!file_exists($langfile)) return $langfile.' does not exist';
+        $lines = file($langfile, FILE_IGNORE_NEW_LINES);
+        if (!$lines) return 'Could not open '.$langfile;
+        $msg = '';
+        $fnd = false;
+        foreach ($lines as &$line) {
+            // Check if line starts with the target string
+            if (strpos($line, $targetKey) === 0) {
+                $line = $newLine;
+                $fnd = true;
+                break; // Stop after first match if only one replacement is needed
+            }
+        }
+        unset($line); // Break reference
+        if ($fnd) {
+            // Write modified lines back to file
+            file_put_contents($langfile, implode("\n", $lines) . "\n");
+            $msg = 'language_file.'.$ext.' updated<br />';
+        } else {
+            $msg = 'failed updating language_file.'.$ext.'<br />';
+        }
+        return $msg;        
+    }
+
+    /**
+    private function desc2lang($name='nn',$ver='xx',$date='yy') {
+        $langfile = JPATH_ROOT.'/modules/mod_xbsimple-ical/language/en-GB/mod_xbsimple-ical.sys.ini';
+        $targetDesc = 'XBIC_DESC="';
+        $newDesc = 'XBIC_DESC="'.$name.' v'.$ver.' '.$date.'"';
+        
+        // Read file into array, preserving line endings
+        if (!file_exists($langfile)) return $langfile.' does not exist';
+        $lines = file($langfile, FILE_IGNORE_NEW_LINES);
+        if (!$lines) return 'Could not open '.$langfile;
+        $fnd = false;
+        foreach ($lines as &$line) {
+            // Check if line starts with the target string
+            if (strpos($line, $targetDesc) === 0) {
+                $line = $newDesc;
+                $fnd = true;
+                break; // Stop after first match if only one replacement is needed
+            }
+        }
+        unset($line); // Break reference
+        $msg = '';
+        if ($fnd) {
+            // Write modified lines back to file
+            file_put_contents($langfile, implode("\n", $lines) . "\n");
+            $msg = 'en-GB.mod_xbsimple-ical.sys.ini updated<br />';
+        } else {
+            $msg = 'failed updating en-GB.mod_xbsimple-ical.sys.ini<br />';
+        }
+      
+        $langfile = JPATH_ROOT.'/modules/mod_xbsimple-ical/language/en-GB/en-GB.mod_xbsimple-ical.ini';
+        
+        // Read file into array, preserving line endings
+        if (!file_exists($langfile)) return $msg.$langfile.' does not exist';
+        $lines = file($langfile, FILE_IGNORE_NEW_LINES);
+        if (!$lines) return $msg.'Could not open '.$langfile;
+        $fnd = false;
+        foreach ($lines as &$line) {
+            // Check if line starts with the target string
+            if (strpos($line, $targetDesc) === 0) {
+                $line = $newDesc;
+                $fnd = true;
+                break; // Stop after first match if only one replacement is needed
+            }
+        }
+        unset($line); // Break reference
+        
+        if ($fnd) {
+            // Write modified lines back to file
+            file_put_contents($langfile, implode("\n", $lines) . "\n");
+            return $msg.'en-GB.mod_xbsimple-ical.ini updated';
+        } else {
+            return $msg.'failed updating en-GB.mod_xbsimple-ical.ini';
+        }
+        
+    }
+    **/
     
 };

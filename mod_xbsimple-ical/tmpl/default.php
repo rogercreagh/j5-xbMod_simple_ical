@@ -2,7 +2,7 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/tmpl/default.php
- * @version 0.2.2.0 6th June 2026
+ * @version 0.2.4.0 21st June 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
@@ -73,12 +73,6 @@ if (empty($nohead) ) {
     $excerptlength = (isset($attributes['excerptlength']) && ' ' < trim($attributes['excerptlength']) ) ? (int) $attributes['excerptlength'] : '' ;
     $sflgi = $attributes['suffix_lgi_class'];
     $sflgia = $attributes['suffix_lgia_class'];
- //   if (empty($attributes['categories_display'])) {
- //       $cat_disp = false;
- //   } else {
- //       $cat_disp = true;
- //       $cat_sep = '</small>'.$attributes['categories_display'].'<small>';
- //    }cat_disp
     
     if (! in_array($attributes['tag_sum'], SimpleicalHelper::$allowed_tags_sum))  $attributes['tag_sum'] = 'a';
     $ipd = IcsParser::getData($attributes);
@@ -110,7 +104,8 @@ if (empty($nohead) ) {
             //get category classes
             $catclassstr = (isset($attributes['catclasses'])) ? $attributes['catclasses'] : '';
             //remove unwanted chars including spaces- only alphanumeric, comma, colon, underscore and hyphen allowed
-            $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
+//            $catclassstr = preg_replace('/[^a-zA-Z0-9,:_\-]/', '', $catclassstr);
+            $catclassstr = SimpleicalHelper::sanitize_html_str($catclassstr,'_:, -');
             // split string at commas then split each element into key:value at colon
             if ($catclassstr != '') {           
                 foreach (explode(',', $catclassstr) as $pair) {
