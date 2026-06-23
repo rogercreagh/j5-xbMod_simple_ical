@@ -2,23 +2,11 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/tmpl/default.php
- * @version 0.2.4.0 21st June 2026
+ * @version 0.2.4.0 23rd June 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 
-/**
- * @version $Id: default.php
- * @package simpleicalblock
- * @subpackage simpleicalblock Module
- * @copyright Copyright (C) 2022 -2026 simpleicalblock, All rights reserved.
- * @license GNU General Public License version 3 or later
- * @author url: https://www.waasdorpsoekhan.nl
- * @author email contact@waasdorpsoekhan.nl
- * @developer A.H.C. Waasdorp
- *
- *
- */
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
 
@@ -99,6 +87,13 @@ if (empty($nohead) ) {
          */
          
         $show_cats = (isset($attributes['showcats'])) ? (int) $attributes['showcats'] : 0;
+        $titlecomps = (isset($attributes['titlecomps'])) ?  $attributes['titlecomps'] : false;
+        Factory::getApplication()->enqueueMessage('<pre>'.print_r($titlecomps,true).'</pre>');
+        $infocomps = (isset($attributes['infocomps'])) ?  $attributes['infocomps'] : false;
+        Factory::getApplication()->enqueueMessage('<pre>'.print_r($infocomps,true).'</pre>');
+        $detailscomps = (isset($attributes['detailscomps'])) ?  $attributes['detailscomps'] : false;
+        Factory::getApplication()->enqueueMessage('<pre>'.print_r($detailscomps,true).'</pre>');
+        
         $catclassarr = []; 
         if ($show_cats) {
             //get category classes
@@ -114,6 +109,7 @@ if (empty($nohead) ) {
                 }
             }
         }
+        $showrepicon = (isset($attributes['showrepicon'])) ? (int) $attributes['showrepicon'] : 0;
         
         
         $secho .= '<ul class="list-group' . $attributes['suffix_lg_class'] . ' simple-ical-widget" > ';
@@ -134,6 +130,12 @@ if (empty($nohead) ) {
             $ev_class =  ((!empty($e->cal_class)) ? ' ' . SimpleicalHelper::sanitize_html_str($e->cal_class,'_ -'): '');
             $cat_list = '';
             $is_repeat = isset($e->rrule);
+            if ($is_repeat) {
+                /*
+                 if show repicon or repeat is in one of the sections
+                    get rule text
+                 */
+            }
             //build category list
             if (!empty($e->categories)) {
                 $ev_class = $ev_class . ' ' . implode( ' ',

@@ -128,6 +128,9 @@ return new class () implements InstallerScriptInterface {
                 $clog .= '</div>';
                 $ext_mess .= '<details style="background-color: #f7f7f7;"><summary>Changelog v'.$ver.'</summary>'.$clog.'</details>';
 //                $ext_mess .= '<p><button type="button" class="btn btn-info btn-sm" data-joomla-dialog="{&quot;popupType&quot;:&quot;inline&quot;,&quot;textHeader&quot;:&quot;Changelog - xbSimple-iCal - 0.1.0.0&quot;,&quot;popupContent&quot;:&quot;'.htmlentities($clog).'&quot;,&quot;width&quot;:&quot;800px&quot;,&quot;height&quot;:&quot;fit-content&quot;}">Changelog v'.$ver.'</button></p>';
+
+                //strip newlines and replace " with \" or ' in clog
+                $cleanclog = trim(preg_replace('/\s+/', ' ', $clog));
                 $ext_mess .= self::updatelang('XBIC_CLOG', $clog);
             } else {
                 $ext_mess .= '<p style="color:red;"><i>no changelog found for '.$ver.'</i></p>';
@@ -136,6 +139,8 @@ return new class () implements InstallerScriptInterface {
             //update language string
             $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br />'. $manifest->creationDate);
             $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br /> '. $manifest->creationDate,'sys.ini');
+            $verdatedesc = "<div style='color: #3f48cc; background: #eef; padding-right:10px;'><div style='float:left;'><img src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='width:3em; margin-right: 0.5em;'/></div><p>".$manifest->name.' v'.$manifest->version.' '.$manifest->creationDate."<br />Module displays a list of forthcoming events from a VCALENDAR source</div><div class='clearfix'></div>";
+            $ext_mess .= '<br />'.self::updatelang('XBSIMPLEICAL_DESC',$verdatedesc );
         }
         
         if ($type == 'uninstall') {

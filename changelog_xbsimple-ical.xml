@@ -2,10 +2,11 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.4.0</version>
+		<version>0.2.4.1</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.4.0-beta <span style="font-weight:normal; font-size:1rem;">Updated 22nd June 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.4.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 23rd June 2026</span></h4>]]></item>
 			<item>Install script write namne+version and changelog to language file for use in module config</item>
+			<item>Changelog available under Documentation tab on module</item>
 		</addition>
 		<remove>
 			<item></item>

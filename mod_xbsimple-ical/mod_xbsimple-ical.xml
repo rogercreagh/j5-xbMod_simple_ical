@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
-	<creationDate>22nd June 2026</creationDate>	
+	<creationDate>22rd June 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>roger@crosborne.co.uk</authorEmail>
 	<authorUrl>https://github.com/rogercreagh/j5-xbMod_simple_ical</authorUrl>
-	<version>0.2.4.0</version>
+	<version>0.2.4.1</version>
 	<description><![CDATA[XBSIMPLEICAL_DESC]]></description>
-	<!-- <style type='text/css'>.sib-info {color: #3f48cc;} .sib-img {display: inline-block; width: 2em; height:auto; margin-right: 0.5em;}</style><div class='sib-info' style='color: #3f48cc;'><p><img class='sib-img' src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='display: inline-block; width: 2em; height:auto; margin-right: 0.5em;'/>xbSimple iCalendar Events Module displays a list of forthcoming events from a VCALENDAR source</div> -->
 	<namespace path="src">Crosborne\Module\Xbsimpleical</namespace>
 		<!-- Site Main File Copy Section -->
  	<scriptfile>mod_xbsimpleical_script.php</scriptfile> 
@@ -40,9 +39,6 @@
 			addruleprefix="Crosborne\Module\Xbsimpleical\Site\Rule"
 		>
 			<fieldset name="basic">
-				<field name="verdate" type="note"
-					label="XBIC_DESC"
-				/>
 				
 			    <!-- Title unnecessary because there is a module title depending on module-style -->
 				<!-- field name="title" type="text" default="Events" label="MOD_SIMPLEICALBLOCK_TITLE" description="MOD_SIMPLEICALBLOCK_TITLE_DESC" /  replaced by module title -->
@@ -71,8 +67,8 @@
               	/>
 
 				<field name="showcats" type="radio"
-					label="Show Event Categories"
-					description="Event categories are not linked to Joomla Categories or Tags (although they may have the same name). If shown in any section they will appear in a div as labels. The styling of the label can be specified on the CSS tab here i the Category Classes option"
+					label="XBIC_SHOWCATS"
+					description="XBIC_SHOWCATS_DESC"
 					class="btn-group btn-group-yesno"
 				>
 					<option value="0">JHIDE</option>
@@ -146,6 +142,10 @@
 					<option value="1">JSHOW</option>
 				</field>
 				
+				<field type="spacer" 
+				        name="titlespacer" 
+				        hr="true"
+				/>
 				<field name="titlecomps" type="subform"
 			        label="XBIC_TITLE_COMPS"
 			        description="XBIC_TITLE_COMPS_DESC"
@@ -162,6 +162,7 @@
 				          <option value="summary">XBIC_SUMMARY</option>
 				          <option value="startdate">XBIC_START_DATE</option>
 				          <option value="enddate">XBIC_END_DATE</option>
+				          <option value="repeats">XBIC_REPEATS</option>
 				          <option value="starttime">XBIC_START_TIME</option>
 				          <option value="endtime">XBIC_END_TIME_DURATION</option>
 				          <option value="location">XBIC_LOCATION</option>
@@ -192,6 +193,10 @@
 		        	showon="titletype:1"
 		        />
 								
+				<field type="spacer" 
+				        name="infospacer" 
+				        hr="true"
+				/>
 				<field name="infotype" type="radio"
 					label="XBIC_INFO_SHOW"
 					description="XBIC_INFO_SHOW_DESC"
@@ -222,6 +227,7 @@
 				          <option value="starttime">XBIC_START_TIME</option>
 				          <option value="enddate">XBIC_END_DATE</option>
 				          <option value="endtime">XBIC_END_TIME_DURATION</option>
+				          <option value="repeats">XBIC_REPEATS</option>
 				          <option value="description">XBIC_DESCRIPTION</option>
 				        </field>
 				        <field name="compprefix" type="text"
@@ -249,6 +255,10 @@
 		        	showon="infotype:1"
 		        />
 								
+				<field type="spacer" 
+				        name="detsspacer" 
+				        hr="true"
+				/>
 				<field name="detailstype" type="radio"
 					label="XBIC_DETS_SHOW"
 					description="XBIC_DETS_SHOW_DESC"
@@ -288,6 +298,7 @@
 				          <option value="starttime">XBIC_START_TIME</option>
 				          <option value="enddate">XBIC_END_DATE</option>
 				          <option value="endtime">XBIC_END_TIME_DURATION</option>
+				          <option value="repeats">XBIC_REPEATS</option>
 				        </field>
 				        <field name="compprefix" type="text"
 				        	label="XBIC_PREFIX"
