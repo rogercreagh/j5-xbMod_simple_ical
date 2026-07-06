@@ -7,15 +7,17 @@
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  ******/
 
-/**
+ /*** 
  * a simple ICS parser.
  * @copyright Copyright (C) 2022 - 2026 Bram Waasdorp. All rights reserved.
- * @license GNU General Public License version 3 or later
  *
  * note that this class does not implement all ICS functionality.
+ * 
  */
 
-/** modify to include all the events on the last day if limiting by event count - maaybe as an option) **/
+ /** 
+  * modify to include all the events on the last day if limiting by event count - maaybe as an option) 
+  */
 
 namespace Crosborne\Module\Xbsimpleical\Site;
 // no direct access
@@ -32,6 +34,7 @@ class IcsParser {
     const TOKEN_END_VEVENT = "END:VEVENT";
     const TOKEN_BEGIN_VTIMEZONE = "\nBEGIN:VTIMEZONE";
     const TOKEN_END_VTIMEZONE = "\nEND:VTIMEZONE";
+
     /**
      * @var string events to display in example
      * EOL's and one space before second description line are important.
@@ -49,8 +52,7 @@ SUMMARY: Every 3 weeks sunday \\ wednesday \\\\ saturday
 CATEGORIES:Flower
 END:VEVENT
 BEGIN:VEVENT
-DTSTART:20250929T143000
-DTEND:20250929T153000
+DTSTART:20250929T143000DTEND:20250929T153000
 RRULE:FREQ=MONTHLY;COUNT=24;BYMONTHDAY=29
 UID:a-2
 DESCRIPTION:Monthly day 29\nCategory Rose\, (with comma in category. test on
@@ -96,6 +98,7 @@ END:VCALENDAR';
         'SA' => 'saturday',
         'SU' => 'sunday',
     );
+
     /**
      * Maps Windows (non-CLDR) time zone ID to IANA ID. This is pragmatic but not 100% precise as one Windows zone ID
      * maps to multiple IANA IDs (one for each territory). For all practical purposes this should be good enough, though.
@@ -242,6 +245,7 @@ END:VCALENDAR';
         'West Pacific Standard Time'      => 'Pacific/Port_Moresby',
         'Yakutsk Standard Time'           => 'Asia/Yakutsk',
     );
+
     /**
      * Comma separated list of Id's or url's of the calendar to fetch data.
      * Each Id/url may be followed by semicolon and a html-class
@@ -250,6 +254,7 @@ END:VCALENDAR';
      * @since 2.1.0
      */
     protected $calendar_ids = '';
+
     /**
      * cache time in minutes
      *
@@ -257,13 +262,15 @@ END:VCALENDAR';
      * @since 2.3.0
      */
     protected $event_cache = 0;
-   /**
+
+    /**
      * Timestamp of the start time fo parsing, set by parse function.
      *
      * @var    int
      * @since  1.5.1
      */
     protected $p_start= NULL;
+
     /**
      * Timestamp period enddate calculated from today and event_period
      *
@@ -271,6 +278,7 @@ END:VCALENDAR';
      * @since 2.1.0
      */
     protected $p_end = NULL;
+
     /**
      * The array of events parsed from the ics file, initial set by parse function.
      *
@@ -278,6 +286,7 @@ END:VCALENDAR';
      * @since  1.5.1
      */
     protected $events = [];
+
     /**
      * The array of events with RECURRENCE-ID parsed from the ics file, that may replace events with the same UID and Start-datetime.
      *
@@ -285,6 +294,7 @@ END:VCALENDAR';
      * @since  2.2.0
      */
     protected $replaceevents = [];
+
     /**
      * The timezone string from the configuration.
      *
@@ -292,6 +302,7 @@ END:VCALENDAR';
      * @since  2.0.0
      */
     protected $timezone_string = 'UTC';
+
     /**
      * The array of response codes during execution. To see if the cached request failed.
      *
@@ -299,6 +310,7 @@ END:VCALENDAR';
      * @since  3.0.0
      */
     public $codes = [];
+
     /**
      * Constructor.
      *
@@ -319,6 +331,7 @@ END:VCALENDAR';
         $this->p_end = ((0 < $event_period) ? strtotime("+$event_period day"): $this->p_start) + ($event_cache * 60) + 172800;
         $this->p_start = $this->p_start - 86400;
     }
+
     /**
      * Parse ical string to individual events
      *
@@ -662,21 +675,22 @@ END:VCALENDAR';
             }
         } while($haveVevent);
     }
-/*
- * Limit events to the first event_count events in the event - period/window.
- * filter against categories filter and words of summary when add_sum_catflt
- * Events are already sorted
- * 
- * @param  array of objects $data_events events parsed or cached.
- * @param int timestamp $p_start start datetime of period/window with events displayed
- * @param int timestamp $p_end (not included) end datetime of period/window with events displayed
- * @param  int $e_count limits the maximum number of events  
- * @param stringt $cat_filter comma separated list of categories to compare (intersect) with events categories   
- * @param string  $cat_filter_op Operator to asses result of intersection from a list or '' for no filtering.
- * @param boolean $add_sum_catflt add words from summary to categories fro filtering
- *
- * @return  array       remaining event objects.
- */
+
+    /**
+     * Limit events to the first event_count events in the event - period/window.
+     * filter against categories filter and words of summary when add_sum_catflt
+     * Events are already sorted
+     * 
+     * @param  array of objects $data_events events parsed or cached.
+     * @param int timestamp $p_start start datetime of period/window with events displayed
+     * @param int timestamp $p_end (not included) end datetime of period/window with events displayed
+     * @param  int $e_count limits the maximum number of events  
+     * @param string $cat_filter comma separated list of categories to compare (intersect) with events categories   
+     * @param string  $cat_filter_op Operator to asses result of intersection from a list or '' for no filtering.
+     * @param boolean $add_sum_catflt add words from summary to categories fro filtering
+     *
+     * @return  array       remaining event objects.
+     */
     static function getFutureEvents($data_events, $p_start, $p_end, $e_count, $cat_filter = '', $cat_filter_op = '', $add_sum_catflt = false ) {
         // 
         if (!empty($cat_filter_op))  {
@@ -730,7 +744,7 @@ END:VCALENDAR';
         return $newEvents;
     }
     
-    /*
+    /**
      * Remove originals from replaced events from $this->events.
      * Events are already sorted
      *
@@ -752,6 +766,7 @@ END:VCALENDAR';
         }
         return $newEvents;
     }
+ 
     public function getAll() {
         return $this->events;
     }
@@ -1018,6 +1033,7 @@ END:VCALENDAR';
         }
         return $b;
     }
+
     /**
      * Gets data from calender or transient cache
      *
@@ -1078,8 +1094,9 @@ END:VCALENDAR';
             $p_end = $pdt_start->modify("+$ep day")->getTimestamp();
         }
         //        if ($instance['clear_cache_now']) $cachecontroller->cache->remove($cacheId, $cachegroup);
-        if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup))
-            || ((!empty($ipd['errcnt'])) && $ipd['errcnt'] < 3 && (!empty($ipd['ctime'])) && ($now - $ipd['ctime']) > 60)  ) {
+        if(false === ( $ipd = $cachecontroller->get( $cacheId, $cachegroup)) || 
+            ((!empty($ipd['errcnt'])) && $ipd['errcnt'] < 3 && (!empty($ipd['ctime'])) && ($now - $ipd['ctime']) > 60)  ) {
+                                
             $parser = new IcsParser($instance['calendar_id'], ($instance['transient_time'] / 60), $instance['event_period'], $instance['tzid_ui'] );
             $data = $parser->fetch( );
             if ($data || in_array(200, $parser->codes, false)) { // fetch succes
@@ -1104,6 +1121,7 @@ END:VCALENDAR';
         $ipd['data'] = $data;
         return $ipd;
     }
+ 
     /**
      * Fetches from calender using calendar_ids and event_period
      *

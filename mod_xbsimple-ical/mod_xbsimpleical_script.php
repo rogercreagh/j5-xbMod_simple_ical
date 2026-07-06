@@ -131,14 +131,15 @@ return new class () implements InstallerScriptInterface {
 
                 //strip newlines and replace " with \" or ' in clog
                 $cleanclog = trim(preg_replace('/\s+/', ' ', $clog));
-                $ext_mess .= self::updatelang('XBIC_CLOG', $clog);
+                $cleanclog = str_replace('"', "'", $cleanclog);
+                $ext_mess .= self::updatelang('XBIC_CLOG', $cleanclog);
             } else {
                 $ext_mess .= '<p style="color:red;"><i>no changelog found for '.$ver.'</i></p>';
             }
             $ext_mess .= '<p>For help and information see documentation tab in module settings and and <a href="https://github.com/rogercreagh/j5-xbMod_simple_ical/" target="_blank">README.md file on GitHub</a> ';
             //update language string
-            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br />'. $manifest->creationDate);
-            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC',$manifest->name.' v'.$manifest->version.'<br /> '. $manifest->creationDate,'sys.ini');
+            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC','<b>'.$manifest->name.'</b> v'.$manifest->version.' '. $manifest->creationDate);
+            $ext_mess .= '<br />'.self::updatelang('XBIC_DESC','<b>'.$manifest->name.'</b> v'.$manifest->version.' '. $manifest->creationDate,'sys.ini');
             $verdatedesc = "<div style='color: #3f48cc; background: #eef; padding-right:10px;'><div style='float:left;'><img src='../media/mod_xbsimple-ical/icons/simpleicalicon128x128.svg' style='width:3em; margin-right: 0.5em;'/></div><p>".$manifest->name.' v'.$manifest->version.' '.$manifest->creationDate."<br />Module displays a list of forthcoming events from a VCALENDAR source</div><div class='clearfix'></div>";
             $ext_mess .= '<br />'.self::updatelang('XBSIMPLEICAL_DESC',$verdatedesc );
         }

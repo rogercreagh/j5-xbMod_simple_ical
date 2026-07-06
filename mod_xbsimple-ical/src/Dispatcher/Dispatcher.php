@@ -5,17 +5,8 @@
  * @version 0.1.1.0 8th May 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @desc based on SimpleIcalBlock by  A.H.C. Waasdorp (c) 2022-2026 https://www.waasdorpsoekhan.nl
  ******/
-
-
-/**
- * @package     simpleicalblock
- * @subpackage  mod_xbsimple-ical
- *
- * @copyright   Copyright (C) 2022 -2025 A.H.C. Waasdorp, All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * 2.6.0
- */
 
 namespace Crosborne\Module\Xbsimpleical\Site\Dispatcher;
 

@@ -2,22 +2,12 @@
 /*******
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/src/Helper/SimpleicalHelper.php
- * @version 0.2.4.0 21st June 2026
+ * @version 0.2.4.5 6th July 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @desc based on SimpleIcalBlock by  A.H.C. Waasdorp (c) 2022-2026 https://www.waasdorpsoekhan.nl
  ******/
 
-/**
- * @version $Id: SimpleicalHelper.php 
- * @package simpleicalblock
- * @subpackage simpleicalblock Module
- * @copyright Copyright (C) 2022 -2026 A.H.C. Waasdorp, All rights reserved.
- * @license GNU General Public License version 3 or later
- * @author url: https://www.waasdorpsoekhan.nl
- * @author email contact@waasdorpsoekhan.nl
- * @developer A.H.C. Waasdorp
- * 
- */
 namespace Crosborne\Module\Xbsimpleical\Site\Helper;
 // no direct access
 defined('_JEXEC') or die ('Restricted access');
@@ -43,100 +33,91 @@ use Joomla\CMS\HTML\Helpers\Links;
 class SimpleicalHelper
 {
     const SIB_ATTR = 'xbsimple-ical_attrs';
+  
     /**
      * tags allowed for summary
      *
      * @var array
      */
-    static $allowed_tags_sum = [
-        'a',
-        'b',
-        'div',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'i',
-        'span',
-        'strong',
-        'summary',
-        'u'
-    ];
+//     static $allowed_tags_sum = [
+//         'a',
+//         'b',
+//         'div',
+//         'h1',
+//         'h2',
+//         'h3',
+//         'h4',
+//         'h5',
+//         'h6',
+//         'i',
+//         'span',
+//         'strong',
+//         'summary',
+//         'u'
+//     ];
+
     /*
      * @var array allowed tags for text-output
      */
     static $allowed_tags = ['a','abbr', 'acronym', 'address','area','article', 'aside','audio',
-        'b','big','blockquote', 'br','button', 'caption','cite','code','col', 'del',
-        'details', 'div',
-        'em',
+        'b','big','blockquote', 'em', 'i', 'strike', 'strong', 'u',
+        'br', 'hr',
+        'button', 'caption','cite','code','col', 'del',
+        'details', 'summary',
+        'div', 'span',        
         'fieldset',
-        'figcaption',
-        'figure',
+        'figcaption', 'figure',
         'footer',
-        'h1',
-        'h2',
-        'h3',
-        'h4',
-        'h5',
-        'h6',
-        'hr',
-        'i',
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',       
         'img',
-        'li',
+        'li', 'ul', 'ol',
         'label',
-        'legend',
-        'ol',
+        'legend',    
         'p',
         'q',
         's',
         'section',
-        'small',
-        'span',
-        'strike',
-        'strong',
-        'summary',
-        'u',
-        'ul'
+        'small'            
     ];
+ 
     /*
      * @var array allowed attributes for html-text-output
      */
     static $allowed_attrs = [
-        'aria-controls',
-        'aria-current',
-        'aria-describedby',
-        'aria-details',
-        'aria-expanded',
-        'aria-hidden',
-        'aria-label',
-        'aria-labelledby',
-        'aria-live',
+//         'aria-controls',
+//         'aria-current',
+//         'aria-describedby',
+//         'aria-details',
+//         'aria-expanded',
+//         'aria-hidden',
+//         'aria-label',
+//         'aria-labelledby',
+//         'aria-live',
         'class',
         'cite',
-        'data-bs-animation',
-        'data-bs-container',
+//         'data-bs-animation',
+//         'data-bs-container',
+//         'data-bs-delay',
+//         'data-bs-dismiss',
+//         'data-bs-offset',
+//         'data-bs-offset-bottom',
+//         'data-bs-offset-top',
+//         'data-bs-placement',
+//         'data-bs-selector',
+//         'data-bs-spy',
+//         'data-bs-target',
+//         'data-bs-template',
+//         'data-bs-trigger',
+//         'data-bs-viewport',
+//         'data-toggle',
+//         'data-target',
+//         'data-sib-id',
+//         'data-sib-st',
         'data-bs-content',
-        'data-bs-delay',
-        'data-bs-dismiss',
         'data-bs-html',
-        'data-bs-offset',
-        'data-bs-offset-bottom',
-        'data-bs-offset-top',
-        'data-bs-placement',
-        'data-bs-selector',
-        'data-bs-spy',
-        'data-bs-target',
-        'data-bs-template',
+        'data-bs-title',
         'data-bs-toggle',
         'data-bs-title',
-        'data-bs-trigger',
-        'data-bs-viewport',
-        'data-toggle',
-        'data-target',
-        'data-sib-id',
-        'data-sib-st',
         'datetime',
         'dir',
         'hidden',
@@ -150,13 +131,14 @@ class SimpleicalHelper
         'type',
         'xml:lang'
     ] ;
+
     /*
      * @var class InputFilter to initialize it only once.
      */
     static $input_fl = null;
+
     /**
-     * default value for block_attributes (or instance)
-     *
+     * default values for block_attributes (or instance)
      * @var array
      */
     static $default_block_attributes = [
@@ -167,18 +149,18 @@ class SimpleicalHelper
         'transient_time' => 60,
         'categories_filter_op' => '',
         'categories_filter' => '',
-        'sib_layout' => 3,
+//        'sib_layout' => 3,
         'dateformat_lg' => '',
         'dateformat_lgend' => '',
-        'tag_sum' => 'a',
+//        'tag_sum' => 'a',
         'dateformat_tsum' => '',
         'dateformat_tsend' => '',
         'dateformat_tstart' => '',
         'dateformat_tend' => '',
         'excerptlength' => '',
-        'suffix_lg_class' => '',
-        'suffix_lgi_class' => ' py-0',
-        'suffix_lgia_class' => '',
+//        'suffix_lg_class' => '',
+//        'suffix_lgi_class' => ' py-0',
+//        'suffix_lgia_class' => '',
         'allowhtml' => true,
         'after_events' => '',
         'no_events' => '',
@@ -195,29 +177,6 @@ class SimpleicalHelper
         'before_title'  => '<h3 class="widget-title block-title">',
         'after_title'   => '</h3>'
     ];
-    /**
-     * @desc copied from WP sanitize_html_str, and added space as allowed character to accomodate multiple classes in one string.
-     * Strips the string down to A-Z, ,a-z,0-9,_,-. If this results in an empty string then it will return the alternative value supplied.
-     * added $allow param to specify extra chars to be allowed (eg punctuation)
-     * @param string $class
-     * @param string $fallback
-     * @param string $allow
-     * @return string sanitized class or fallback.
-     */
-    /**
-    static function sanitize_html_str( $class, $fallback = '', $allow = '' ) {
-        // Strip out any %-encoded octets.
-        $sanitized = preg_replace( '|%[a-fA-F0-9][a-fA-F0-9]|', '', (string) $class );
-        
-        // Limit to A-Z, ' ', a-z, 0-9, '_', '-'.
-        $sanitized = preg_replace( '/[^A-Z a-z0-9_-'.$allow.']/', '', $sanitized );
-        
-        if ( '' === $sanitized && $fallback ) {
-            return  $fallback;
-        }
-        return $sanitized;
-    }
-    */
     
     /**
      * Merge block attributes with defaults to be sure they exist is necesary.
@@ -230,17 +189,18 @@ class SimpleicalHelper
             self::$default_block_attributes,
             $block_attributes
             );
-        if (!in_array($block_attributes['tag_sum'], self::$allowed_tags_sum)) $block_attributes['tag_sum'] = 'a';
-        $block_attributes['suffix_lg_class'] = self::sanitize_html_str($block_attributes['suffix_lg_class'],'_ -');
-        $block_attributes['suffix_lgi_class'] = self::sanitize_html_str($block_attributes['suffix_lgi_class'],'_ -');
-        $block_attributes['suffix_lgia_class'] = self::sanitize_html_str($block_attributes['suffix_lgia_class'],'_ -');
+//        if (!in_array($block_attributes['tag_sum'], self::$allowed_tags_sum)) 
+//            $block_attributes['tag_sum'] = 'a';
+//        $block_attributes['suffix_lg_class'] = self::sanitize_html_str($block_attributes['suffix_lg_class'],'_ -');
+//        $block_attributes['suffix_lgi_class'] = self::sanitize_html_str($block_attributes['suffix_lgi_class'],'_ -');
+//        $block_attributes['suffix_lgia_class'] = self::sanitize_html_str($block_attributes['suffix_lgia_class'],'_ -');
         
         return $block_attributes;
     }
+    
     /**
      * @name sanitize_html_str()
-     * @desc copied from WP sanitize_html_str. (only for one class)
-     * Strips the string down to A-Z,a-z,0-9 plus the $allow param. 
+     * @desc Strips the string down to A-Z,a-z,0-9 plus the $allow param. 
      * If this results in an empty string then it will return the $fallback param.
      *
      * @param string $str2clean
@@ -258,6 +218,7 @@ class SimpleicalHelper
         }
         return $sanitized;
     }
+
     /**
      * call Rest / Ajax component.
      * Get block content wth sibid, (= active menu Itemid,)  and client timezone from request
@@ -311,14 +272,12 @@ class SimpleicalHelper
         ];
         return $data;
     }
+ 
     /**
-     * Clean output
-     *
-     * since 2.6.0
-     *
-     * @param string $output utput to clean
-     * 
-     * @return string escaped HTML output to render for the block (frontend)
+     * @name clean_output()
+     * @desc takes an input string and filters it to only allow specific html tags and attributes
+     * @param string $output to clean
+     * @return string - safe HTML to render
      */
     static function clean_output($output)
     {
@@ -392,7 +351,7 @@ class SimpleicalHelper
     static function int2ordstr($number){
         if ($number<0) $number=$number * -1;
         if (extension_loaded('intl')) {
-            $lang = Factory::getApplication()->get('tag');
+            $lang = Factory::getApplication()->getLanguage()->get('tag');
             $formatter = new NumberFormatter($lang, NumberFormatter::ORDINAL);
             return $formatter->format($number);
         } else {
@@ -504,4 +463,56 @@ class SimpleicalHelper
         return $text;
     }
     
+    static function renderSectionComps(array $comps, object $evt) {
+        $retstr = '';
+        foreach ($comps as $comp) {
+            if (key_exists('comp',$comp)) {
+                $compstr = '';
+                switch ($comp['comp']) {
+                    case "summary" :
+                        if(!empty($evt->summary)) {
+                            $compstr .= '<span class="'.$evt->sumclass.'">'.str_replace("\n", '<br>', $evt->summary).'</span>';
+                        }
+                        break;
+                    case "startdate" :
+                        $compstr .= (isset($evt->startdate)) ? $evt->startdate : '';
+                        break;
+                    case "enddate" :
+                        $compstr .= (isset($evt->enddate)) ? $evt->enddate : '';
+                        break;
+                    case "repeats" :
+                        $compstr .= $evt->repstr;
+                        break;
+                    case "starttime" :
+                        $compstr .= (isset($evt->starttime)) ? $evt->starttime : '';
+                        break;
+                    case "endtime" :
+                        $compstr .= (isset($evt->endtime)) ? $evt->endtime : '';
+                        break;
+                    case "location" :
+                        if(!empty($evt->location)) {
+                            $compstr .= '<span class="'.$evt->locclass.'">'.str_replace("\n", '<br />', $evt->location).'</span>';
+                        }
+                        break;
+                    case "categories" :
+                        $compstr .= $evt->catlist;
+                        break;
+                    case "description" :
+                        if(isset($evt->description)) {
+                            $evt->description = str_replace("\n", '<br>',$evt->description);
+                            $compstr .= '<span class="'.$evt->descclass.'">'.self::makeUrlstoLinks($evt->description).'</span>';
+                        }
+                        break;
+                    case 'calendar' :
+                        $compstr .= $evt->calfmtname;
+                        break;
+                }
+                if ($compstr != '') {
+                    $retstr .= $comp['compprefix'].$compstr.$comp['compsuffix'];
+                }
+            }
+        }
+        return $retstr;
+        
+    }
 }

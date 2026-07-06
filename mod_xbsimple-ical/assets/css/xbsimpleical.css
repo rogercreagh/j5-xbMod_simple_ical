@@ -1,26 +1,49 @@
-/** css for simple ical module **/
+/*******
+ * @package xbSimpleIcal
+ * @filesource media/css/xbsimpleical.css
+ * @version xbsimpleical 0.2.4.5 6th July 2026
+ * @author Roger C-O
+ * @copyright Copyright (c) Roger Creagh-Osborne, 2026
+ * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @desc based on SimpleIcalBlock by  A.H.C. Waasdorp (c) 2022-2026 https://www.waasdorpsoekhan.nl
+ ******/
 
 .xbsimple-ical p[hidden]{
 	display:none !important;
 }
-/** default section classes **/
-.xbsical-head {
+/** default section and component classes **/
+.xbic-head {
 	font-weight: bold;
 	font-size: 1.0rem;
 }
-.xbsical-title {
+.xbic-title {
 	font-size: 1.1rem;
-	text-transform: uppercase;
 }
-.xbsical-info {
+.xbic-info {
 	font-size: 1.0rem;
 }
-.xbsical-details {
+.xbic-details {
 	font-size: 0.9rem;
-	color: #888;
+	color: #555;
 }
-
-
+.xbic-summary {
+	text-transform: uppercase;	
+}
+.xbic-localtion {
+	font-size: 1.0rem;	
+}
+.xbic-desc {
+	font-size:0.9rem;
+}
+.xbic-dropdets {
+	font-size: 0.9rem;
+	color: #555
+}
+.xbic-fulldets {
+	margin-top:5px;
+	padding-top:5px;
+	border-top:1px solid #bbb;
+}
 
 .xbsimple-ical .list-group-item {
   margin-bottom: 10px;
@@ -158,6 +181,9 @@
 .xbic-pink {
 	background-color: #ed7bb0;
 }
+.xbic-ltpink {
+	background-color: #ffdddd;
+}
 .xbic-red {
 	background-color: #e70000;
 }
@@ -207,6 +233,9 @@
 	background-color: #ffffff;
 }
 .xbic-ltgrey {
+	background-color: #eee;
+}
+.xbic-midgrey {
 	background-color: #ddd;
 }
 .xbic-grey {
@@ -216,7 +245,7 @@
 	background-color: #000;
 }
 .xbic-yellow, .xbic-ltgreen,
-.xbic-cyan, .xbic-ltblue,
+.xbic-cyan, .xbic-ltblue, .xbic-ltpink,
 .xbic-ltmag, .xbic-ltgrey,
 .xbic-white {
 	color: #555;

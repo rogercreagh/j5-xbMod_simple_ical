@@ -3,17 +3,12 @@
  * @package xbSimple-ical
  * @filesource mod_xbsimple-ical/services/provider.php
  * @version 0.2.0.0 8th May 2026
+ * @since v0.1.0.0 29th April 2026
  * @copyright Copyright (c) Roger Creagh-Osborne, 2026
  * @license GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @desc based on SimpleIcalBlock by  A.H.C. Waasdorp (c) 2022-2026 https://www.waasdorpsoekhan.nl
  ******/
 
-/**
- * @package     simpleicalblock
- * @subpackage  mod_xbsimple-ical
- *
- * @copyright   Copyright (C) 2022 -2024 A.H.C. Waasdorp, All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
 
 defined('_JEXEC') or die;
 

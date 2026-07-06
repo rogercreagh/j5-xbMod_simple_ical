@@ -2,17 +2,23 @@
 	<changelog>
 		<element>mod_xbsimple-ical</element>
 		<type>module</type>
-		<version>0.2.4.1</version>
+		<version>0.2.4.5</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.4.1-beta <span style="font-weight:normal; font-size:1rem;">Updated 23rd June 2026</span></h4>]]></item>
+			<item><![CDATA[<h4>v0.2.4.5-beta <span style="font-weight:normal; font-size:1rem;">Updated 6th July 2026</span></h4>]]></item>
+			<item>Events </item>
+			<item>Calendar can have name with class to display in sections and background colour for whole event</item>
 			<item>Install script write namne+version and changelog to language file for use in module config</item>
-			<item>Changelog available under Documentation tab on module</item>
+			<item>Changelog available under Documentation tab on module admin page</item>
+			<item>Details section can now be popover, dropdown or full text</item>
 		</addition>
 		<remove>
 			<item></item>
 		</remove>
 		<change>
-			<item></item>
+			<item>Refactored display to use new CalendarIDs subform</item>
+			<item>Refactored display to use layout config tab per event section (title, info, and details)</item>
+			<item>Components for display can be selected per section with prefix and suffix html</item>
+			<item>CSS classes can be assigned per section and per component from CSS config tab</item>
 		</change>
 		<fix>
 			<item></item>
