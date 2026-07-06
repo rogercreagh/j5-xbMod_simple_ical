@@ -317,7 +317,7 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover');
             }
             
             $output .= '<ul class="list-group' . $attributes['suffix_lg_class'] .'">';
-            $output .= '<li  class="list-group-item' . $sflgi . $e->ev_class . '" '. $e->calstyle .'>';
+            $output .= '<li  class="list-group-item' . $sflgi . '" '. $e->calstyle .'>';
             $output .= $evdetails;
             $output .= '</li>';
             $output .= '</ul>';
