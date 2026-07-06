@@ -59,10 +59,10 @@ class SimpleicalHelper
     /*
      * @var array allowed tags for text-output
      */
-    static $allowed_tags = ['a','abbr', 'acronym', 'address','area','article', 'aside','audio',
+    static $allowed_tags = ['a',
+        'abbr', 'acronym', 'address','area','article', 'aside','audio',
         'b','big','blockquote', 'em', 'i', 'strike', 'strong', 'u',
-        'br', 'hr',
-        'button', 'caption','cite','code','col', 'del',
+        'br', 'hr','button','caption','cite','code','col', 'del',
         'details', 'summary',
         'div', 'span',        
         'fieldset',

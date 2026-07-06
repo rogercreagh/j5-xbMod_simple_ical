@@ -20,7 +20,10 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\HTML\Helpers\StringHelper;
 use Joomla\CMS\Language\Text;
 
-HTMLHelper::_('bootstrap.popover', '.xbic-popover');
+HTMLHelper::_('bootstrap.popover', '.xbic-popover',
+    ['title' => Text::_('XBIC_EVENT_DETS'),
+    'trigger' => 'hover focus'
+]);
     
     if (!empty($wa)) {
         $wa->useStyle('xbsimpleical.styles');
@@ -253,10 +256,9 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover');
                     switch ($show_details) {
                         case 1: //popup  
                             $pop = '<div class="'.$detailsclass.'">';
-                            $pop .= '<button type="button" class="xbic-label xbic-ltgrey btnPop"';
-                            $pop .= ' data-bs-toggle="xbic-popover"  data-bs-html="true"';
-                            $pop .= ' data-bs-title="<b>'.Text::_('XBIC_EVENT_DETS').'</b>"';
-                            $pop .= ' data-bs-content="'.str_replace('"',"'",$detstext).'" >';
+                            $pop .= '<button type="button" class="xbic-label xbic-ltgrey xbic-popover"';
+                            $pop .= ' data-bs-toggle="popover"  data-bs-html="true"';
+                            $pop .= ' data-bs-content="'.str_replace('"','&quot;',$detstext).'" >';
                             $pop .= $attributes['detailsprompt'];
                             $pop .= '</button></div>';
                             $evdetails .= $pop;
@@ -349,6 +351,6 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover');
         $output .= '</div>';
     }
     
-    echo SimpleicalHelper::clean_output($output);
+    echo $output; //SimpleicalHelper::clean_output($output);
     $output = '';
     
