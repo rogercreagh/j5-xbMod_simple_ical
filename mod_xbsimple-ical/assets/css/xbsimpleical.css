@@ -25,11 +25,14 @@
 .xbic-details {
 	font-size: 0.9rem;
 	color: #555;
+  	margin: 5px 0;
+  	padding-top:5px;
+  	sborder-top: 1px solid #777;
 }
 .xbic-summary {
 	text-transform: uppercase;	
 }
-.xbic-localtion {
+.xbic-location {
 	font-size: 1.0rem;	
 }
 .xbic-desc {
@@ -38,11 +41,6 @@
 .xbic-dropdets {
 	font-size: 0.9rem;
 	color: #555
-}
-.xbic-fulldets {
-	margin-top:5px;
-	padding-top:5px;
-	border-top:1px solid #bbb;
 }
 
 .xbsimple-ical .list-group-item {

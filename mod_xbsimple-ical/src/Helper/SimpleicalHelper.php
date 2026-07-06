@@ -474,20 +474,20 @@ class SimpleicalHelper
                             $compstr .= '<span class="'.$evt->sumclass.'">'.str_replace("\n", '<br>', $evt->summary).'</span>';
                         }
                         break;
-                    case "startdate" :
-                        $compstr .= (isset($evt->startdate)) ? $evt->startdate : '';
-                        break;
-                    case "enddate" :
-                        $compstr .= (isset($evt->enddate)) ? $evt->enddate : '';
-                        break;
                     case "repeats" :
                         $compstr .= $evt->repstr;
                         break;
+                    case "startdate" :
+                        $compstr .= $evt->dtstart->format($evt->dateformats[$comp['compname'].'start'], true, true);
+                        break;
+                    case "enddate" :
+                        $compstr .= $evt->dtend->format($evt->dateformats[$comp['compname'].'end'], true, true);
+                        break;
                     case "starttime" :
-                        $compstr .= (isset($evt->starttime)) ? $evt->starttime : '';
+                        $compstr .= $evt->dtstart->format($evt->timeformats[$comp['compname'].'start'], true, true);
                         break;
                     case "endtime" :
-                        $compstr .= (isset($evt->endtime)) ? $evt->endtime : '';
+                        $compstr .= $evt->dtend->format($evt->timeformats[$comp['compname'].'end'], true, true);
                         break;
                     case "location" :
                         if(!empty($evt->location)) {

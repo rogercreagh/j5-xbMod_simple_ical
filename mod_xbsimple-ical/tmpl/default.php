@@ -73,10 +73,36 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
     $sflgi = $attributes['suffix_lgi_class'];
     $sflgia = $attributes['suffix_lgia_class'];
     
+    $dateformats = [];
+    $timeformats = [];
     $headtype = (isset($attributes['headtype'])) ? intval($attributes['headtype']) : 0;
     if (isset($attributes['headdatefmt'])) {
-        $headstartfmt = $attributes['headdatefmt']['startfmt'];
-        $headendfmt = $attributes['headdatefmt']['endfmt'];
+        $dateformats['headstart'] = $attributes['headdatefmt']['startfmt'];
+        $dateformats['headend'] = $attributes['headdatefmt']['endfmt'];
+    }
+    if (isset($attributes['titledatefmt'])) {
+        $dateformats['titlestart'] = $attributes['titledatefmt']['startfmt'];
+        $dateformats['titleend'] = $attributes['titledatefmt']['endfmt'];
+    }
+    if (isset($attributes['infodatefmt'])) {
+        $dateformats['infostart'] = $attributes['infodatefmt']['startfmt'];
+        $dateformats['infoend'] = $attributes['infodatefmt']['endfmt'];
+    }
+    if (isset($attributes['detailsdatefmt'])) {
+        $dateformats['detailsstart'] = $attributes['detailsdatefmt']['startfmt'];
+        $dateformats['detailsend'] = $attributes['detailsdatefmt']['endfmt'];
+    }
+    if (isset($attributes['titletimefmt'])) {
+        $timeformats['titlestart'] = $attributes['titletimefmt']['startfmt'];
+        $timeformats['titleend'] = $attributes['titletimefmt']['endfmt'];
+    }
+    if (isset($attributes['infotimefmt'])) {
+        $timeformats['infostart'] = $attributes['infotimefmt']['startfmt'];
+        $timeformats['infoend'] = $attributes['infotimefmt']['endfmt'];
+    }
+    if (isset($attributes['detailstimefmt'])) {
+        $timeformats['detailsstart'] = $attributes['detailstimefmt']['startfmt'];
+        $timeformats['detailsend'] = $attributes['detailstimefmt']['endfmt'];
     }
     
     // create calendar_id(s) as comma separated string from $attributes['calendars']
@@ -179,17 +205,17 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
             $oddeven =  ($odd) ? 'odd' : 'even';
             $idlist = explode("@", $e->uid );
             $itemid = 'b' . $attributes['sibid'] . '_' . $idlist[0];
-            $e_dtstart = new Jdate ($e->start);
-            $e_dtstart->setTimezone($attributes['tz_ui']);
-            $e_dtend = new Jdate ($e->end);
-            $e_dtend->setTimezone($attributes['tz_ui']);
+            $e->dtstart = new Jdate ($e->start);
+            $e->dtstart->setTimezone($attributes['tz_ui']);
+            $e->dtend = new Jdate ($e->end);
+            $e->dtend->setTimezone($attributes['tz_ui']);
             $e_dtend_1 = new Jdate ($e->end -1);
             $e_dtend_1->setTimezone($attributes['tz_ui']);
-            $evdate = $e_dtstart->format($dflg, true, true);
-            $sameday = ($e_dtstart->format('yz', true, true) === $e_dtend->format('yz', true, true));
+            $evdate = $e->dtstart->format($dflg, true, true);
+            $sameday = ($e->dtstart->format('yz', true, true) === $e->dtend->format('yz', true, true));
             if ($headtype < 2) {
-                $headdate = $e_dtstart->format($headstartfmt, true, true);            
-                if (!$sameday) $headdate .= ' '.$e_dtend->format($headendfmt,true, true);
+                $headdate = $e->dtstart->format($dateformats['headstart'], true, true);            
+                if (!$sameday) $headdate .= ' '.$e->dtend->format($dateformats['headend'],true, true);
             }
             
 
@@ -225,18 +251,8 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
             $e->locclass = (isset($attributes['locclass'])) ? $attributes['locclass'] : '';
             $e->descclass = (isset($attributes['descclass'])) ? $attributes['descclass'] : '';
             //get the formated dates to use in sections
-            $e->titlestartdate = '';
-            $e->tileenddate = '';
-            $e->titlestarttime = '';
-            $e->titleendtime = '';
-            $e->infostartdate = '';
-            $e->infoenddate = '';
-            $e->infostarttime = '';
-            $e->infoendtime = '';
-            $e->detailsstartdate = '';
-            $e->detailsenddate = '';
-            $e->detailsstarttime = '';
-            $e->detailsendtime = '';
+            $e->dateformats = $dateformats;
+            $e->timeformats = $timeformats;
             
             $evdetails = '';
             if ($show_title) {

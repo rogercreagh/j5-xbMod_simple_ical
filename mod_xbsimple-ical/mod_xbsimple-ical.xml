@@ -210,24 +210,6 @@
 					</form>					
 				</field>
 				
-<!-- 
-		        <field name="headstartdatefmt" type="text"
-		        	label="XBIC_HEAD_DATE_FMT"
-		        	hint="XBIC_HEAD_DATE_FMT_DESC"
-		        	filter="raw"
-		        	default="l jS \of F"
-		        	showon="headtype:1"
-		        />
-								
-		        <field name="headenddatefmt" type="text"
-		        	label="XBIC_HEAD_DATE_FMT"
-		        	hint="XBIC_HEAD_DATE_FMT_DESC"
-		        	filter="raw"
-		        	default="l jS \of F"
-		        	showon="headtype:1[AND]headgroupopts:1"
-		        />
--->
-								
 				<field type="spacer" 
 				        name="titlespacer" 
 				        hr="true"
@@ -278,6 +260,7 @@
 				        	hint="XBIC_PRESUF_HINT"
 				        	filter="raw"
 				        />
+						<field name="compname" type="hidden" default="title" />
 				    </form>
 				</field>
 												
@@ -320,23 +303,6 @@
 				        />
 					</form>					
 				</field>
-<!-- 
-		        <field name="titledatefmt" type="text"
-		        	label="XBIC_TITLE_DATE_FMT"
-		        	hint="XBIC_DATE_FMT_DESC"
-		        	filter="raw"
-		        	default="F jS"
-		        	showon="showtitle:1"
-		        />
-								
-		        <field name="titletimefmt" type="text"
-		        	label="XBIC_TITLE_TIME_FMT"
-		        	hint="XBIC_TIME_FMT_DESC"
-		        	filter="raw"
-		        	default="G:i"
-		        	showon="showtitle:1"
-		        />
- -->
  								
 				<field type="spacer" 
 				        name="infospacer" 
@@ -386,6 +352,7 @@
 				        	hint="XBIC_PRESUF_HINT"
 				        	filter="raw"
 				        />
+						<field name="compname" type="hidden" default="info" />
 				    </form>
 				</field>
 				
@@ -428,23 +395,7 @@
 				        />
 					</form>					
 				</field>
-<!-- 
-		        <field name="infodatefmt" type="text"
-		        	label="XBIC_INFO_DATE_FMT"
-		        	hint="XBIC_DATE_FMT_DESC"
-		        	filter="raw"
-		        	default="l jS \of F"
-		        	showon="showinfo:1"
-		        />
-								
-		        <field name="infotimefmt" type="text"
-		        	label="XBIC_INFO_TIME_FMT"
-		        	hint="XBIC_TIME_FMT_DESC"
-		        	filter="raw"
-		        	default="G:i"
-		        	showon="showinfo:1"
-		        />
--->								
+
 				<field type="spacer" 
 				        name="detsspacer" 
 				        hr="true"
@@ -501,6 +452,7 @@
 				        	hint="XBIC_PRESUF_HINT"
 				        	filter="raw"
 				        />
+						<field name="compname" type="hidden" default="details" />
 				    </form>
 				</field>
 				
@@ -543,24 +495,6 @@
 				        />
 					</form>					
 				</field>
-<!-- 
-		        <field name="detsdatefmt" type="text"
-		        	label="XBIC_DETS_DATE_FMT"
-		        	hint="XBIC_DATE_FMT_DESC"
-		        	filter="raw"
-		        	default="l jS \of F"
-		        	showon="showdetails!:0"
-		        />
-								
-		        <field name="detstimefmt" type="text"
-		        	label="XBIC_DETS_TIME_FMT"
-		        	hint="XBIC_TIME_FMT_DESC"
-		        	filter="raw"
-		        	default="G:i"
-		        	showon="showdetails!:0"
-		        />
--->
-								
 			</fieldset>
 			
 			<fieldset name="sectstyles" label="CSS Styles" >
