@@ -4,26 +4,27 @@
 		<type>module</type>
 		<version>0.2.4.5</version>
 		<addition>
-			<item><![CDATA[<h4>v0.2.4.5-beta <span style="font-weight:normal; font-size:1rem;">Updated 6th July 2026</span></h4>]]></item>
-			<item>Events </item>
+			<item><![CDATA[<h4>v0.2.4.5-beta <span style="font-weight:normal; font-size:1rem;">Updated 9th July 2026</span></h4>]]></item>
+			<item>Details section can now be popover, dropdown or full text</item>
 			<item>Calendar can have name with class to display in sections and background colour for whole event</item>
 			<item>Install script write namne+version and changelog to language file for use in module config</item>
 			<item>Changelog available under Documentation tab on module admin page</item>
-			<item>Details section can now be popover, dropdown or full text</item>
 		</addition>
 		<remove>
-			<item></item>
+			<item>Redundant config options removed</item>
 		</remove>
 		<change>
-			<item>Refactored display to use new CalendarIDs subform</item>
-			<item>Refactored display to use layout config tab per event section (title, info, and details)</item>
-			<item>Components for display can be selected per section with prefix and suffix html</item>
+			<item>Section date and time now displaying correctly</item>
 			<item>CSS classes can be assigned per section and per component from CSS config tab</item>
+			<item>Components for display can be selected per section with prefix and suffix html</item>
+			<item>Refactored display to use layout config tab per event section (title, info, and details)</item>
+			<item>Refactored display to use new CalendarIDs subform</item>
 		</change>
 		<fix>
 			<item></item>
 		</fix>
 		<language>
+			<item>Config language strings updated following structural changes</item>
 			<item>Updates and changes are only made to en-GB using prefix XBIC_</item>
 		</language>
 		<security>

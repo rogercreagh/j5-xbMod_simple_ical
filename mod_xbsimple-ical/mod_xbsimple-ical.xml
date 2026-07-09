@@ -2,7 +2,7 @@
 <extension type="module"  client="site" method="upgrade">
 	<name>xbSimple-iCal</name>
 	<version>0.2.4.5</version>
-	<creationDate>6th July 2026</creationDate>	
+	<creationDate>9th July 2026</creationDate>	
 	<author>RogerCO</author>
 	<copyright>Copyright (C) 2022 - 2026 A.H.C. Waasdorp, (C) Roger Creagh-Osborne 2026. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
@@ -85,21 +85,6 @@
 					min="0" max="730" default="92"  
 				/>
 				
-<!-- 				<field name="sib_layout" type="list" default="3" label="MOD_SIMPLEICALBLOCK_LAYOUT" description="MOD_SIMPLEICALBLOCK_LAYOUT_DESC">
-					<option value="1">MOD_SIMPLEICALBLOCK_LAYOUT_1</option>
-					<option value="2">MOD_SIMPLEICALBLOCK_LAYOUT_2</option>
-					<option value="3">MOD_SIMPLEICALBLOCK_LAYOUT_3</option>
-				</field>
- -->				
-
-				<field name="dateformat_lg" type="text" default="l jS \of F" filter="raw" label="MOD_SIMPLEICALBLOCK_DF_LG" description="MOD_SIMPLEICALBLOCK_DF_LG_DESC" />
-				<field name="dateformat_lgend" type="text" default="" filter="raw" label="MOD_SIMPLEICALBLOCK_DF_LGEND" description="MOD_SIMPLEICALBLOCK_DF_LGEND_DESC" />
-
-				<field name="dateformat_tsum" type="text" default="G:i " filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TSUM" description="MOD_SIMPLEICALBLOCK_DF_TSUM_DESC" />
-				<field name="dateformat_tsend" type="text" default="" filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TSUMEND" description="MOD_SIMPLEICALBLOCK_DF_TSUMEND_DESC" />
-
-				<field name="dateformat_tstart" type="text" default="G:i" filter="raw" label="MOD_SIMPLEICALBLCK_DF_TSTART" description="MOD_SIMPLEICALBLOCK_DF_TSTART_DESC" />
-				<field name="dateformat_tend" type="text" default=" - G:i " filter="raw" label="MOD_SIMPLEICALBLOCK_DF_TEND" description="MOD_SIMPLEICALBLOCK_DF_TEND_DESC" />
 			</fieldset>
 
 			<fieldset name="layout" label="XBIC_LAYOUT">
@@ -166,44 +151,31 @@
 				/>
 				
 				<field name="headtype" type="radio"
-					label="Header Group By"
-					description="XBIC_HEADER_SHOW_DESC"
+					label="XBIC_HEAD_GROUP_OPTS"
+					description="XBIC_HEAD_GROUP_OPTS_DESC"
 					default="1"
 					class="btn-group btn-group-yesno"
 				>
-					<option value="0">None</option>
-					<option value="1">Dates</option>
-					<option value="2">Summary</option>
-					<option value="3">Location</option>
+					<option value="0">XBIC_NONE</option>
+					<option value="1">XBIC_DATES</option>
+					<option value="2">XBIC_SUMMARY</option>
+					<option value="3">XBIC_LOCATION</option>
 				</field>
 				
-<!-- 				<field name="headgroupopts" type="radio"
-					label="XBIC_HEAD_GROUP_OPTS"
-					description="XBIC_HEAD_GROUP_OPTS_DESC"
-					default="0"
-					class="btn-group btn-group-yesno"
-					showon="headtype:1"
-				>
-					<option value="0">XBIC_START_ONLY</option>
-					<option value="1">XBIC_START_END</option>
-				</field>
-
- -->				
-
 				<field name="headdatefmt" type="subform"
-					label="Header Date Formats"
+					label="XBIC_HEAD_DATE_FMT"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="headtype:1[OR]headtype:0"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_DATE_FMT"
 				        	default="D jS \of M"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_DATE_FMT"
 				        	default=" \t\o D jS"
 				        	filter="raw"
 				        />
@@ -265,19 +237,20 @@
 				</field>
 												
 				<field name="titledatefmt" type="subform"
-					label="Title Date Formats"
+					label="XBIC_TITLE_DATE_FMT"
+					description="XBIC_DATE_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showtitle:1"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_DATE_FMT"
 				        	default="D jS \of M"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_DATE_FMT"
 				        	default=" \t\o D jS"
 				        	filter="raw"
 				        />
@@ -285,20 +258,21 @@
 				</field>
 				
 				<field name="titletimefmt" type="subform"
-					label="Title Time Formats"
+					label="XBIC_TITLE_TIME_FMT"
+					description="XBIC_TIME_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showtitle:1"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_TIME_FMT"
 				        	default="G:i"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
-				        	default=" \- G:i"
+				        	label="XBIC_END_TIME_FMT"
+				        	default=" - G:i"
 				        	filter="raw"
 				        />
 					</form>					
@@ -357,19 +331,20 @@
 				</field>
 				
 				<field name="infodatefmt" type="subform"
-					label="Info Date Formats"
+					label="XBIC_INFO_DATE_FMT"
+					description="XBIC_DATE_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showinfo:1"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_DATE_FMT"
 				        	default="D jS \of M"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_DATE_FMT"
 				        	default=" \t\o D jS"
 				        	filter="raw"
 				        />
@@ -377,19 +352,20 @@
 				</field>
 				
 				<field name="infotimefmt" type="subform"
-					label="Info Time Formats"
+					label="XBIC_INFO_TIME_FMT"
+					description="XBIC_TIME_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showinfo:1"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_TIME_FMT"
 				        	default="G:i"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_TIME_FMT"
 				        	default=" \- G:i"
 				        	filter="raw"
 				        />
@@ -457,19 +433,20 @@
 				</field>
 				
 				<field name="detailsdatefmt" type="subform"
-					label="Details Date Formats"
+					label="XBIC_DETAILS_DATE_FMT"
+					description="XBIC_DATE_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showdetails!:0"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_DATE_FMT"
 				        	default="D jS \of M"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_DATE_FMT"
 				        	default=" \t\o D jS"
 				        	filter="raw"
 				        />
@@ -477,19 +454,20 @@
 				</field>
 				
 				<field name="detailstimefmt" type="subform"
-					label="Details Time Formats"
+					label="XBIC_DETAILS_TIME_FMT"
+					description="XBIC_TIME_FMT_DESC"
 					multiple="false"
 					layout="joomla.form.field.subform.default"
 					showon="showdetails:1"
 				>
 					<form>
 				        <field name="startfmt" type="text"
-				        	label="Start Format"
+				        	label="XBIC_START_TIME_FMT"
 				        	default="G:i"
 				        	filter="raw"
 				        />
 				        <field name="endfmt" type="text"
-				        	label="End fmt"
+				        	label="XBIC_END_TIME_FMT"
 				        	default=" \- G:i"
 				        	filter="raw"
 				        />
@@ -499,64 +477,64 @@
 			
 			<fieldset name="sectstyles" label="CSS Styles" >
 				
-				<field name="sectclassnote" type="note"
+				<field name="sectclassnote" type="note"					
 					description="XBIC_SECT_CLASSES"
 				/>
 								
 				<field name="headclass" type="text"
-					label="CSS Classes for Head"
-					description="Module default is bold text 1rem"
+					label="XBIC_HEADSECT_CLASS"
+					description="XBIC_HEADSECT_CLASS_DESC"
 					default="xbic-head"
 				/>
 								
 				<field name="titleclass" type="text"
-					label="CSS Classes for Title"
-					description=""
+					label="XBIC_TITLESECT_CLASS_DESC"
+					description="XBIC_TITLESECT_CLASS_DESC"
 					default="xbic-title"
 				/>
 				
 				<field name="infoclass" type="text"
-					label="CSS Classes for Info"
-					description=""
+					label="XBIC_INFOSECT_CLASS"
+					description="XBIC_INFOSECT_CLASS_DESC"
 					default="xbic-info"
 				/>
 				
 				<field name="detailsclass" type="text"
-					label="CSS Classes for Details"
-					description=""
+					label="XBIC_DETAILSSECT_CLASS"
+					description="XBIC_DETAILSSECT_CLASS_DESC"
 					default="xbic-details"
 				/>
 				
 				<field name="compclassnote" type="note"
-					label="Classes for Individual Components"
+					description="XBIC_COMP_CLASSES"
 				/>
 				
 				<field name="sumclass" type="text"
-					label="CSS Classes for Summary"
-					description="Module default transform uppercase 1.1rem"
+					label="XBIC_SUMMARY_CLASS"
+					description="XBIC_SUMMARY_CLASS_DESC"
 					default="xbic-summary"
 				/>
 								
 				<field name="locclass" type="text"
-					label="CSS Classes for location"
-					description="Module default is plain text 1rem"
+					label="XBIC_LOCATION_CLASS"
+					description="XBIC_LOCATION_CLASS_DESC"
 					default="xbic-location"
 				/>
 								
 				<field name="descclass" type="text"
-					label="Description Classes"
-					description="Module default is plain text 0.9rem"
+					label="XBIC_DESC_CLASS"
+					description="XBIC_DESC_CLASS_DESC"
 					default="xbic-desc"
 				/>
 								
 				<field name="catclasses" type="text"
-					label="Classes for Categories"
-					description="Categories are displayed as labels, by default white on dark grey, Here you can list category:class pairs separated by commas to set different colours for the labels per category name. Category names are NOT case sensitive"
+					label="XBIC_CATS_CLASS"
+					description="XBIC_CATS_CLASS_DESC"
 					hint="CatName1:classa classb, CatName2:classa classc"
 				/>
 				
 				<field name="xbsimpleical-css" type="note"
-					description="XBIC_DEFAULT_CSS"
+					description="XBIC_DEFAULT_STYLES"
 				/>
 				
 			
@@ -585,24 +563,7 @@
 					<option value="1">JYES</option>
 				</field>
 				
-<!--  -->				<field name="tag_sum" type="list" default="div" label="MOD_SIMPLEICALBLOCK_TAG_SUM" description="MOD_SIMPLEICALBLOCK_TAG_SUM_DESC">
-					<option value="a">MOD_SIMPLEICALBLOCK_TAG_SUM_A</option>
-					<option value="b">MOD_SIMPLEICALBLOCK_TAG_SUM_B</option>
-					<option value="div">MOD_SIMPLEICALBLOCK_TAG_SUM_DIV</option>
-					<option value="h4">MOD_SIMPLEICALBLOCK_TAG_SUM_H4</option>
-					<option value="h5">MOD_SIMPLEICALBLOCK_TAG_SUM_H5</option>
-					<option value="h6">MOD_SIMPLEICALBLOCK_TAG_SUM_H6</option>
-					<option value="i">MOD_SIMPLEICALBLOCK_TAG_SUM_I</option>
-					<option value="span">MOD_SIMPLEICALBLOCK_TAG_SUM_SPAN</option>
-					<option value="strong">MOD_SIMPLEICALBLOCK_TAG_SUM_STRONG</option>
-					<option value="summary">MOD_SIMPLEICALBLOCK_TAG_SUM_SUMMARY</option>
-					<option value="u">MOD_SIMPLEICALBLOCK_TAG_SUM_U</option>
-				</field>
-				<field name="suffix_lg_class" type="text" default="" label="MOD_SIMPLEICALBLOCK_SFLG" description="MOD_SIMPLEICALBLOCK_SFLG_DESC" />
-				<field name="suffix_lgi_class" type="text" default=" py-0" label="MOD_SIMPLEICALBLOCK_SFLGI" description="MOD_SIMPLEICALBLOCK_SFLGI_DESC" />
-				
-				<field name="suffix_lgia_class" type="text" default="" label="MOD_SIMPLEICALBLOCK_SFLGIA" description="MOD_SIMPLEICALBLOCK_SFLGIA_DESC" />
-				<field name="after_events" type="text" default="" filter="raw" label="MOD_SIMPLEICALBLOCK_AFTER_EVENTS" description="MOD_SIMPLEICALBLOCK_AFTER_EVENTS_DESC" />
+ 				<field name="after_events" type="text" default="" filter="raw" label="MOD_SIMPLEICALBLOCK_AFTER_EVENTS" description="MOD_SIMPLEICALBLOCK_AFTER_EVENTS_DESC" />
 				<field name="no_events" type="text" default="" filter="raw" label="MOD_SIMPLEICALBLOCK_NO_EVENTS" description="MOD_SIMPLEICALBLOCK_NO_EVENTS_DESC" />
 				<field name="clear_cache_now" type="radio" layout="joomla.form.field.radio.switcher"
 				class="switcher btn-group" default="0" validate="cleartransientnow"
@@ -737,23 +698,6 @@
 					description="MOD_SIMPLEICALBLOCK_PER_LIMITS_HELP"
  					 />
  					 
-<!-- 				<field name="tag_sum_help"  type="note" 
-					label="MOD_SIMPLEICALBLOCK_TAG_SUM"
-					description="MOD_SIMPLEICALBLOCK_TAG_SUM_HELP"
- 					 />
-				<field name="suffix_lg_class_help"  type="note" 
-					label="MOD_SIMPLEICALBLOCK_SFLG"
-					description="MOD_SIMPLEICALBLOCK_SUFFIX_LG_CLASS_HELP"
- 					 />
-				<field name="suffix_lgi_class_help"  type="note" 
-					label="MOD_SIMPLEICALBLOCK_SFLGI"
-					description="MOD_SIMPLEICALBLOCK_SUFFIX_LGI_CLASS_HELP"
- 					 />
-				<field name="suffix_lgia_class_help"  type="note" 
-					label="MOD_SIMPLEICALBLOCK_SFLGIA"
-					description="MOD_SIMPLEICALBLOCK_SUFFIX_LGIA_CLASS_HELP"
- 					 />
- --> 					 
 				<field name="after_events_help"  type="note" 
 					label="MOD_SIMPLEICALBLOCK_AFTER_EVENTS"
 					description="MOD_SIMPLEICALBLOCK_AFTER_EVENTS_HELP"

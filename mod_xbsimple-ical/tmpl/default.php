@@ -70,8 +70,8 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
     $dftstart = (isset($attributes['dateformat_tstart'])) ? $attributes['dateformat_tstart'] : 'G:i';
     $dftend = (isset($attributes['dateformat_tend'])) ? $attributes['dateformat_tend'] : ' - G:i ';
     $excerptlength = (isset($attributes['excerptlength']) && ' ' < trim($attributes['excerptlength']) ) ? (int) $attributes['excerptlength'] : '' ;
-    $sflgi = $attributes['suffix_lgi_class'];
-    $sflgia = $attributes['suffix_lgia_class'];
+//    $sflgi = ''; //$attributes['suffix_lgi_class'];
+//    $sflgia = ''; // $attributes['suffix_lgia_class'];
     
     $dateformats = [];
     $timeformats = [];
@@ -211,7 +211,7 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
             $e->dtend->setTimezone($attributes['tz_ui']);
             $e_dtend_1 = new Jdate ($e->end -1);
             $e_dtend_1->setTimezone($attributes['tz_ui']);
-            $evdate = $e->dtstart->format($dflg, true, true);
+            $evdate = $e->dtstart->format($dateformats['headstart'], true, true);
             $sameday = ($e->dtstart->format('yz', true, true) === $e->dtend->format('yz', true, true));
             if ($headtype < 2) {
                 $headdate = $e->dtstart->format($dateformats['headstart'], true, true);            
@@ -304,7 +304,7 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
                     if (($curhead != '') && ($curhead != $evdate)) $output .= '</li>';
                     if ($curhead != $evdate) {
                         $odd = !$odd;
-                        $output .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">';
+                        $output .= '<li class="list-group-item head '.$oddeven.'">';
                         $output .= '<span class="ical-date">' . ucfirst($headdate) . '</span>';
                     }
                     break;
@@ -312,7 +312,7 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
                     if (($curhead != '') && ($curhead != $e->summary)) $output .= '</li>';
                     if ($curhead != $e->summary) {
                         $odd = !$odd;
-                        $output .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">';
+                        $output .= '<li class="list-group-item head '.$oddeven.'">';
                         $output .= $e->summary;
                         //poss need to truncate summary
                     }
@@ -321,7 +321,7 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
                     if (($curhead != '') && ($curhead != $e->location)) $output .= '</li>';
                     if ($curhead != $e->location) {
                         $odd = !$odd;
-                        $output .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">';
+                        $output .= '<li class="list-group-item head '.$oddeven.'">';
                         $output .= '<span class="ical-date">' . $e->location . '</span>';
                         //poss need to truncate location
                     }
@@ -329,13 +329,13 @@ HTMLHelper::_('bootstrap.popover', '.xbic-popover',
                 default: //no grouping, just use date for every event
                     if (($curhead != '') && ($curhead != $evdate)) $output .= '</li>';
                     $odd = !$odd;
-                    $output .= '<li class="list-group-item' . $sflgi . ' head '.$oddeven.'">';
+                    $output .= '<li class="list-group-item head '.$oddeven.'">';
                     $output .= '<span class="ical-date">' . ucfirst($headdate) . '</span>';                    
                 break;
             }
             
-            $output .= '<ul class="list-group' . $attributes['suffix_lg_class'] .'">';
-            $output .= '<li  class="list-group-item' . $sflgi . '" '. $e->calstyle .'>';
+            $output .= '<ul class="list-group">'; //' . $attributes['suffix_lg_class'] .'
+            $output .= '<li  class="list-group-item" '. $e->calstyle .'>';
             $output .= $evdetails;
             $output .= '</li>';
             $output .= '</ul>';
